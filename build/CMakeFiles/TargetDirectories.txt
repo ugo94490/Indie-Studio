@@ -1,0 +1,3 @@
+/home/ugolc/SEMESTRE_4/INDIE STUDIO/OOP_indie_studio_2019/build/CMakeFiles/rebuild_cache.dir
+/home/ugolc/SEMESTRE_4/INDIE STUDIO/OOP_indie_studio_2019/build/CMakeFiles/bomberman.dir
+/home/ugolc/SEMESTRE_4/INDIE STUDIO/OOP_indie_studio_2019/build/CMakeFiles/edit_cache.dir
