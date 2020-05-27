@@ -14,5 +14,16 @@ if (WIN32)
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Irrlicht_win)
 endif(WIN32)
 
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES
+    src/main.cpp
+    src/Map.cpp
+    src/Core.cpp
+    src/AObject.cpp
+    src/APlayer.cpp
+    src/Floor.cpp
+    src/Game.cpp
+    src/Menu.cpp
+    src/Normal.cpp
+    src/Obstacle.cpp
+    src/Wall.cpp)
 add_executable(${NAME} ${SOURCE_FILES})

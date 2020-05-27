@@ -11,11 +11,11 @@
 #include <irrlicht.h>
 #include <Exception.hpp>
 
-class Misc
+class Core
 {
     public:
-        Misc();
-        ~Misc();
+        Core();
+        ~Core();
         void loop();
     private:
         irr::IrrlichtDevice *device;
