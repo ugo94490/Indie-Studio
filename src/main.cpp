@@ -6,12 +6,10 @@
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-
 int main()
 {
 	try {
-		Misc prog;
-		prog.loop();
+		Core prog;
 	} catch (Exception &err) {
 		std::cerr << err.what() << std::endl;
 		return (84);

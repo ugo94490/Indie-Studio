@@ -7,7 +7,7 @@
 
 #include "Core.hpp"
 
-Misc::Misc()
+Core::Core()
 {
     device = irr::createDevice( irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
     if (!device)
@@ -16,13 +16,14 @@ Misc::Misc()
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
+	loop();
 }
 
-Misc::~Misc()
+Core::~Core()
 {
 }
 
-void Misc::loop()
+void Core::loop()
 {
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", irr::core::rect<irr::s32>(10,10,260,22), true);
 	irr::scene::IAnimatedMesh* mesh = smgr->getMesh("assets/sydney.md2");
@@ -41,7 +42,7 @@ void Misc::loop()
 		driver->beginScene(true, true, irr::video::SColor(255,100,101,140));
 		smgr->drawAll();
 		guienv->drawAll();
-		driver->endScene();		
+		driver->endScene();
     }
 	device->drop();
 }
