@@ -21,7 +21,7 @@ class AObject
 
         AObject() = default;
         AObject(AObject::ObjectType);
-        virtual ~AObject() = 0;
+        virtual ~AObject() = default;
         AObject::ObjectType getType(void);
         std::vector<float> getPos(void);
 

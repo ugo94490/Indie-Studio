@@ -19,7 +19,7 @@ class APlayer
 
         APlayer() = default;
         APlayer(APlayer::PlayerType);
-        virtual ~APlayer() = 0;
+        virtual ~APlayer() = default;
         APlayer::PlayerType getType(void);
         std::vector<float> getPos(void);
 
