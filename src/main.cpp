@@ -27,9 +27,6 @@ int main()
     device->setWindowCaption(L"Bomberman");
     video::IVideoDriver* driver = device->getVideoDriver();
     Map mapBomber(driver);
-	video::ITexture* _Wall = driver->getTexture("assets/textures/grass.png");
-    video::ITexture* _Floor = driver->getTexture("assets/textures/cave_ground.png");
-    video::ITexture* _Obstacle = driver->getTexture("assets/textures/water.png");
     driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
     while(device->run() && driver)
