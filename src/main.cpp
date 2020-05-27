@@ -32,7 +32,6 @@ int main()
     video::ITexture* _Obstacle = driver->getTexture("assets/textures/water.png");
     driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
-    int x = 50, y = 50;
     while(device->run() && driver)
     {
         if (device->isWindowActive())
