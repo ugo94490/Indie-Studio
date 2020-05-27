@@ -9,10 +9,10 @@
 
 Core::Core()
 {
-    device = irr::createDevice( irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
+    device = irr::createDevice( irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(1024, 980), 16, false, false, false, 0);
     if (!device)
         throw(Exception ("Error window not open"));
-    device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
+    device->setWindowCaption(L"Indie Studio");
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
@@ -26,7 +26,7 @@ Core::~Core()
 void Core::loop()
 {
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", irr::core::rect<irr::s32>(10,10,260,22), true);
-	irr::scene::IAnimatedMesh* mesh = smgr->getMesh("assets/sydney.md2");
+	irr::scene::IAnimatedMesh* mesh = smgr->getMesh("assets/BOMB/dinamite.obj");
 	if (!mesh) {
 		device->drop();
 		throw(Exception ("Mesh don't load"));
@@ -35,9 +35,9 @@ void Core::loop()
 	if (node) {
 		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 		node->setMD2Animation(irr::scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("assets/sydney.bmp") );
+		node->setMaterialTexture( 0, driver->getTexture("assets/BOMB/D.png") );
 	}
-	smgr->addCameraSceneNode(0, irr::core::vector3df(0,30,-40), irr::core::vector3df(0,5,0));
+	smgr->addCameraSceneNode(0, irr::core::vector3df(5, 9, -2), irr::core::vector3df(5,0,5), true);
 	while(device->run()) {
 		driver->beginScene(true, true, irr::video::SColor(255,100,101,140));
 		smgr->drawAll();
