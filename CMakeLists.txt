@@ -14,5 +14,5 @@ if (WIN32)
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Irrlicht_win)
 endif(WIN32)
 
-set(SOURCE_FILES src/main.cpp src/Core.cpp)
+set(SOURCE_FILES src/main.cpp)
 add_executable(${NAME} ${SOURCE_FILES})
