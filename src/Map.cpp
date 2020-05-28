@@ -53,24 +53,25 @@ void Map::loadMap()
 
 void Map::displayMap(video::IVideoDriver* driver)
 {
-    int y = 32;
-    int x = 32;
+    std::pair<float, float> pos;
+
+    std::cout << "coucou";
 
     for (auto it = _list.begin(); it != _list.end(); ++it) {
+        pos = it->get()->getPos();
+        std::cout << "Pair :" << pos.first << " " << pos.second;
         if (it->get()->getType() == AObject::Wall)
-            driver->draw2DImage(_Wall, core::position2d<s32>(x, y),
+            driver->draw2DImage(_Wall, core::position2d<s32>(pos.first, pos.second),
             core::rect<s32>(0,0,32,32), 0,
             video::SColor(255,255,255,255), true);
         if (it->get()->getType() == AObject::Floor)
-            driver->draw2DImage(_Floor, core::position2d<s32>(x, y),
+            driver->draw2DImage(_Floor, core::position2d<s32>(pos.first, pos.second),
             core::rect<s32>(0,0,32,32), 0,
             video::SColor(255,255,255,255), true);
         if (it->get()->getType() == AObject::Obstacle)
-            driver->draw2DImage(_Obstacle, core::position2d<s32>(x, y),
+            driver->draw2DImage(_Obstacle, core::position2d<s32>(pos.first, pos.second),
             core::rect<s32>(0,0,32,32), 0,
             video::SColor(255,255,255,255), true);
-        x += 32;
-        y += 32;
     }
 }
 

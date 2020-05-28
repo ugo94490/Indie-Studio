@@ -19,7 +19,7 @@ class AObject
             Obstacle = 2
         };
 
-        AObject();
+        AObject() = default;
         AObject(int c, std::pair<float, float> newPos);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
