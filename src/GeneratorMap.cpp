@@ -18,10 +18,10 @@ GeneratorMap::GeneratorMap(int y, int x)
 void GeneratorMap::writeBorder()
 {
     bool next = true;
-    std::string line = "#";
+    std::string line = "X";
 
     for (int i = 0; i != xMax; i++)
-        line.append("#");
+        line.append("X");
     line.append("\n");
     for (int i = 0; i != yMax; i++)
         _map.push_back(line);
