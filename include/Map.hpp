@@ -11,6 +11,8 @@
 #include "AObject.hpp"
 #include <list>
 #include <memory>
+#include <iostream>
+#include <fstream>
 #include <irrlicht.h>
 #include "driverChoice.h"
 using namespace irr;
@@ -20,11 +22,11 @@ using namespace irr;
 
 class Map {
     public:
-        Map(video::ITexture* driver);
+        Map(video::IVideoDriver* driver);
         std::shared_ptr<AObject> createObject(float posx, float posy, char c) const;
         void core();
         void loadMap();
-        void displayMap();
+        void displayMap(video::IVideoDriver* driver);
         ~Map();
 
     protected:

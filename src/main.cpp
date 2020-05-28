@@ -10,12 +10,6 @@
 #include "Core.hpp"
 #include "Exception.hpp"
 
-using namespace irr;
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
-
 int main()
 {
     video::E_DRIVER_TYPE driverType=driverChoiceConsole();
@@ -34,7 +28,7 @@ int main()
         if (device->isWindowActive())
         {
             driver->beginScene(true, true, video::SColor(0,0,0,0));
-            mapBomber.displayMap();
+            mapBomber.displayMap(driver);
             driver->endScene();
         }
     }
