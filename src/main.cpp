@@ -9,6 +9,7 @@
 #include "Map.hpp"
 #include "Core.hpp"
 #include "Exception.hpp"
+#include "GeneratorMap.hpp"
 
 int main()
 {
@@ -20,6 +21,7 @@ int main()
         return 1;
     device->setWindowCaption(L"Bomberman");
     video::IVideoDriver* driver = device->getVideoDriver();
+    GeneratorMap gene(17, 13);
     Map mapBomber(driver);
     driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;

@@ -25,5 +25,6 @@ set(SOURCE_FILES
     src/Menu.cpp
     src/Normal.cpp
     src/Obstacle.cpp
-    src/Wall.cpp)
+    src/Wall.cpp
+    src/GeneratorMap.cpp)
 add_executable(${NAME} ${SOURCE_FILES})

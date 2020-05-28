@@ -36,7 +36,8 @@ void Map::loadMap()
 {
     std::string line;
     std::shared_ptr<AObject> ptr;
-    std::ifstream myfile ("../assets/map.txt");
+    std::ifstream myfile ("assets/map/random_map.txt");
+
 
     if (!myfile.is_open())
         std::cout << ("Could not open map"); // a fix
@@ -55,11 +56,8 @@ void Map::displayMap(video::IVideoDriver* driver)
 {
     std::pair<float, float> pos;
 
-    std::cout << "coucou";
-
     for (auto it = _list.begin(); it != _list.end(); ++it) {
         pos = it->get()->getPos();
-        std::cout << "Pair :" << pos.first << " " << pos.second;
         if (it->get()->getType() == AObject::Wall)
             driver->draw2DImage(_Wall, core::position2d<s32>(pos.first, pos.second),
             core::rect<s32>(0,0,32,32), 0,
