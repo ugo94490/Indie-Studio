@@ -59,11 +59,11 @@ void Map::loadMap()
 {
     std::string line;
     std::shared_ptr<AObject> ptr;
-    std::ifstream myfile ("assets/map/random_map.txt");
+    std::ifstream myfile ("assets/Map/random_map.txt");
 
 
     if (!myfile.is_open())
-        std::cout << ("Could not open map"); // a fix
+        throw(Exception("Je sais pas open une map"));
     for (int i = 0; !myfile.eof(); i++) {
         getline (myfile, line);
         for (int j = 0; line[j]; j++) {
