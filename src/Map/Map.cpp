@@ -6,6 +6,7 @@
 */
 
 #include "Map.hpp"
+#include "Exception.hpp"
 
 Map::Map(video::IVideoDriver* driver)
 {
