@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IModule.hpp"
+#include "Event.hpp"
 
 class Menu : public IModule
 {

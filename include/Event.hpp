@@ -15,6 +15,7 @@ class Event : public irr::IEventReceiver
         virtual bool OnEvent(const irr::SEvent& event)
         {
             eve = event;
+            return (true);
         }
         irr::SEvent eve;
 };
