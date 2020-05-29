@@ -12,10 +12,7 @@
 
 Core::Core()
 {
-	Event eve;
-
-	event = eve;
-    device = irr::createDevice(irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(1920, 1080), 16);
+    device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080));
     if (!device)
         throw(Exception ("Error window not open"));
     device->setWindowCaption(L"Indie Studio");
@@ -31,6 +28,6 @@ Core::~Core()
 
 void Core::launch()
 {
-    Game game;
-	//Menu obj(device, driver, smgr, guienv, event);
+    //Game game;
+	Menu obj(device, driver, smgr, guienv);
 }
