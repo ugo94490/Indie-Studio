@@ -23,10 +23,10 @@ int main()
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
     GeneratorMap gene(17, 13);
-    Map mapBomber(smgr, driver);
+    Map mapBomber(driver);
     driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
-    smgr->addCameraSceneNode(0, irr::core::vector3df(0,0,-600), irr::core::vector3df(0,0,0));
+    //smgr->addCameraSceneNode(0, irr::core::vector3df(0,0,-600), irr::core::vector3df(0,0,0));
     while(device->run() && driver)
     {
         if (device->isWindowActive())
