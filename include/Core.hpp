@@ -10,14 +10,16 @@
 #include <vector>
 #include <irrlicht.h>
 #include <Exception.hpp>
+#include "Event.hpp"
 
 class Core
 {
     public:
         Core();
         ~Core();
-        void loop();
+        void launch();
     private:
+        Event event;
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* smgr;

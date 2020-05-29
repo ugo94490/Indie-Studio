@@ -10,6 +10,7 @@ int main()
 {
 	try {
 		Core prog;
+		prog.launch();
 	} catch (Exception &err) {
 		std::cerr << err.what() << std::endl;
 		return (84);

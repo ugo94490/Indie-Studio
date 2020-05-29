@@ -16,13 +16,13 @@ endif(WIN32)
 
 set(SOURCE_FILES
     src/main.cpp
-    src/Core.cpp
-    src/AObject.cpp
-    src/APlayer.cpp
-    src/Floor.cpp
-    src/Game.cpp
-    src/Menu.cpp
-    src/Normal.cpp
-    src/Obstacle.cpp
-    src/Wall.cpp)
+    src/Module/Core.cpp
+    src/Module/Game.cpp
+    src/Module/Menu.cpp
+    src/Player/Normal.cpp
+    src/Player/APlayer.cpp
+    src/Object/AObject.cpp
+    src/Object/Floor.cpp
+    src/Object/Obstacle.cpp
+    src/Object/Wall.cpp)
 add_executable(${NAME} ${SOURCE_FILES})

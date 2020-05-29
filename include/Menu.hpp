@@ -12,7 +12,11 @@
 class Menu : public IModule
 {
     public:
-        Menu();
+        Menu(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv, Event event);
         ~Menu();
     private:
+        irr::IrrlichtDevice *device;
+        irr::video::IVideoDriver* driver;
+        irr::scene::ISceneManager* smgr;
+        irr::gui::IGUIEnvironment* guienv;
 };
