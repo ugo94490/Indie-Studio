@@ -19,6 +19,8 @@ set(SOURCE_FILES
     src/Module/Core.cpp
     src/Module/Game.cpp
     src/Module/Menu.cpp
+    src/Module/Settings.cpp
+    src/Module/LeaderBoard.cpp
     src/Player/Normal.cpp
     src/Player/APlayer.cpp
     src/Object/AObject.cpp

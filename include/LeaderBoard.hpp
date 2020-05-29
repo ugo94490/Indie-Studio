@@ -1,23 +1,20 @@
 /*
 ** EPITECH PROJECT, 2020
-** Menu.hpp
+** LeaderBoard.hpp
 ** File description:
-** Menu.hpp
+** LeaderBoard.hpp
 */
 
 #pragma once
 
 #include "IModule.hpp"
 #include "Event.hpp"
-#include "Game.hpp"
-#include "Settings.hpp"
-#include "LeaderBoard.hpp"
 
-class Menu : public IModule
+class LeaderBoard : public IModule
 {
     public:
-        Menu(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv);
-        ~Menu();
+        LeaderBoard(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv);
+        ~LeaderBoard();
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
     private:

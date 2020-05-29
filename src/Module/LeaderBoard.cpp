@@ -1,14 +1,14 @@
 /*
 ** EPITECH PROJECT, 2020
-** Menu.cpp
+** LeaderBoard.cpp
 ** File description:
-** Menu.cpp
+** LeaderBoard.cpp
 */
 
 #include <vector>
-#include "Menu.hpp"
+#include "LeaderBoard.hpp"
 
-Menu::Menu(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
+LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
 {
     device = dev;
     driver = dri;
@@ -18,7 +18,7 @@ Menu::Menu(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::
     button = driver->getTexture("assets/Sprite/Button/Button.png");
 }
 
-void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
+void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
 {
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
@@ -32,7 +32,7 @@ void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s3
         driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
-void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
+void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
     std::vector<irr::core::rect<irr::s32>> rect;
     rect.push_back(irr::core::rect<irr::s32>(300, 285, 700, 458));
@@ -44,16 +44,10 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        Button(obj[1], irr::core::position2d<irr::s32>(280, 94), rect);
-        Button(obj[2], irr::core::position2d<irr::s32>(1240, 94), rect);
-        Button(obj[3], irr::core::position2d<irr::s32>(280, 454), rect);
-        Button(obj[1], irr::core::position2d<irr::s32>(1240, 454), rect);
-        Button(obj[1], irr::core::position2d<irr::s32>(280, 814), rect);
-        Button(obj[1], irr::core::position2d<irr::s32>(1240, 814), rect);
         driver->endScene();
     }
 }
 
-Menu::~Menu()
+LeaderBoard::~LeaderBoard()
 {
 }

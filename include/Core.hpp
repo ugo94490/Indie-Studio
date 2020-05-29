@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <vector>
 #include <irrlicht.h>
 #include <Exception.hpp>
 #include "Event.hpp"
+#include "IModule.hpp"
 
 class Core
 {
@@ -25,4 +25,5 @@ class Core
         irr::scene::ISceneManager* smgr;
         irr::gui::IGUIEnvironment* guienv;
         irr::scene::IAnimatedMeshSceneNode* node;
+        std::vector<std::shared_ptr<IModule>> obj;
 };

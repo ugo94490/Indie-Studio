@@ -19,6 +19,14 @@ Core::Core()
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
+    std::shared_ptr<IModule> menu (new Menu(device, driver, smgr, guienv));
+    std::shared_ptr<IModule> game (new Game(device, driver, smgr, guienv));
+    std::shared_ptr<IModule> leaderboard (new LeaderBoard(device, driver, smgr, guienv));
+    std::shared_ptr<IModule> settings (new Settings(device, driver, smgr, guienv));
+    obj.push_back(menu);
+    obj.push_back(game);
+    obj.push_back(leaderboard);
+    obj.push_back(settings);
 }
 
 Core::~Core()
@@ -28,6 +36,5 @@ Core::~Core()
 
 void Core::launch()
 {
-    //Game game;
-	Menu obj(device, driver, smgr, guienv);
+    obj[0]->Loop(obj);
 }
