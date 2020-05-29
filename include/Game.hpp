@@ -8,11 +8,13 @@
 #pragma once
 
 #include "IModule.hpp"
+#include <iostream>
 
 class Game : public IModule
 {
     public:
         Game();
+        void Loop();
         ~Game();
     private:
 };

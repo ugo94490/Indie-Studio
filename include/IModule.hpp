@@ -10,5 +10,7 @@
 class IModule
 {
     public:
+        virtual ~IModule() = default;
+        virtual void Loop() = 0;
     private:
 };

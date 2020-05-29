@@ -11,6 +11,11 @@ Game::Game()
 {
 }
 
+void Game::Loop()
+{
+    std::cout << "LOL" << std::endl;
+}
+
 Game::~Game()
 {
 }
