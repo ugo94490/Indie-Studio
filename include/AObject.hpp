@@ -20,12 +20,12 @@ class AObject
         };
 
         AObject() = default;
-        AObject(AObject::ObjectType);
+        AObject(int c, std::pair<float, float> newPos);
         virtual ~AObject() = default;
-        AObject::ObjectType getType(void);
-        std::vector<float> getPos(void);
+        AObject::ObjectType getType(void) const;
+        std::pair<float, float> getPos(void) const;
 
     protected:
-        AObject::ObjectType type;
-        std::vector<float> pos;
+        AObject::ObjectType _type;
+        std::pair<float, float> _pos;
 };

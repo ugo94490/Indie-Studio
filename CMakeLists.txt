@@ -24,5 +24,7 @@ set(SOURCE_FILES
     src/Object/AObject.cpp
     src/Object/Floor.cpp
     src/Object/Obstacle.cpp
-    src/Object/Wall.cpp)
+    src/Object/Wall.cpp
+    src/Map/GeneratorMap.cpp
+    src/Map/Map.cpp)
 add_executable(${NAME} ${SOURCE_FILES})
