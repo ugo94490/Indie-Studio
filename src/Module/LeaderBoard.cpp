@@ -20,8 +20,7 @@ LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri
     guienv = gui;
     images = driver->getTexture("assets/Sprite/Menu.jpg");
     button = driver->getTexture("assets/Sprite/Button/INDIE.png");
-    //font = device->getGUIEnvironment()->getBuiltInFont();
-    font = device->getGUIEnvironment()->getFont("assets/Font/esp_ital.ttf");
+    font = device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
     if (font == 0)
         throw(Exception("Cant load font"));
 }
@@ -59,13 +58,14 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     tab = obj;
     device->setEventReceiver(&recv);
     getScore("assets/Score/score.txt");
+    std::cout << "LOL" << std::endl;
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         Button(obj[0], irr::core::position2d<irr::s32>(280, 94), play_rect);
         if (font) {
             for (size_t i = 0; i < score.size(); i++)
-                font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 10, 300, 500), irr::video::SColor(255,0,0,0));
+                font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 50 * i, 300, 500), irr::video::SColor(255,0,0,0));
         }
         driver->endScene();
     }
