@@ -55,18 +55,19 @@ void LeaderBoard::getScore(std::string path)
 
 void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
-    tab = obj;
+    if (tab.empty() == true)
+        tab = obj;
     device->setEventReceiver(&recv);
     getScore("assets/Score/score.txt");
     std::cout << "LOL" << std::endl;
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        Button(obj[0], irr::core::position2d<irr::s32>(280, 94), play_rect);
-        if (font) {
+        Button(obj[0], irr::core::position2d<irr::s32>(480, 94), play_rect);
+        /*if (font) {
             for (size_t i = 0; i < score.size(); i++)
                 font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 50 * i, 300, 500), irr::video::SColor(255,0,0,0));
-        }
+        }*/
         driver->endScene();
     }
 }

@@ -50,7 +50,8 @@ bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::cor
 
 void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
-    tab = obj;
+    if (tab.empty() == true)
+        tab = obj;
     device->setEventReceiver(&recv);
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
