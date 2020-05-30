@@ -1,26 +1,22 @@
 /*
 ** EPITECH PROJECT, 2020
-** Menu.hpp
+** Credit.hpp
 ** File description:
-** Menu.hpp
+** Credit.hpp
 */
 
 #pragma once
 
 #include "IModule.hpp"
 #include "Event.hpp"
-#include "Game.hpp"
-#include "Settings.hpp"
-#include "LeaderBoard.hpp"
 
-class Menu : public IModule
+class Credit : public IModule
 {
     public:
-        Menu(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv);
-        ~Menu();
+        Credit(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv);
+        ~Credit();
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
-        bool Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect);
     private:
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;

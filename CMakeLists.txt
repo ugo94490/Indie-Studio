@@ -21,6 +21,8 @@ set(SOURCE_FILES
     src/Module/Menu.cpp
     src/Module/Settings.cpp
     src/Module/LeaderBoard.cpp
+    src/Module/Credit.cpp
+    src/Module/HowTo.cpp
     src/Player/Normal.cpp
     src/Player/APlayer.cpp
     src/Object/AObject.cpp

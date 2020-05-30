@@ -1,14 +1,14 @@
 /*
 ** EPITECH PROJECT, 2020
-** LeaderBoard.cpp
+** HowTo.cpp
 ** File description:
-** LeaderBoard.cpp
+** HowTo.cpp
 */
 
 #include <vector>
-#include "LeaderBoard.hpp"
+#include "HowTo.hpp"
 
-LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
+HowTo::HowTo(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
 {
     device = dev;
     driver = dri;
@@ -18,7 +18,7 @@ LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri
     button = driver->getTexture("assets/Sprite/Button/INDIE.png");
 }
 
-void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
+void HowTo::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
 {
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
@@ -32,7 +32,7 @@ void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<
         driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
-void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
+void HowTo::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
     std::vector<irr::core::rect<irr::s32>> rect;
     rect.push_back(irr::core::rect<irr::s32>(300, 285, 700, 458));
@@ -48,6 +48,6 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     }
 }
 
-LeaderBoard::~LeaderBoard()
+HowTo::~HowTo()
 {
 }

@@ -15,7 +15,7 @@ Settings::Settings(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr:
     smgr = scene;
     guienv = gui;
     images = driver->getTexture("assets/Sprite/Menu.jpg");
-    button = driver->getTexture("assets/Sprite/Button/Button.png");
+    button = driver->getTexture("assets/Sprite/Button/INDIE.png");
 }
 
 void Settings::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
