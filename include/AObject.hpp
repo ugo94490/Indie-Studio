@@ -20,9 +20,10 @@ class AObject
         };
 
         AObject() = default;
-        AObject(int c, irr::core::vector3df(float, float, float) newPos);
+        AObject(char c, irr::core::vector3df(float, float, float) newPos);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
+        AObject::ObjectType setType(char c);
         irr::core::vector3df(float, float, float) getPos(void) const;
 
     protected:

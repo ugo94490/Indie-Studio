@@ -7,7 +7,18 @@
 
 #include "AObject.hpp"
 
-AObject::AObject(int c, irr::core::vector3df(float, float, float) newPos)
+AObject::AObject(char c, irr::core::vector3df(float, float, float) newPos)
+{
+    setType(c);
+    _pos = newPos;
+}
+
+AObject::ObjectType AObject::getType(void) const
+{
+    return (_type);
+}
+
+AObject::ObjectType AObject::setType(char c)
 {
     if (c == 0)
         _type = Wall;
@@ -15,12 +26,6 @@ AObject::AObject(int c, irr::core::vector3df(float, float, float) newPos)
         _type = Floor;
     if (c == 2)
         _type = Obstacle;
-    _pos = newPos;
-}
-
-AObject::ObjectType AObject::getType(void) const
-{
-    return (_type);
 }
 
 irr::core::vector3df(float, float, float) AObject::getPos(void) const

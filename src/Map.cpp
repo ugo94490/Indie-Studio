@@ -60,6 +60,11 @@ void Map::loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver)
     myfile.close();
 }
 
+void Map::destroyObstacle()
+{
+    
+}
+
 void Map::displayMap(video::IVideoDriver* driver)
 {
 

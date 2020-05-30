@@ -27,6 +27,7 @@ class Map {
         void core();
         void loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver);
         void displayMap(video::IVideoDriver* driver);
+        void destroyObstacle();
         ~Map();
 
     protected:
