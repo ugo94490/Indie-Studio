@@ -11,6 +11,8 @@
 #include "Game.hpp"
 #include "HowTo.hpp"
 #include "Credit.hpp"
+#include "LeaderBoard.hpp"
+#include "Settings.hpp"
 
 Core::Core()
 {

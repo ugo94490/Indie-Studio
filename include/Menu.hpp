@@ -9,9 +9,6 @@
 
 #include "IModule.hpp"
 #include "Event.hpp"
-#include "Game.hpp"
-#include "Settings.hpp"
-#include "LeaderBoard.hpp"
 
 class Menu : public IModule
 {

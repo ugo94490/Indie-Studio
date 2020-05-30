@@ -10,6 +10,7 @@
 #include <iostream>
 #include "LeaderBoard.hpp"
 #include "Exception.hpp"
+#include "Rect.hpp"
 
 LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
 {
@@ -61,6 +62,7 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        Button(obj[0], irr::core::position2d<irr::s32>(280, 94), play_rect);
         if (font) {
             for (size_t i = 0; i < score.size(); i++)
                 font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 10, 300, 500), irr::video::SColor(255,0,0,0));

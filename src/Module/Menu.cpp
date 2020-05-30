@@ -55,12 +55,12 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        Button(obj[1], irr::core::position2d<irr::s32>(280, 94), play);
-        Button(obj[2], irr::core::position2d<irr::s32>(1240, 94), score);
-        Button(obj[3], irr::core::position2d<irr::s32>(280, 454), options);
-        Button(obj[4], irr::core::position2d<irr::s32>(1240, 454), rules);
-        Button(obj[5], irr::core::position2d<irr::s32>(280, 814), credit);
-        if (Button_bool(irr::core::position2d<irr::s32>(1240, 814), quit) == true)
+        Button(obj[1], irr::core::position2d<irr::s32>(280, 94), play_rect);
+        Button(obj[2], irr::core::position2d<irr::s32>(1240, 94), score_rect);
+        Button(obj[3], irr::core::position2d<irr::s32>(280, 454), options_rect);
+        Button(obj[4], irr::core::position2d<irr::s32>(1240, 454), rules_rect);
+        Button(obj[5], irr::core::position2d<irr::s32>(280, 814), credit_rect);
+        if (Button_bool(irr::core::position2d<irr::s32>(1240, 814), quit_rect) == true)
             break;
         driver->endScene();
     }
