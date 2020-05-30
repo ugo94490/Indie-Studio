@@ -7,7 +7,7 @@
 
 #include "AObject.hpp"
 
-AObject::AObject(int c, std::pair<float, float> newPos)
+AObject::AObject(int c, irr::core::vector3df(float, float, float) newPos)
 {
     if (c == 0)
         _type = Wall;
@@ -23,7 +23,7 @@ AObject::ObjectType AObject::getType(void) const
     return (_type);
 }
 
-std::pair<float, float> AObject::getPos(void) const
+irr::core::vector3df(float, float, float) AObject::getPos(void) const
 {
     return (_pos);
 }

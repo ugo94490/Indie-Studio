@@ -28,13 +28,13 @@ void GeneratorMap::writeBorder()
 
     for (int y = 1; y != yMax - 1; y++) {
         if (next == true) {
-            for (int x = 1; x != xMax - 1; x++)
+            for (int x = 1; x != xMax; x++)
                 _map[y][x] = 'O';
             next = false;
             continue;
         }
         _map[y][1] = ' ';
-        for (int x = 2; x != xMax - 1; x++) {
+        for (int x = 2; x != xMax; x++) {
             if (x % 2 == 0 || x % 2 == 2)
                 _map[y][x] = 'X';
             else
@@ -69,10 +69,27 @@ void GeneratorMap::randomWall()
     }
 }
 
+void GeneratorMap::removeFinalWall()
+{
+    for (int y = 1; y != yMax - 1; y++) {
+        if (_map[y][xMax - 1] == 'X')
+            _map[y][xMax - 1] = ' ';
+    }
+    if (_map[1][1] == 'X')
+        _map[1][1] = ' ';
+    if (_map[yMax -1][1] == 'X')
+        _map[1][1] = ' ';
+    if (_map[1][xMax - 1] == 'X')
+        _map[1][1] = ' ';
+    if (_map[yMax - 1][xMax - 1] = 'X')
+        _map[1][1] = ' ';
+}
+
 void GeneratorMap::createMap()
 {
     writeBorder();
     randomWall();
+    removeFinalWall();
     saveMap();
 }
 

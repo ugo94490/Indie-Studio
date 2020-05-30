@@ -22,22 +22,16 @@ using namespace irr;
 
 class Map {
     public:
-        Map(video::IVideoDriver* driver);
-        //Map(scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        std::shared_ptr<AObject> createObject(float posx, float posy, char c) const;
+        Map(scene::ISceneManager* smgr, video::IVideoDriver* driver);
+        scene::IAnimatedMeshSceneNode* createObject(float posx, float posy, char c, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         void core();
-        void loadMap();
+        void loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver);
         void displayMap(video::IVideoDriver* driver);
         ~Map();
 
     protected:
     private:
-        /* scene::IAnimatedMeshSceneNode* _Wall;
-        scene::IAnimatedMeshSceneNode* _Floor;
-        scene::IAnimatedMeshSceneNode* _Obstacle; */
-        video::ITexture* _Wall;
-        video::ITexture* _Floor;
-        video::ITexture* _Obstacle;
+        std::list<scene::IAnimatedMeshSceneNode *> _nodes;
         std::list<std::shared_ptr<AObject>> _list;
 };
 

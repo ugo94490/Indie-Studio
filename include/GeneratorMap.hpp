@@ -22,6 +22,7 @@ class GeneratorMap {
         int countWall();
         void randomWall();
         void createMap();
+        void removeFinalWall();
         void saveMap();
         ~GeneratorMap();
 

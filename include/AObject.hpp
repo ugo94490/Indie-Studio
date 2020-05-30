@@ -20,10 +20,10 @@ class AObject
         };
 
         AObject() = default;
-        AObject(int c, std::pair<float, float> newPos);
+        AObject(int c, irr::core::vector3df(float, float, float) newPos);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
-        std::pair<float, float> getPos(void) const;
+        irr::core::vector3df(float, float, float) getPos(void) const;
 
     protected:
         AObject::ObjectType _type;
