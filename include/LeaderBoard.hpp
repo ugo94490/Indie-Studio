@@ -17,6 +17,7 @@ class LeaderBoard : public IModule
         ~LeaderBoard();
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
+        void getScore(std::string path);
     private:
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
@@ -26,4 +27,6 @@ class LeaderBoard : public IModule
         irr::video::ITexture *button;
         Event recv;
         std::vector<std::shared_ptr<IModule>> tab;
+        irr::gui::IGUIFont *font;
+        std::vector<std::string> score;
 };

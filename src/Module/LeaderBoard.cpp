@@ -6,7 +6,10 @@
 */
 
 #include <vector>
+#include <fstream>
+#include <iostream>
 #include "LeaderBoard.hpp"
+#include "Exception.hpp"
 
 LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
 {
@@ -16,6 +19,8 @@ LeaderBoard::LeaderBoard(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri
     guienv = gui;
     images = driver->getTexture("assets/Sprite/Menu.jpg");
     button = driver->getTexture("assets/Sprite/Button/INDIE.png");
+    /*if (font == 0)
+        throw(Exception("Cant load font"));*/
 }
 
 void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -32,18 +37,30 @@ void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<
         driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
+void LeaderBoard::getScore(std::string path)
+{
+    std::fstream myfile(path);
+    std::string line;
+
+    score.erase(score.begin(), score.end());
+    if (!myfile.is_open())
+        throw(Exception("Can't open file"));
+    for (int i = 0; !myfile.eof(); i++) {
+        getline (myfile, line);
+        score.push_back(line);
+    }
+}
+
 void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
-    std::vector<irr::core::rect<irr::s32>> rect;
-    rect.push_back(irr::core::rect<irr::s32>(300, 285, 700, 458));
-    rect.push_back(irr::core::rect<irr::s32>(745, 285, 1145, 458));
-    rect.push_back(irr::core::rect<irr::s32>(1190, 285, 1590, 458));
-
     tab = obj;
     device->setEventReceiver(&recv);
+    getScore("assets/Score/score.txt");
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        for (size_t i = 0; i < score.size(); i++)
+            font->draw(L"LOL", irr::core::rect<irr::s32>(20, 20, 60, 60), irr::video::SColor(255,100,100,100));
         driver->endScene();
     }
 }
