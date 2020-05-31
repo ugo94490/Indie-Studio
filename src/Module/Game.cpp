@@ -7,8 +7,9 @@
 
 #include "Game.hpp"
 
-Game::Game(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* sm, irr::gui::IGUIEnvironment* gui)
+Game::Game(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* sm, irr::gui::IGUIEnvironment* gui, Event *event)
 {
+    recv = event;
     device = dev;
     driver = dri;
     smgr = sm;

@@ -9,8 +9,9 @@
 #include "Menu.hpp"
 #include "Rect.hpp"
 
-Menu::Menu(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui)
+Menu::Menu(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* scene, irr::gui::IGUIEnvironment* gui, Event *event)
 {
+    recv = event;
     device = dev;
     driver = dri;
     smgr = scene;
@@ -24,10 +25,10 @@ void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s3
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
 
-    if (recv.eve.MouseInput.X >= pos.X && recv.eve.MouseInput.X <= (pos.X + width) && recv.eve.MouseInput.Y >= pos.Y && recv.eve.MouseInput.Y <= (pos.Y + height) && recv.eve.MouseInput.isLeftPressed()) {
+    if (recv->eve.MouseInput.X >= pos.X && recv->eve.MouseInput.X <= (pos.X + width) && recv->eve.MouseInput.Y >= pos.Y && recv->eve.MouseInput.Y <= (pos.Y + height) && recv->eve.MouseInput.isLeftPressed()) {
         driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         module->Loop(tab);
-    } else if (recv.eve.MouseInput.X >= pos.X && recv.eve.MouseInput.X <= (pos.X + width) && recv.eve.MouseInput.Y >= pos.Y && recv.eve.MouseInput.Y <= (pos.Y + height))
+    } else if (recv->eve.MouseInput.X >= pos.X && recv->eve.MouseInput.X <= (pos.X + width) && recv->eve.MouseInput.Y >= pos.Y && recv->eve.MouseInput.Y <= (pos.Y + height))
         driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
         driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
@@ -38,10 +39,10 @@ bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::cor
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
 
-    if (recv.eve.MouseInput.X >= pos.X && recv.eve.MouseInput.X <= (pos.X + width) && recv.eve.MouseInput.Y >= pos.Y && recv.eve.MouseInput.Y <= (pos.Y + height) && recv.eve.MouseInput.isLeftPressed()) {
+    if (recv->eve.MouseInput.X >= pos.X && recv->eve.MouseInput.X <= (pos.X + width) && recv->eve.MouseInput.Y >= pos.Y && recv->eve.MouseInput.Y <= (pos.Y + height) && recv->eve.MouseInput.isLeftPressed()) {
         driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
-    } else if (recv.eve.MouseInput.X >= pos.X && recv.eve.MouseInput.X <= (pos.X + width) && recv.eve.MouseInput.Y >= pos.Y && recv.eve.MouseInput.Y <= (pos.Y + height))
+    } else if (recv->eve.MouseInput.X >= pos.X && recv->eve.MouseInput.X <= (pos.X + width) && recv->eve.MouseInput.Y >= pos.Y && recv->eve.MouseInput.Y <= (pos.Y + height))
         driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
         driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
@@ -52,7 +53,6 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
     if (tab.empty() == true)
         tab = obj;
-    device->setEventReceiver(&recv);
     while (device->run()) {
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
