@@ -11,26 +11,25 @@
 #include "Obstacle.hpp"
 #include "Wall.hpp"
 #include "Floor.hpp"
+#include "Empty.hpp"
 #include <list>
 #include <memory>
 #include <iostream>
 #include <fstream>
 #include "driverChoice.h"
-
+#include "GeneratorMap.hpp"
 
 class Map {
     public:
         Map(scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        std::shared_ptr<AObject> createObject(float posx, float posy, char c, scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        void core();
+        void createObject(float posx, float posy, char c, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         void loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        void displayMap(video::IVideoDriver* driver);
-        void destroyObstacle();
         ~Map();
 
     protected:
     private:
-        std::list<std::shared_ptr<AObject>> _list;
+        std::list<std::shared_ptr<AObject>> _floor;
+        std::list<std::shared_ptr<AObject>> _map;
 };
 
 #endif /* !MAP_HPP_ */

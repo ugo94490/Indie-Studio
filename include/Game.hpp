@@ -11,6 +11,7 @@
 #include "IModule.hpp"
 #include "Event.hpp"
 #include "Core.hpp"
+#include "Map.hpp"
 
 class Game : public IModule
 {

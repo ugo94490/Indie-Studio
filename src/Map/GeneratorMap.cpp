@@ -44,26 +44,11 @@ void GeneratorMap::writeBorder()
     }
 }
 
-int GeneratorMap::countWall()
-{
-/*     int count = 0;
-
-    for (int y = 0; y != yMax; y++) {
-        for (int x = 0; x != xMax; x++)
-            if (_map[y][x] == 'X')
-                count++;
-    }
-    return count / 3; */
-}
-
 void GeneratorMap::randomWall()
 {
-    /* int random = rand() % (4 - 1) + 1;
-    int nbWall = countWall(); */
-
     for (int y = 1; y != yMax - 1; y++) {
         for (int x = 1; x != xMax - 1; x++) {
-            if (_map[y][x] != 'X' && std::rand() % (4 - 1) + 1 == 2)
+            if (_map[y][x] != 'X' && std::rand() % (3 - 1) + 1 == 2)
                 _map[y][x] = ' ';
         }
     }
@@ -75,14 +60,14 @@ void GeneratorMap::removeFinalWall()
         if (_map[y][xMax - 1] == 'X')
             _map[y][xMax - 1] = ' ';
     }
-    if (_map[1][1] == 'X')
+    if (_map[1][1] != ' ')
         _map[1][1] = ' ';
-    if (_map[yMax -1][1] == 'X')
-        _map[1][1] = ' ';
-    if (_map[1][xMax - 1] == 'X')
-        _map[1][1] = ' ';
-    if (_map[yMax - 1][xMax - 1] == 'X')
-        _map[1][1] = ' ';
+    if (_map[yMax -2][1] != ' ')
+        _map[yMax -2][1] = ' ';
+    if (_map[1][xMax - 1] != ' ')
+        _map[1][xMax - 1] = ' ';
+    if (_map[yMax - 2][xMax - 1] != ' ')
+        _map[yMax - 2][xMax - 1] = ' ';
 }
 
 void GeneratorMap::createMap()

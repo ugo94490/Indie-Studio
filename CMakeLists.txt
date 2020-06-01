@@ -29,6 +29,7 @@ set(SOURCE_FILES
     src/Object/Floor.cpp
     src/Object/Obstacle.cpp
     src/Object/Wall.cpp
+    src/Object/Empty.cpp
     src/Map/Map.cpp
     src/Map/GeneratorMap.cpp)
 add_executable(${NAME} ${SOURCE_FILES})

@@ -23,7 +23,8 @@ class AObject
         {
             Wall = 0,
             Floor = 1,
-            Obstacle = 2
+            Obstacle = 2,
+            Empty = 3
         };
 
         AObject() = default;
