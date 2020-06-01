@@ -7,12 +7,9 @@
 
 #include "Game.hpp"
 
-Game::Game(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* sm, irr::gui::IGUIEnvironment* gui)
+Game::Game(Core *obj)
 {
-    device = dev;
-    driver = dri;
-    smgr = sm;
-    guienv = gui;
+    core = obj;
 }
 
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
