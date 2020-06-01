@@ -18,6 +18,7 @@
 #include <fstream>
 #include "driverChoice.h"
 #include "GeneratorMap.hpp"
+#include "Exception.hpp"
 
 class Map {
     public:

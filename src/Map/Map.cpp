@@ -37,7 +37,7 @@ void Map::loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver)
     std::ifstream myfile ("assets/map/random_map.txt");
 
     if (!myfile.is_open())
-        std::cout << "Could not open map\n";
+        throw(Exception("Je sais pas open une map\n"));
     for (int i = 0; !myfile.eof(); i++) {
         getline (myfile, line);
         for (int j = 0; line[j]; j++)
