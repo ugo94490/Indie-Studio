@@ -73,7 +73,7 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        if (Button_bool(irr::core::position2d<irr::s32>(480, 94), play_rect) == true)
+        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
         if (font) {
             for (size_t i = 0; i < score.size(); i++)

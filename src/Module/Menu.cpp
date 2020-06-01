@@ -6,6 +6,7 @@
 */
 
 #include <vector>
+#include <iostream>
 #include "Menu.hpp"
 #include "Rect.hpp"
 
@@ -52,15 +53,41 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        Button(obj[1], irr::core::position2d<irr::s32>(280, 94), play_rect);
-        Button(obj[2], irr::core::position2d<irr::s32>(1240, 94), score_rect);
-        Button(obj[3], irr::core::position2d<irr::s32>(280, 454), options_rect);
-        Button(obj[4], irr::core::position2d<irr::s32>(1240, 454), rules_rect);
-        Button(obj[5], irr::core::position2d<irr::s32>(280, 814), credit_rect);
+        if (Button_bool(irr::core::position2d<irr::s32>(280, 94), play_rect) == true)
+            Game();
+        Button(tab[2], irr::core::position2d<irr::s32>(1240, 94), score_rect);
+        Button(tab[3], irr::core::position2d<irr::s32>(280, 454), options_rect);
+        Button(tab[4], irr::core::position2d<irr::s32>(1240, 454), rules_rect);
+        Button(tab[5], irr::core::position2d<irr::s32>(280, 814), credit_rect);
         if (Button_bool(irr::core::position2d<irr::s32>(1240, 814), quit_rect) == true)
             break;
         core->driver->endScene();
     }
+}
+
+void Menu::Game()
+{
+    while (core->device->run()) {
+        core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
+        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        if (Button_bool(irr::core::position2d<irr::s32>(280, 454), new_rect) == true)
+            New_Game();
+        if (Button_bool(irr::core::position2d<irr::s32>(1240, 454), load_rect) == true)
+            Load_Game();
+        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
+            break;
+        core->driver->endScene();
+    }
+}
+
+void Menu::New_Game()
+{
+    tab[1]->Loop(tab);
+}
+
+void Menu::Load_Game()
+{
+    tab[1]->Loop(tab);
 }
 
 Menu::~Menu()

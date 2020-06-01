@@ -53,4 +53,32 @@ static std::vector<irr::core::rect<irr::s32>> rules_rect =
     irr::core::rect<irr::s32>(890, 870, 1290, 1043)
 };
 
+static std::vector<irr::core::rect<irr::s32>> back_rect =
+{
+    irr::core::rect<irr::s32>(0, 1044, 400, 1217),
+    irr::core::rect<irr::s32>(445, 1044, 845, 1217),
+    irr::core::rect<irr::s32>(890, 1044, 1290, 1217)
+};
+
+static std::vector<irr::core::rect<irr::s32>> new_rect =
+{
+    irr::core::rect<irr::s32>(0, 1218, 400, 1391),
+    irr::core::rect<irr::s32>(445, 1218, 845, 1391),
+    irr::core::rect<irr::s32>(890, 1218, 1290, 1391)
+};
+
+static std::vector<irr::core::rect<irr::s32>> load_rect =
+{
+    irr::core::rect<irr::s32>(0, 1392, 400, 1565),
+    irr::core::rect<irr::s32>(445, 1392, 845, 1565),
+    irr::core::rect<irr::s32>(890, 1392, 1290, 1565)
+};
+
+static std::vector<irr::core::rect<irr::s32>> menu_rect =
+{
+    irr::core::rect<irr::s32>(0, 1566, 400, 1739),
+    irr::core::rect<irr::s32>(445, 1566, 845, 1739),
+    irr::core::rect<irr::s32>(890, 1566, 1290, 1739)
+};
+
 #endif /* !RECT_HPP_ */
