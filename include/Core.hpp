@@ -18,7 +18,6 @@ class Core
         Core();
         ~Core();
         void launch();
-    private:
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* smgr;

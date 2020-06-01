@@ -25,12 +25,12 @@ Core::Core()
     guienv = device->getGUIEnvironment();
     recv = new Event();
     device->setEventReceiver(recv);
-    std::shared_ptr<IModule> menu (new Menu(device, driver, smgr, guienv, recv));
-    std::shared_ptr<IModule> game (new Game(device, driver, smgr, guienv, recv));
-    std::shared_ptr<IModule> leaderboard (new LeaderBoard(device, driver, smgr, guienv, recv));
-    std::shared_ptr<IModule> settings (new Settings(device, driver, smgr, guienv, recv));
-    std::shared_ptr<IModule> howto (new HowTo(device, driver, smgr, guienv, recv));
-    std::shared_ptr<IModule> credit (new Credit(device, driver, smgr, guienv, recv));
+    std::shared_ptr<IModule> menu (new Menu(this));
+    std::shared_ptr<IModule> game (new Game(this));
+    std::shared_ptr<IModule> leaderboard (new LeaderBoard(this));
+    std::shared_ptr<IModule> settings (new Settings(this));
+    std::shared_ptr<IModule> howto (new HowTo(this));
+    std::shared_ptr<IModule> credit (new Credit(this));
     obj.push_back(menu);
     obj.push_back(game);
     obj.push_back(leaderboard);

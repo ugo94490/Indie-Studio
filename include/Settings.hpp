@@ -9,21 +9,18 @@
 
 #include "IModule.hpp"
 #include "Event.hpp"
+#include "Core.hpp"
 
 class Settings : public IModule
 {
     public:
-        Settings(irr::IrrlichtDevice *device, irr::video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::gui::IGUIEnvironment* guienv, Event *event);
+        Settings(Core *obj);
         ~Settings();
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
     private:
-        irr::IrrlichtDevice *device;
-        irr::video::IVideoDriver* driver;
-        irr::scene::ISceneManager* smgr;
-        irr::gui::IGUIEnvironment* guienv;
+        Core *core;
         irr::video::ITexture *images;
         irr::video::ITexture *button;
-        Event *recv;
         std::vector<std::shared_ptr<IModule>> tab;
 };
