@@ -70,7 +70,6 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     if (tab.empty() == true)
         tab = obj;
     getScore("assets/Score/score.txt");
-    std::cout << "LOL" << std::endl;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
