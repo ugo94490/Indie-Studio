@@ -8,7 +8,9 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "AObject.hpp"
+#include "Obstacle.hpp"
+#include "Wall.hpp"
+#include "Floor.hpp"
 #include <list>
 #include <memory>
 #include <iostream>

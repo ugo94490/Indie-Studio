@@ -27,14 +27,12 @@ class AObject
         };
 
         AObject() = default;
-        AObject(char c, float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
-        void setType(char c, float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        std::pair<float, float> getPos(void) const;
+        irr::core::vector3d<f32> getPos(void) const;
 
     protected:
         scene::IAnimatedMeshSceneNode * _node;
         AObject::ObjectType _type;
-        std::pair<float, float> _pos;
+        irr::core::vector3d<f32> _pos;
 };
