@@ -8,11 +8,18 @@
 #pragma once
 
 #include "IModule.hpp"
+#include <iostream>
 
 class Game : public IModule
 {
     public:
-        Game();
+        Game(irr::IrrlichtDevice *dev, irr::video::IVideoDriver* dri, irr::scene::ISceneManager* sm, irr::gui::IGUIEnvironment* gui);
+        void Loop(std::vector<std::shared_ptr<IModule>> obj);
         ~Game();
     private:
+    irr::IrrlichtDevice *device;
+    irr::video::IVideoDriver* driver;
+    irr::scene::ISceneManager* smgr;
+    irr::gui::IGUIEnvironment* guienv;
+    std::vector<std::shared_ptr<IModule>> tab;
 };

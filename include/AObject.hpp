@@ -27,6 +27,7 @@ class AObject
         };
 
         AObject() = default;
+<<<<<<< HEAD
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
         irr::core::vector3d<f32> getPos(void) const;
@@ -36,3 +37,14 @@ class AObject
         AObject::ObjectType _type;
         irr::core::vector3d<f32> _pos;
 };
+=======
+        AObject(AObject::ObjectType);
+        virtual ~AObject() = default;
+        AObject::ObjectType getType(void);
+        std::vector<float> getPos(void);
+
+    protected:
+        AObject::ObjectType type;
+        std::vector<float> pos;
+};
+>>>>>>> master
