@@ -81,7 +81,7 @@ void GeneratorMap::removeFinalWall()
         _map[1][1] = ' ';
     if (_map[1][xMax - 1] == 'X')
         _map[1][1] = ' ';
-    if (_map[yMax - 1][xMax - 1] = 'X')
+    if (_map[yMax - 1][xMax - 1] == 'X')
         _map[1][1] = ' ';
 }
 

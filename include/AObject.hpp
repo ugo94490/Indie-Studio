@@ -7,7 +7,14 @@
 
 #pragma once
 
+#include <irrlicht.h>
+#include "driverChoice.h"
 #include <vector>
+#include <utility>
+using namespace irr;
+#ifdef _MSC_VER
+#pragma comment(lib, "Irrlicht.lib")
+#endif
 
 class AObject
 {
@@ -20,13 +27,14 @@ class AObject
         };
 
         AObject() = default;
-        AObject(char c, irr::core::vector3df(float, float, float) newPos);
+        AObject(char c, float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
-        AObject::ObjectType setType(char c);
-        irr::core::vector3df(float, float, float) getPos(void) const;
+        void setType(char c, float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
+        std::pair<float, float> getPos(void) const;
 
     protected:
+        scene::IAnimatedMeshSceneNode * _node;
         AObject::ObjectType _type;
         std::pair<float, float> _pos;
 };
