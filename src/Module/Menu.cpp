@@ -15,6 +15,7 @@ Menu::Menu(Core *obj)
     core = obj;
     images = core->driver->getTexture("assets/Sprite/Menu.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
+    other = core->driver->getTexture("assets/Sprite/Button/Button.png");
 }
 
 void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
