@@ -82,7 +82,14 @@ void Menu::Game()
 
 void Menu::New_Game()
 {
-    tab[1]->Loop(tab);
+    while (core->device->run()) {
+        core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
+        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
+            break;
+        core->driver->endScene();
+    }
+    //tab[1]->Loop(tab);
 }
 
 void Menu::Load_Game()
