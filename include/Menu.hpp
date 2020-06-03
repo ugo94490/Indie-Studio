@@ -20,7 +20,7 @@ class Menu : public IModule
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
         bool Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect);
         void Game();
-        void New_Game();
+        void New_Game(int nb);
         void Load_Game();
     private:
         Core *core;

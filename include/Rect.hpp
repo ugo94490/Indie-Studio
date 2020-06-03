@@ -95,4 +95,11 @@ static std::vector<irr::core::rect<irr::s32>> right_button =
     irr::core::rect<irr::s32>(631, 1064, 846, 1294)
 };
 
+static std::vector<irr::core::rect<irr::s32>> rectangle_rect =
+{
+    irr::core::rect<irr::s32>(1291, 0, 1691, 520),
+    irr::core::rect<irr::s32>(1291, 0, 1691, 520),
+    irr::core::rect<irr::s32>(1291, 0, 1691, 520)
+};
+
 #endif /* !RECT_HPP_ */

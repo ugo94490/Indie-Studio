@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <iostream>
+#include <chrono>
 #include "Menu.hpp"
 #include "Rect.hpp"
 
@@ -36,8 +37,17 @@ bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::cor
 {
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
+    static bool click = false;
+    static std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
 
-    if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
+    _end = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
+        _start = std::chrono::steady_clock::now();
+        click = false;
+    }
+    if (click == false && core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
+        click = true;
         core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
@@ -72,7 +82,7 @@ void Menu::Game()
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(280, 454), new_rect) == true)
-            New_Game();
+            New_Game(4);
         if (Button_bool(irr::core::position2d<irr::s32>(1240, 454), load_rect) == true)
             Load_Game();
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
@@ -81,14 +91,35 @@ void Menu::Game()
     }
 }
 
-void Menu::New_Game()
+void Menu::New_Game(int nb)
 {
+    int p1 = 0;
+    int p2 = -1;
+    int p3 = -1;
+    int p4 = -1;
+
+    if (nb >= 2)
+        p2 = 0;
+    if (nb >= 3)
+        p3 = 0;
+    if (nb >= 4)
+        p4 = 0;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
+        if (Button_bool(irr::core::position2d<irr::s32>(64, 280), rectangle_rect) == true && nb >= 1)
+            p1 >= 4 ? p1 = 0 : p1++;
+        if (Button_bool(irr::core::position2d<irr::s32>(528, 280), rectangle_rect) == true && nb >= 2)
+            p2 >= 4 ? p2 = 0 : p2++;
+        if (Button_bool(irr::core::position2d<irr::s32>(992, 280), rectangle_rect) == true && nb >= 3)
+            p3 >= 4 ? p3 = 0 : p3++;
+        if (Button_bool(irr::core::position2d<irr::s32>(1456, 280), rectangle_rect) == true && nb >= 4)
+            p4 >= 4 ? p4 = 0 : p4++;
         core->driver->endScene();
+       // std::cout << "P1:" << p1 << " P2:" << p2 << " P3:" << p3 << " P4:" << p4 << std::endl;
+        //std::cout << core->device->getTimer()->getTime() << std::endl;
     }
     //tab[1]->Loop(tab);
 }
