@@ -11,6 +11,7 @@
 #include <map>
 #include "Menu.hpp"
 #include "Rect.hpp"
+#include "Normal.hpp"
 
 Menu::Menu(Core *obj)
 {
@@ -107,7 +108,7 @@ void Menu::Game()
     }
 }
 
-void Menu::display_skin(int p1, int p2, int p3, int p4)
+void Menu::display_skin()
 {
     core->driver->draw2DImage(bomb[p1], irr::core::position2d<irr::s32>(64 + (rectangle_rect[0].getWidth() - bomb_rect[p1].getWidth()) / 2, 280), bomb_rect[p1], 0, irr::video::SColor(255,255,255,255), true);
     if (p2 != -1)
@@ -143,12 +144,12 @@ std::vector<std::pair<bool, std::string>> Menu::Skin_button( std::vector<std::pa
     return (write);
 }
 
-std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pair<bool, std::string>> write, bool click)
+std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pair<bool, std::string>> write, bool *click)
 {
-    if (core->recv->eve.KeyInput.PressedDown && click == false)
+    if (core->recv->eve.KeyInput.PressedDown && *click == false)
         for (size_t i = 0; i < write.size(); i++)
             if (write[i].first == true) {
-                click = true;
+                *click = true;
                 if (core->recv->eve.KeyInput.Char == 8 && write[i].second.size() > 0)
                     write[i].second.erase(write[i].second.size() - 1);
                 else if (((core->recv->eve.KeyInput.Char >= 65 && core->recv->eve.KeyInput.Char <= 90) || (core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122)) && write[i].second.size() < 14)
@@ -160,6 +161,21 @@ std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pa
     return (write);
 }
 
+std::shared_ptr<APlayer> Menu::createObject(std::string name, int skin)
+{
+    std::shared_ptr<APlayer> ptr(new Normal(name, bomb[skin]));
+    return (ptr);
+}
+
+std::vector<std::shared_ptr<APlayer>> Menu::create_player(std::vector<std::pair<bool, std::string>> write, int nb)
+{
+    std::vector<std::shared_ptr<APlayer>> player;
+
+    for (int i = 0; i < nb; i++)
+        player.push_back(createObject(write[i].second, skin_nb[i]));
+    return (player);
+}
+
 void Menu::New_Game(int nb)
 {
     static bool click = false;
@@ -167,26 +183,36 @@ void Menu::New_Game(int nb)
     static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
     std::vector<std::pair<bool, std::string>> write = {{false, ""}, {false, ""}, {false, ""}, {false, ""}};
 
-    p1 = 0;
-    p2 = (nb >= 2) ? 0 : -1;
-    p3 = (nb >= 3) ? 0 : -1;
-    p4 = (nb >= 4) ? 0 : -1;
+    skin_nb = {p1 = 0, p2 = (nb >= 2) ? 0 : -1, p3 = (nb >= 3) ? 0 : -1, p4 = (nb >= 4) ? 0 : -1};
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
+        if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
+        if (Button_bool(irr::core::position2d<irr::s32>(1456, 814), play_rect) == true)
+            getBind(create_player(write, nb));
         write = Skin_button(write, nb);
         _end = std::chrono::steady_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
             _start = std::chrono::steady_clock::now();
             click = false;
         }
-        Display_name(write, click);
-        display_skin(p1, p2, p3, p4);
+        write = Display_name(write, &click);
+        display_skin();
         core->driver->endScene();
     }
-    //tab[1]->Loop(tab);
+}
+
+void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
+{
+    (void)player;
+    while (core->device->run()) {
+        core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
+        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
+            break;
+        core->driver->endScene();
+    }
 }
 
 void Menu::Load_Game()

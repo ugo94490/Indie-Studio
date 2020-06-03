@@ -7,8 +7,10 @@
 
 #include "Normal.hpp"
 
-Normal::Normal()
+Normal::Normal(std::string str, irr::video::ITexture *bomberman)
 {
+    name = str;
+    skin = bomberman;
 }
 
 Normal::~Normal()
