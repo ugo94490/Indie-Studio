@@ -25,6 +25,5 @@ class LeaderBoard : public IModule
         irr::video::ITexture *images;
         irr::video::ITexture *button;
         std::vector<std::shared_ptr<IModule>> tab;
-        irr::gui::IGUIFont *font;
         std::vector<std::string> score;
 };

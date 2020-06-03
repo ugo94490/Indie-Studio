@@ -11,6 +11,36 @@
 #include <irrlicht.h>
 #include <vector>
 
+static std::vector<std::pair<irr::EKEY_CODE, std::string>> KeyInput =
+{
+    {irr::KEY_KEY_A, "A"},
+    {irr::KEY_KEY_B, "B"},
+    {irr::KEY_KEY_C, "C"},
+    {irr::KEY_KEY_D, "D"},
+    {irr::KEY_KEY_E, "E"},
+    {irr::KEY_KEY_F, "F"},
+    {irr::KEY_KEY_G, "G"},
+    {irr::KEY_KEY_H, "H"},
+    {irr::KEY_KEY_I, "I"},
+    {irr::KEY_KEY_J, "J"},
+    {irr::KEY_KEY_K, "K"},
+    {irr::KEY_KEY_L, "L"},
+    {irr::KEY_KEY_M, "M"},
+    {irr::KEY_KEY_N, "N"},
+    {irr::KEY_KEY_O, "O"},
+    {irr::KEY_KEY_P, "P"},
+    {irr::KEY_KEY_Q, "Q"},
+    {irr::KEY_KEY_R, "R"},
+    {irr::KEY_KEY_S, "S"},
+    {irr::KEY_KEY_T, "T"},
+    {irr::KEY_KEY_U, "U"},
+    {irr::KEY_KEY_V, "V"},
+    {irr::KEY_KEY_W, "W"},
+    {irr::KEY_KEY_X, "X"},
+    {irr::KEY_KEY_Y, "Y"},
+    {irr::KEY_KEY_Z, "Z"}
+};
+
 static std::vector<irr::core::rect<irr::s32>> play_rect =
 {
     irr::core::rect<irr::s32>(0, 0, 400, 173),
@@ -100,6 +130,46 @@ static std::vector<irr::core::rect<irr::s32>> rectangle_rect =
     irr::core::rect<irr::s32>(1291, 0, 1691, 520),
     irr::core::rect<irr::s32>(1291, 0, 1691, 520),
     irr::core::rect<irr::s32>(1291, 0, 1691, 520)
+};
+
+static std::vector<irr::core::rect<irr::s32>> name_rect =
+{
+    irr::core::rect<irr::s32>(1291, 520, 1691, 620),
+    irr::core::rect<irr::s32>(1291, 520, 1691, 620),
+    irr::core::rect<irr::s32>(1291, 520, 1691, 620)
+};
+
+static std::vector<irr::core::rect<irr::s32>> input_rect =
+{
+    irr::core::rect<irr::s32>(64, 160, 464, 260),
+    irr::core::rect<irr::s32>(528, 160, 928, 260),
+    irr::core::rect<irr::s32>(992, 160, 1392, 260),
+    irr::core::rect<irr::s32>(1456, 160, 1856, 260)
+};
+
+static irr::core::rect<irr::s32> white_rect =
+{
+    irr::core::rect<irr::s32>(0, 0, 395, 510)
+};
+
+static irr::core::rect<irr::s32> black_rect =
+{
+    irr::core::rect<irr::s32>(0, 0, 219, 510)
+};
+
+static irr::core::rect<irr::s32> green_rect =
+{
+    irr::core::rect<irr::s32>(0, 0, 246, 510)
+};
+
+static irr::core::rect<irr::s32> red_rect =
+{
+    irr::core::rect<irr::s32>(0, 0, 311, 510)
+};
+
+static irr::core::rect<irr::s32> blue_rect =
+{
+    irr::core::rect<irr::s32>(0, 0, 230, 510)
 };
 
 #endif /* !RECT_HPP_ */

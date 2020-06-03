@@ -24,5 +24,6 @@ class Core
         irr::gui::IGUIEnvironment* guienv;
         irr::scene::IAnimatedMeshSceneNode* node;
         std::vector<std::shared_ptr<IModule>> obj;
+        irr::gui::IGUIFont *font;
         Event *recv;
 };

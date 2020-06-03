@@ -19,13 +19,28 @@ class Menu : public IModule
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
         bool Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect);
+        void display_skin(int p1, int p2, int p3, int p4);
         void Game();
         void New_Game(int nb);
         void Load_Game();
+        std::vector<std::pair<bool, std::string>> setBoolName(std::vector<std::pair<bool, std::string>> tab, int i);
+        std::vector<std::pair<bool, std::string>> Skin_button( std::vector<std::pair<bool, std::string>> write, int nb);
+        std::vector<std::pair<bool, std::string>> Display_name(std::vector<std::pair<bool, std::string>> write, bool click);
     private:
         Core *core;
         irr::video::ITexture *images;
         irr::video::ITexture *button;
         irr::video::ITexture *other;
+        irr::video::ITexture *white;
+        irr::video::ITexture *black;
+        irr::video::ITexture *red;
+        irr::video::ITexture *green;
+        irr::video::ITexture *blue;
+        std::vector<irr::video::ITexture *> bomb;
+        std::vector<irr::core::rect<irr::s32>> bomb_rect;
         std::vector<std::shared_ptr<IModule>> tab;
+        int p1;
+        int p2;
+        int p3;
+        int p4;
 };

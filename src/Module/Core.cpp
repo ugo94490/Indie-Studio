@@ -37,6 +37,9 @@ Core::Core()
     obj.push_back(settings);
     obj.push_back(howto);
     obj.push_back(credit);
+    font = device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
+    if (font == 0)
+        throw(Exception("Cant load font"));
 }
 
 Core::~Core()

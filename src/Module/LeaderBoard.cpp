@@ -18,9 +18,6 @@ LeaderBoard::LeaderBoard(Core *obj)
     core = obj;
     images = core->driver->getTexture("assets/Sprite/Menu.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
-    font = core->device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
-    if (font == 0)
-        throw(Exception("Cant load font"));
 }
 
 void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -85,9 +82,9 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
-        if (font) {
+        if (core->font) {
             for (size_t i = 0; i < score.size(); i++)
-                font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 50 * i, 300, 500), irr::video::SColor(255,0,0,0));
+                core->font->draw(score[i].c_str(), irr::core::rect<irr::s32>(130, 50 * i, 300, 500), irr::video::SColor(255,0,0,0));
         }
         core->driver->endScene();
     }

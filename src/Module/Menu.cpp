@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <chrono>
+#include <map>
 #include "Menu.hpp"
 #include "Rect.hpp"
 
@@ -17,6 +18,21 @@ Menu::Menu(Core *obj)
     images = core->driver->getTexture("assets/Sprite/Menu.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
     other = core->driver->getTexture("assets/Sprite/Button/Button.png");
+    white = core->driver->getTexture("assets/Sprite/Button/white.png");
+    black = core->driver->getTexture("assets/Sprite/Button/black.png");
+    green = core->driver->getTexture("assets/Sprite/Button/green.png");
+    red = core->driver->getTexture("assets/Sprite/Button/red.png");
+    blue = core->driver->getTexture("assets/Sprite/Button/blue.png");
+    bomb.push_back(white);
+    bomb.push_back(black);
+    bomb.push_back(green);
+    bomb.push_back(red);
+    bomb.push_back(blue);
+    bomb_rect.push_back(white_rect);
+    bomb_rect.push_back(black_rect);
+    bomb_rect.push_back(green_rect);
+    bomb_rect.push_back(red_rect);
+    bomb_rect.push_back(blue_rect);
 }
 
 void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -42,7 +58,7 @@ bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::cor
     static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
 
     _end = std::chrono::steady_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 600) {
         _start = std::chrono::steady_clock::now();
         click = false;
     }
@@ -91,35 +107,84 @@ void Menu::Game()
     }
 }
 
+void Menu::display_skin(int p1, int p2, int p3, int p4)
+{
+    core->driver->draw2DImage(bomb[p1], irr::core::position2d<irr::s32>(64 + (rectangle_rect[0].getWidth() - bomb_rect[p1].getWidth()) / 2, 280), bomb_rect[p1], 0, irr::video::SColor(255,255,255,255), true);
+    if (p2 != -1)
+        core->driver->draw2DImage(bomb[p2], irr::core::position2d<irr::s32>(528 + (rectangle_rect[0].getWidth() - bomb_rect[p2].getWidth()) / 2, 280), bomb_rect[p2], 0, irr::video::SColor(255,255,255,255), true);
+    if (p3 != -1)
+        core->driver->draw2DImage(bomb[p3], irr::core::position2d<irr::s32>(992 + (rectangle_rect[0].getWidth() - bomb_rect[p3].getWidth()) / 2, 280), bomb_rect[p3], 0, irr::video::SColor(255,255,255,255), true);
+    if (p4 != -1)
+        core->driver->draw2DImage(bomb[p4], irr::core::position2d<irr::s32>(1456 + (rectangle_rect[0].getWidth() - bomb_rect[p4].getWidth()) / 2, 280), bomb_rect[p4], 0, irr::video::SColor(255,255,255,255), true);
+}
+
+std::vector<std::pair<bool, std::string>> Menu::setBoolName(std::vector<std::pair<bool, std::string>> lol, int j)
+{
+    for (size_t i = 0; i < lol.size(); i++)
+        lol[i].first = false;
+    lol[j].first = true;
+    return (lol);
+}
+
+std::vector<std::pair<bool, std::string>> Menu::Skin_button( std::vector<std::pair<bool, std::string>> write, int nb)
+{
+    (Button_bool(irr::core::position2d<irr::s32>(64, 280), rectangle_rect) == true && nb >= 1) ? (p1 >= 4 ? p1 = 0 : p1++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(528, 280), rectangle_rect) == true && nb >= 2) ? (p2 >= 4 ? p2 = 0 : p2++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(992, 280), rectangle_rect) == true && nb >= 3) ? (p3 >= 4 ? p3 = 0 : p3++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(1456, 280), rectangle_rect) == true && nb >= 4) ? (p4 >= 4 ? p4 = 0 : p4++) : 0;
+    if (Button_bool(irr::core::position2d<irr::s32>(64, 160), name_rect) == true && nb >= 1)
+        write = setBoolName(write, 0);
+    if (Button_bool(irr::core::position2d<irr::s32>(528, 160), name_rect) && nb >= 2)
+        write = setBoolName(write, 1);
+    if (Button_bool(irr::core::position2d<irr::s32>(992, 160), name_rect) && nb >= 3)
+        write = setBoolName(write, 2);
+    if (Button_bool(irr::core::position2d<irr::s32>(1456, 160), name_rect) && nb >= 4)
+        write = setBoolName(write, 3);
+    return (write);
+}
+
+std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pair<bool, std::string>> write, bool click)
+{
+    if (core->recv->eve.KeyInput.PressedDown && click == false)
+        for (size_t i = 0; i < write.size(); i++)
+            if (write[i].first == true) {
+                click = true;
+                if (core->recv->eve.KeyInput.Char == 8 && write[i].second.size() > 0)
+                    write[i].second.erase(write[i].second.size() - 1);
+                else if (((core->recv->eve.KeyInput.Char >= 65 && core->recv->eve.KeyInput.Char <= 90) || (core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122)) && write[i].second.size() < 14)
+                    write[i].second += core->recv->eve.KeyInput.Char;
+            }
+    if (core->font)
+        for (size_t i = 0; i < write.size(); i++)
+            core->font->draw(write[i].second.c_str(), input_rect[i], irr::video::SColor(255,0,0,0), true, true);
+    return (write);
+}
+
 void Menu::New_Game(int nb)
 {
-    int p1 = 0;
-    int p2 = -1;
-    int p3 = -1;
-    int p4 = -1;
+    static bool click = false;
+    static std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
+    std::vector<std::pair<bool, std::string>> write = {{false, ""}, {false, ""}, {false, ""}, {false, ""}};
 
-    if (nb >= 2)
-        p2 = 0;
-    if (nb >= 3)
-        p3 = 0;
-    if (nb >= 4)
-        p4 = 0;
+    p1 = 0;
+    p2 = (nb >= 2) ? 0 : -1;
+    p3 = (nb >= 3) ? 0 : -1;
+    p4 = (nb >= 4) ? 0 : -1;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
-        if (Button_bool(irr::core::position2d<irr::s32>(64, 280), rectangle_rect) == true && nb >= 1)
-            p1 >= 4 ? p1 = 0 : p1++;
-        if (Button_bool(irr::core::position2d<irr::s32>(528, 280), rectangle_rect) == true && nb >= 2)
-            p2 >= 4 ? p2 = 0 : p2++;
-        if (Button_bool(irr::core::position2d<irr::s32>(992, 280), rectangle_rect) == true && nb >= 3)
-            p3 >= 4 ? p3 = 0 : p3++;
-        if (Button_bool(irr::core::position2d<irr::s32>(1456, 280), rectangle_rect) == true && nb >= 4)
-            p4 >= 4 ? p4 = 0 : p4++;
+        write = Skin_button(write, nb);
+        _end = std::chrono::steady_clock::now();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
+            _start = std::chrono::steady_clock::now();
+            click = false;
+        }
+        Display_name(write, click);
+        display_skin(p1, p2, p3, p4);
         core->driver->endScene();
-       // std::cout << "P1:" << p1 << " P2:" << p2 << " P3:" << p3 << " P4:" << p4 << std::endl;
-        //std::cout << core->device->getTimer()->getTime() << std::endl;
     }
     //tab[1]->Loop(tab);
 }
