@@ -7,12 +7,19 @@
 
 #pragma once
 
+#include <iostream>
 #include "IModule.hpp"
+#include "Event.hpp"
+#include "Core.hpp"
+#include "Map.hpp"
 
 class Game : public IModule
 {
     public:
-        Game();
+        Game(Core *obj);
+        void Loop(std::vector<std::shared_ptr<IModule>> obj);
         ~Game();
     private:
+    std::vector<std::shared_ptr<IModule>> tab;
+    Core *core;
 };

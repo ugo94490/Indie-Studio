@@ -7,16 +7,12 @@
 
 #include "AObject.hpp"
 
-AObject::AObject(AObject::ObjectType)
+AObject::ObjectType AObject::getType(void) const
 {
+    return (_type);
 }
 
-AObject::ObjectType AObject::getType(void)
+irr::core::vector3d<f32> AObject::getPos(void) const
 {
-    return (type);
-}
-
-std::vector<float> AObject::getPos(void)
-{
-    return (pos);
+    return (_pos);
 }

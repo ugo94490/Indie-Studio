@@ -1,4 +1,12 @@
+/*
+** EPITECH PROJECT, 2020
+** undefined
+** File description:
+** main
+*/
+
 #include <iostream>
+#include "Map.hpp"
 #include "Core.hpp"
 #include "Exception.hpp"
 #ifdef _IRR_WINDOWS_
