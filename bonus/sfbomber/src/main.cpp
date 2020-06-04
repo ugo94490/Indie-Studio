@@ -10,6 +10,7 @@
 int main(int ac, char **av, char **env)
 {
     MainLoop loop;
+    std::srand(time(nullptr));
 
     if (!env || !env[0])
         return (84);
