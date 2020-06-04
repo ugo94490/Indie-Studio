@@ -14,6 +14,15 @@ Game::Game(Core *obj)
 
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
+    core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
+    scene::ISceneNode *skybox = core->smgr->addSkyBoxSceneNode(
+        core->driver->getTexture("./assets/textures/skybox/browncloud_up.jpg"),
+        core->driver->getTexture("./assets/textures/skybox/browncloud_dn.jpg"),
+        core->driver->getTexture("./assets/textures/skybox/browncloud_rt.jpg"),
+        core->driver->getTexture("./assets/textures/skybox/browncloud_lf.jpg"),
+        core->driver->getTexture("./assets/textures/skybox/browncloud_ft.jpg"),
+        core->driver->getTexture("./assets/textures/skybox/browncloud_bk.jpg"));
+    core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
     tab = obj;
     Map mapBomber(core->smgr, core->driver);
     core->driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
