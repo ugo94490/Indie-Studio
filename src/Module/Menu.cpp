@@ -96,30 +96,27 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
 
 void Menu::select_nb_player()
 {
-    int nb_player = 0;
+    int nb_player = 1;
     while (core->device->run()) {
+        core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
+        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(200, 300), score_rect) == true) {
             if (nb_player < 4)
                 nb_player += 1;
             auto s = std::to_string(nb_player);
-            core->font->draw(s.c_str(), irr::core::rect<irr::s32>(130, 50, 300, 500), irr::video::SColor(255,0,0,0));
         }
         if (Button_bool(irr::core::position2d<irr::s32>(200, 500), options_rect) == true) {
-            if (nb_player > 0)
+            if (nb_player > 1)
                 nb_player -= 1;
             auto s = std::to_string(nb_player);
-            core->font->draw(s.c_str(), irr::core::rect<irr::s32>(130, 50, 300, 500), irr::video::SColor(255,0,0,0));
         }
-        if (Button_bool(irr::core::position2d<irr::s32>(1000, 300), new_rect) == true) {
-            std::cout << "NB ==>" << nb_player << std::endl;
+        if (Button_bool(irr::core::position2d<irr::s32>(1000, 300), new_rect) == true)
             New_Game(nb_player);
-        }
         if (Button_bool(irr::core::position2d<irr::s32>(1000, 500), quit_rect) == true)
             break;
         auto s = std::to_string(nb_player);
-        // core->font->draw(s.c_str(), irr::core::rect<irr::s32>(130, 50, 300, 500), irr::video::SColor(255,0,0,0));
+        core->font->draw(s.c_str(), irr::core::rect<irr::s32>(130, 50, 300, 500), irr::video::SColor(255,0,0,0));
         core->driver->endScene();
-        //core->font->draw
     }
 }
 
