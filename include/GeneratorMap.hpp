@@ -19,9 +19,9 @@ class GeneratorMap {
     public:
         GeneratorMap(int y, int x);
         void writeBorder();
-        int countWall();
         void randomWall();
         void createMap();
+        void removeFinalWall();
         void saveMap();
         ~GeneratorMap();
 

@@ -9,12 +9,13 @@
 #include "Menu.hpp"
 #include "Event.hpp"
 #include "Game.hpp"
+#include "HowTo.hpp"
+#include "Credit.hpp"
+#include "LeaderBoard.hpp"
+#include "Settings.hpp"
 
 Core::Core()
 {
-	Event eve;
-
-	event = eve;
     device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080));
     if (!device)
         throw(Exception ("Error window not open"));
@@ -22,17 +23,29 @@ Core::Core()
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
-    driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
-    driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
+    recv = new Event();
+    device->setEventReceiver(recv);
+    std::shared_ptr<IModule> menu (new Menu(this));
+    std::shared_ptr<IModule> game (new Game(this));
+    std::shared_ptr<IModule> leaderboard (new LeaderBoard(this));
+    std::shared_ptr<IModule> settings (new Settings(this));
+    std::shared_ptr<IModule> howto (new HowTo(this));
+    std::shared_ptr<IModule> credit (new Credit(this));
+    obj.push_back(menu);
+    obj.push_back(game);
+    obj.push_back(leaderboard);
+    obj.push_back(settings);
+    obj.push_back(howto);
+    obj.push_back(credit);
 }
 
 Core::~Core()
 {
+    delete recv;
 	device->drop();
 }
 
 void Core::launch()
 {
-    Game game(driver, smgr, device);
-	//Menu obj(device, driver, smgr, guienv, event);
+    obj[0]->Loop(obj);
 }

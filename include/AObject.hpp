@@ -7,7 +7,14 @@
 
 #pragma once
 
+#include <irrlicht.h>
+#include "driverChoice.h"
 #include <vector>
+#include <utility>
+using namespace irr;
+#ifdef _MSC_VER
+#pragma comment(lib, "Irrlicht.lib")
+#endif
 
 class AObject
 {
@@ -16,16 +23,17 @@ class AObject
         {
             Wall = 0,
             Floor = 1,
-            Obstacle = 2
+            Obstacle = 2,
+            Empty = 3
         };
 
         AObject() = default;
-        AObject(int c, std::pair<float, float> newPos);
         virtual ~AObject() = default;
         AObject::ObjectType getType(void) const;
-        std::pair<float, float> getPos(void) const;
+        irr::core::vector3d<f32> getPos(void) const;
 
     protected:
+        scene::IAnimatedMeshSceneNode * _node;
         AObject::ObjectType _type;
-        std::pair<float, float> _pos;
+        irr::core::vector3d<f32> _pos;
 };

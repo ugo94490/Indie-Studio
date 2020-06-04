@@ -8,38 +8,29 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "AObject.hpp"
+#include "Obstacle.hpp"
+#include "Wall.hpp"
+#include "Floor.hpp"
+#include "Empty.hpp"
 #include <list>
 #include <memory>
 #include <iostream>
 #include <fstream>
-#include <irrlicht.h>
 #include "driverChoice.h"
-
-using namespace irr;
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+#include "GeneratorMap.hpp"
+#include "Exception.hpp"
 
 class Map {
     public:
-        Map(video::IVideoDriver* driver);
-        //Map(scene::ISceneManager* smgr, video::IVideoDriver* driver);
-        std::shared_ptr<AObject> createObject(float posx, float posy, char c) const;
-        void core();
-        void loadMap();
-        void displayMap(video::IVideoDriver* driver);
+        Map(scene::ISceneManager* smgr, video::IVideoDriver* driver);
+        void createObject(float posx, float posy, char c, scene::ISceneManager* smgr, video::IVideoDriver* driver);
+        void loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver);
         ~Map();
 
     protected:
     private:
-        /* scene::IAnimatedMeshSceneNode* _Wall;
-        scene::IAnimatedMeshSceneNode* _Floor;
-        scene::IAnimatedMeshSceneNode* _Obstacle; */
-        video::ITexture* _Wall;
-        video::ITexture* _Floor;
-        video::ITexture* _Obstacle;
-        std::list<std::shared_ptr<AObject>> _list;
+        std::list<std::shared_ptr<AObject>> _floor;
+        std::list<std::shared_ptr<AObject>> _map;
 };
 
 #endif /* !MAP_HPP_ */

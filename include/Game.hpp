@@ -7,15 +7,19 @@
 
 #pragma once
 
+#include <iostream>
 #include "IModule.hpp"
+#include "Event.hpp"
+#include "Core.hpp"
 #include "Map.hpp"
-#include "GeneratorMap.hpp"
 
 class Game : public IModule
 {
     public:
-        Game(video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::IrrlichtDevice *device);
-        void core(video::IVideoDriver* driver, irr::scene::ISceneManager* smgr, irr::IrrlichtDevice *device);
+        Game(Core *obj);
+        void Loop(std::vector<std::shared_ptr<IModule>> obj);
         ~Game();
     private:
+    std::vector<std::shared_ptr<IModule>> tab;
+    Core *core;
 };

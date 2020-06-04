@@ -6,12 +6,11 @@
 */
 
 #pragma once
-
 #include "AObject.hpp"
 
 class Wall : public AObject
 {
     public:
-        Wall();
+        Wall(float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         ~Wall();
 };

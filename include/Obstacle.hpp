@@ -6,12 +6,11 @@
 */
 
 #pragma once
-
 #include "AObject.hpp"
 
 class Obstacle : public AObject
 {
     public:
-        Obstacle();
+        Obstacle(float posx, float posy, scene::ISceneManager* smgr, video::IVideoDriver* driver);
         ~Obstacle();
 };

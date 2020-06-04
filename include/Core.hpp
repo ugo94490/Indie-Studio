@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <vector>
 #include <irrlicht.h>
 #include <Exception.hpp>
 #include "Event.hpp"
+#include "IModule.hpp"
 
 class Core
 {
@@ -18,11 +18,11 @@ class Core
         Core();
         ~Core();
         void launch();
-    private:
-        Event event;
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* smgr;
         irr::gui::IGUIEnvironment* guienv;
         irr::scene::IAnimatedMeshSceneNode* node;
+        std::vector<std::shared_ptr<IModule>> obj;
+        Event *recv;
 };
