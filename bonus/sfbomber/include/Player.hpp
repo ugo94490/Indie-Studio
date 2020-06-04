@@ -20,6 +20,8 @@ class Player : public GameObject {
         bool do_remove() const;
         void handle_input(void);
         void collide(std::list<std::shared_ptr<GameObject>> &objs);
+        void collideWall(std::list<std::shared_ptr<GameObject>> const &objs, mystruct::vector3f const &wallPos);
+        void collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> powerup);
         void assignAnim();
         void plantBomb(std::list<std::shared_ptr<GameObject>> &objs);
         int getPlanted() const;
@@ -40,6 +42,7 @@ class Player : public GameObject {
         int _planted;
         int _power;
         bool _throughwall;
+        float _timepassed;
         sf::Keyboard::Key _leftkey;
         sf::Keyboard::Key _rightkey;
         sf::Keyboard::Key _upkey;
