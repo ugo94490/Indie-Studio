@@ -34,6 +34,7 @@ class Menu : public IModule
         void bind_player(std::vector<std::shared_ptr<APlayer>> player, int i);
         std::vector<std::pair<bool, char>> setBoolBind(std::vector<std::pair<bool, char>> lol, int j);
         void getTouche(std::shared_ptr<APlayer> player, int j);
+        bool check_touche(std::vector<std::shared_ptr<APlayer>> player);
     private:
         Core *core;
         irr::video::ITexture *images;

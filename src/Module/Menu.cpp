@@ -274,17 +274,33 @@ void Menu::bind_player(std::vector<std::shared_ptr<APlayer>> player, int i)
     getTouche(player[i], i);
 }
 
+bool Menu::check_touche(std::vector<std::shared_ptr<APlayer>> player)
+{
+    int count = 0;
+
+    for (size_t i = 0; i < player.size(); i++) {
+        for (size_t j = 0; j < player[i]->bind.size(); j++) {
+            for (size_t k = 0; k < player.size(); k++)
+                for (size_t l = 0; l < player[k]->bind.size(); l++)
+                    if (player[i]->bind[j].second == player[k]->bind[l].second)
+                        count++;
+            if (count != 1)
+                return (false);
+            count = 0;
+        }
+    }
+    return (true);
+}
+
 void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
 {
     (void)player;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true) {
-            //VERIF TOUCHE EN DOUBLON ET VERIF TOUCHE NON ASSIGNE
+        if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
-        }
-        if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true)
+        if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player))
             Load_Game();
         for (size_t i = 0; i < player.size(); i++)
             bind_player(player, i);
