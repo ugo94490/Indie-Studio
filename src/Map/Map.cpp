@@ -9,7 +9,7 @@
 
 Map::Map(scene::ISceneManager *smgr, video::IVideoDriver *driver)
 {
-    GeneratorMap gene(17, 17);
+    GeneratorMap gene(17, 16);
     loadMap(smgr, driver);
 }
 
