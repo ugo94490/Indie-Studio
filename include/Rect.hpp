@@ -81,4 +81,18 @@ static std::vector<irr::core::rect<irr::s32>> menu_rect =
     irr::core::rect<irr::s32>(890, 1566, 1290, 1739)
 };
 
+static std::vector<irr::core::rect<irr::s32>> left_button =
+{
+    irr::core::rect<irr::s32>(116, 803, 331, 1033),
+    irr::core::rect<irr::s32>(363, 803, 578, 1033),
+    irr::core::rect<irr::s32>(631, 803, 846, 1033)
+};
+
+static std::vector<irr::core::rect<irr::s32>> right_button =
+{
+    irr::core::rect<irr::s32>(116, 1064, 331, 1294),
+    irr::core::rect<irr::s32>(363, 1064, 578, 1294),
+    irr::core::rect<irr::s32>(631, 1064, 846, 1294)
+};
+
 #endif /* !RECT_HPP_ */
