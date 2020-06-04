@@ -8,22 +8,29 @@
 #include "Player.hpp"
 
 Player::Player(bool ia, mystruct::vector3f pos, unsigned int id) : _id(id),
-_ia(ia), _alive(true), _pos(pos), _planting(false), _speedmul(1),
-_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(2)
+_ia(ia), _alive(true), _pos(pos), _planting(false), _speedmul(2),
+_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(3)
 {
     _speed = mystruct::vector3f();
-    _anims = player1Anims;
+    _anims = whiteBomberAnims;
     _leftkey = sf::Keyboard::Key::Left;
     _rightkey = sf::Keyboard::Key::Right;
     _upkey = sf::Keyboard::Key::Up;
     _downkey = sf::Keyboard::Key::Down;
     _bombkey = sf::Keyboard::Key::Return;
     if (_id == 2) {
+        _anims = blackBomberAnims;
         _leftkey = sf::Keyboard::Key::Q;
         _rightkey = sf::Keyboard::Key::D;
         _upkey = sf::Keyboard::Key::Z;
         _downkey = sf::Keyboard::Key::S;
         _bombkey = sf::Keyboard::Key::Space;
+    }
+    if (_id == 3) {
+        _anims = blueBomberAnims;
+    }
+    if (_id == 4) {
+        _anims = orangeBomberAnims;
     }
 }
 
@@ -73,6 +80,14 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
         if (type == ObjTypes::EXPLOSION && collidePointObj(_pos, pos))
             _alive = false;
         else if (type >= ObjTypes::POWERUP && collide2objs(_pos, pos)) {
+            if (type == BOMBUP)
+                _max_bombs += 1;
+            if (type == FIREUP)
+                _power += 1;
+            if (type == SPEEDUP)
+                _speedmul += 1;
+            if (type == THROUGHWALLUP)
+                _throughwall = true;
             removeObj(objs, (*it));
             it = objs.begin();
         }
@@ -80,10 +95,12 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
         (type == ObjTypes::BREAKABLEWALL && !_throughwall)) && collide2objs(_pos + _speed, pos)) {
             _speed.x = 0;
             _speed.z = 0;
+            _pos = getNearest(_pos);
         }
         else if (type == ObjTypes::BOMB && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos)) {
             _speed.x = 0;
             _speed.z = 0;
+            _pos = getNearest(_pos);
         }
     }
 }
@@ -105,8 +122,11 @@ void Player::plantBomb(std::list<std::shared_ptr<GameObject>> &objs)
     _planted += 1;
 }
 
-void Player::update(std::list<std::shared_ptr<GameObject>> &objs)
+void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
+    _speed.x *= (timepassed / 1000.0);
+    _speed.y *= (timepassed / 1000.0);
+    _speed.z *= (timepassed / 1000.0);
     assignAnim();
     collide(objs);
     _anims[_animnb].update();
@@ -124,13 +144,13 @@ void Player::handle_input(void)
     if (_ia)
         return;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(_leftkey)))
-        _speed.x += -(_speedmul * 1);
+        _speed.x += -(_speedmul * BLOCK_SIZE);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(_rightkey)))
-         _speed.x += (_speedmul * 1);
+         _speed.x += (_speedmul * BLOCK_SIZE);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(_upkey)))
-         _speed.z += -(_speedmul * 1);
+         _speed.z += -(_speedmul * BLOCK_SIZE);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(_downkey)))
-         _speed.z += (_speedmul * 1);
+         _speed.z += (_speedmul * BLOCK_SIZE);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(_bombkey)))
         _planting = true;
 }
@@ -169,17 +189,11 @@ int Player::getPower() const
 
 mystruct::vector3f Player::getNearest(mystruct::vector3f const &pos)
 {
-    int mod1 = (int(pos.x)) / BLOCK_SIZE;
-    int mod2 = (int(pos.z)) / BLOCK_SIZE;
     mystruct::vector3f vec;
+    int div1 = pos.x / BLOCK_SIZE;
+    int div2 = pos.z / BLOCK_SIZE;
 
-    if (mod1 > (BLOCK_SIZE / 2))
-        vec.x = (mod1 + 1.5) * BLOCK_SIZE;
-    else
-        vec.x = ((mod1 % BLOCK_SIZE) + 0.5) * BLOCK_SIZE;
-    if (mod2 > (BLOCK_SIZE / 2))
-        vec.z = (mod2 + 1.5) * BLOCK_SIZE;
-    else
-        vec.z = ((mod2 % BLOCK_SIZE) + 0.5) * BLOCK_SIZE;
+    vec.x = div1 * BLOCK_SIZE + BLOCK_SIZE / 2;
+    vec.z = div2 * BLOCK_SIZE + BLOCK_SIZE / 2;
     return (vec);
 }

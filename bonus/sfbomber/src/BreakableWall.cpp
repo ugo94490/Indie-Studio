@@ -29,7 +29,17 @@ void BreakableWall::draw(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sp
     window->draw(sprite);
 }
 
-void BreakableWall::update(std::list<std::shared_ptr<GameObject>> &objs)
+void BreakableWall::tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const
+{
+    int generate = std::rand() % 3;
+    int power = std::rand() % 4;
+
+    if (generate != 0)
+        return;
+    objs.push_back(std::shared_ptr<GameObject>(new Powerup(ObjTypes(POWERUP + 1 + power), _pos)));
+}
+
+void BreakableWall::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     _anim.update();
     if (_exploded)
@@ -38,6 +48,8 @@ void BreakableWall::update(std::list<std::shared_ptr<GameObject>> &objs)
         if ((*it)->getType() == ObjTypes::EXPLOSION && (*it)->getPos() == _pos) {
             _exploded = true;
             _anim.setDoAnim(true);
+            tryAddPowerUp(objs);
+            removeObj(objs, (*it));
             break;
         }
     }

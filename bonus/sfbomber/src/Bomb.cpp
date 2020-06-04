@@ -122,7 +122,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
     }
 }
 
-void Bomb::update(std::list<std::shared_ptr<GameObject>> &objs)
+void Bomb::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     _anim.update();
     if (_anim.getDestroy() && _anim.getNbCycles() == 0)

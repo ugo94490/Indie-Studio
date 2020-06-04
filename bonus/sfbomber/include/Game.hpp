@@ -24,6 +24,7 @@ class Game {
         void draw() const;
         void handle_input();
         void removeDead();
+        void checkend();
 
     protected:
         bool _continue;

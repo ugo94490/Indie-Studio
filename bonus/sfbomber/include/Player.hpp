@@ -14,7 +14,7 @@ class Player : public GameObject {
         Player(bool ia = false, mystruct::vector3f pos = mystruct::vector3f(), unsigned int id = 1);
         ~Player();
         void draw(std::shared_ptr<sf::RenderWindow>, sf::Sprite) const;
-        void update(std::list<std::shared_ptr<GameObject>> &objs);
+        void update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed);
         mystruct::vector3f getPos() const;
         GameObject::ObjTypes getType() const;
         bool do_remove() const;

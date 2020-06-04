@@ -14,7 +14,8 @@ SRC	=	src/main.cpp			\
 		src/Ground.cpp			\
 		src/BreakableWall.cpp	\
 		src/Bomb.cpp			\
-		src/Explosion.cpp
+		src/Explosion.cpp		\
+		src/Powerup.cpp
 
 CC	=	g++
 

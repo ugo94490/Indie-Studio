@@ -27,7 +27,7 @@ void Explosion::draw(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sprite
     window->draw(sprite);
 }
 
-void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs)
+void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     _anim.update();
 }

@@ -2,33 +2,27 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** Bomb
+** BreakableWall
 */
 
 #pragma once
 
-#include "GameObject.hpp"
-#include "Explosion.hpp"
+#include "Powerup.hpp"
 
-class Player;
-
-class Bomb : public GameObject {
+class BreakableWall : public GameObject {
     public:
-        Bomb(Player *planter, mystruct::vector3f pos);
-        ~Bomb();
+        BreakableWall(float x, float y, float z);
+        ~BreakableWall();
         void draw(std::shared_ptr<sf::RenderWindow>, sf::Sprite) const;
-        void update(std::list<std::shared_ptr<GameObject>> &objs);
+        void update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed);
         mystruct::vector3f getPos() const;
         GameObject::ObjTypes getType() const;
         bool do_remove() const;
-        void explode(std::list<std::shared_ptr<GameObject>> &objs);
+        void tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const;
 
     protected:
-        Player *_planter;
         mystruct::vector3f _pos;
-        bool _exploded;
         Animation _anim;
+        bool _exploded;
     private:
 };
-
-#include "Player.hpp"

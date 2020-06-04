@@ -23,11 +23,15 @@ class GameObject {
             BREAKABLEWALL,
             SOLIDWALL,
             PLAYER,
-            POWERUP
+            POWERUP,
+            BOMBUP,
+            FIREUP,
+            SPEEDUP,
+            THROUGHWALLUP
         };
         virtual ~GameObject() = default;
         virtual void draw(std::shared_ptr<sf::RenderWindow>, sf::Sprite) const = 0;
-        virtual void update(std::list<std::shared_ptr<GameObject>> &objs) = 0;
+        virtual void update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed) = 0;
         virtual mystruct::vector3f getPos() const = 0;
         virtual GameObject::ObjTypes getType() const = 0;
         virtual bool do_remove() const = 0;

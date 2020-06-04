@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2020
 ** sfbomber
 ** File description:
-** SolidWall
+** Ground
 */
 
-#include "SolidWall.hpp"
+#include "Ground.hpp"
 
-SolidWall::SolidWall(float x, float y, float z) : _anim(solidWallAnim)
+Ground::Ground(float x, float y, float z) : _anim(groundAnim)
 {
     _pos.x = x;
     _pos.y = y;
     _pos.z = z;
 }
 
-SolidWall::~SolidWall()
+Ground::~Ground()
 {
 }
 
-void SolidWall::draw(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sprite) const
+void Ground::draw(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sprite) const
 {
     mystruct::intRect myrect = _anim.getActualRect();
     sf::IntRect sfrect(myrect.left, myrect.top, myrect.width, myrect.height);
@@ -29,21 +29,21 @@ void SolidWall::draw(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sprite
     window->draw(sprite);
 }
 
-void SolidWall::update(std::list<std::shared_ptr<GameObject>> &objs)
+void Ground::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
 }
 
-GameObject::ObjTypes SolidWall::getType() const
+GameObject::ObjTypes Ground::getType() const
 {
-    return (ObjTypes::SOLIDWALL);
+    return (ObjTypes::GROUND);
 }
 
-mystruct::vector3f SolidWall::getPos() const
+mystruct::vector3f Ground::getPos() const
 {
     return (_pos);
 }
 
-bool SolidWall::do_remove() const
+bool Ground::do_remove() const
 {
     return (false);
 }

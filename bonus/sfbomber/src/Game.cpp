@@ -29,9 +29,18 @@ Game::Game(std::shared_ptr<sf::RenderWindow> window)
         }
     }
     myfile.close();
-    std::shared_ptr<Player> player1(new Player(false, mystruct::vector3f(BLOCK_SIZE * 1.5, 0, BLOCK_SIZE * 1.5)));
-    _objects.push_back(player1);
-    _players.push_back(player1);
+    std::shared_ptr<Player> white(new Player(false, mystruct::vector3f(BLOCK_SIZE * 1.5, 0, BLOCK_SIZE * 1.5), 1));
+    std::shared_ptr<Player> black(new Player(false, mystruct::vector3f(BLOCK_SIZE * 13.5, 0, BLOCK_SIZE * 11.5), 2));
+    std::shared_ptr<Player> blue(new Player(true, mystruct::vector3f(BLOCK_SIZE * 13.5, 0, BLOCK_SIZE * 1.5), 3));
+    std::shared_ptr<Player> orange(new Player(true, mystruct::vector3f(BLOCK_SIZE * 1.5, 0, BLOCK_SIZE * 11.5), 4));
+    _objects.push_back(white);
+    _players.push_back(white);
+    _objects.push_back(black);
+    _players.push_back(black);
+    _objects.push_back(blue);
+    _players.push_back(blue);
+    _objects.push_back(orange);
+    _players.push_back(orange);
     _sprite.setTexture(_texture);
 }
 
@@ -43,7 +52,7 @@ Game::~Game()
 void Game::draw() const
 {
     _window->clear(sf::Color::Black);
-    for (int i = 0; i <= 6; i++)
+    for (int i = 0; i <= GameObject::ObjTypes::THROUGHWALLUP; i++)
         for (auto it = _objects.begin(); it != _objects.end(); ++it)
             if ((*it)->getType() == i)
                 (*it)->draw(_window, _sprite);
@@ -73,13 +82,32 @@ void Game::removeDead()
     }
 }
 
+void Game::checkend()
+{
+    int alive = 0;
+
+    for (auto it = _players.begin(); it != _players.end(); ++it)
+        if (!(*it)->do_remove())
+            alive += 1;
+    if (alive <= 1)
+        _continue = false;
+}
+
 void Game::loop()
 {
+    std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
+    float timepassed;
+
     while (_continue && _window->isOpen()) {
+        _end = std::chrono::steady_clock::now();
+        timepassed = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
+        _start = std::chrono::steady_clock::now();
         handle_input();
         for (auto it = _objects.begin(); it != _objects.end(); ++it)
-            (*it)->update(_objects);
+            (*it)->update(_objects, timepassed);
         removeDead();
         draw();
+        checkend();
     }
 }
