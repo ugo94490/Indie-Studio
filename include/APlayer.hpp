@@ -22,11 +22,10 @@ class APlayer
         virtual ~APlayer() = default;
         APlayer::PlayerType getType(void);
         std::vector<float> getPos(void);
-
-    protected:
         APlayer::PlayerType type;
         int health;
         int speed;
         int range;
         std::vector<float> pos;
+        std::vector<std::pair<bool, char>> bind;
 };

@@ -11,36 +11,6 @@
 #include <irrlicht.h>
 #include <vector>
 
-static std::vector<std::pair<irr::EKEY_CODE, std::string>> KeyInput =
-{
-    {irr::KEY_KEY_A, "A"},
-    {irr::KEY_KEY_B, "B"},
-    {irr::KEY_KEY_C, "C"},
-    {irr::KEY_KEY_D, "D"},
-    {irr::KEY_KEY_E, "E"},
-    {irr::KEY_KEY_F, "F"},
-    {irr::KEY_KEY_G, "G"},
-    {irr::KEY_KEY_H, "H"},
-    {irr::KEY_KEY_I, "I"},
-    {irr::KEY_KEY_J, "J"},
-    {irr::KEY_KEY_K, "K"},
-    {irr::KEY_KEY_L, "L"},
-    {irr::KEY_KEY_M, "M"},
-    {irr::KEY_KEY_N, "N"},
-    {irr::KEY_KEY_O, "O"},
-    {irr::KEY_KEY_P, "P"},
-    {irr::KEY_KEY_Q, "Q"},
-    {irr::KEY_KEY_R, "R"},
-    {irr::KEY_KEY_S, "S"},
-    {irr::KEY_KEY_T, "T"},
-    {irr::KEY_KEY_U, "U"},
-    {irr::KEY_KEY_V, "V"},
-    {irr::KEY_KEY_W, "W"},
-    {irr::KEY_KEY_X, "X"},
-    {irr::KEY_KEY_Y, "Y"},
-    {irr::KEY_KEY_Z, "Z"}
-};
-
 static std::vector<irr::core::rect<irr::s32>> play_rect =
 {
     irr::core::rect<irr::s32>(0, 0, 400, 173),
@@ -170,6 +140,77 @@ static irr::core::rect<irr::s32> red_rect =
 static irr::core::rect<irr::s32> blue_rect =
 {
     irr::core::rect<irr::s32>(0, 0, 230, 510)
+};
+
+static std::vector<irr::core::rect<irr::s32>> touche_rect =
+{
+    irr::core::rect<irr::s32>(1291, 621, 1391, 721),
+    irr::core::rect<irr::s32>(1291, 621, 1391, 721),
+    irr::core::rect<irr::s32>(1291, 621, 1391, 721)
+};
+
+static std::vector<std::vector<irr::core::position2d<irr::s32>>> pos_bind =
+{
+    {
+        irr::core::position2d<irr::s32>(430, 40),
+        irr::core::position2d<irr::s32>(320, 150),
+        irr::core::position2d<irr::s32>(430, 150),
+        irr::core::position2d<irr::s32>(540, 150),
+        irr::core::position2d<irr::s32>(430, 260)
+    },
+    {
+        irr::core::position2d<irr::s32>(1390, 40),
+        irr::core::position2d<irr::s32>(1280, 150),
+        irr::core::position2d<irr::s32>(1390, 150),
+        irr::core::position2d<irr::s32>(1500, 150),
+        irr::core::position2d<irr::s32>(1390, 260)
+    },
+    {
+        irr::core::position2d<irr::s32>(430, 440),
+        irr::core::position2d<irr::s32>(320, 550),
+        irr::core::position2d<irr::s32>(430, 550),
+        irr::core::position2d<irr::s32>(540, 550),
+        irr::core::position2d<irr::s32>(430, 660)
+    },
+    {
+        irr::core::position2d<irr::s32>(1390, 440),
+        irr::core::position2d<irr::s32>(1280, 550),
+        irr::core::position2d<irr::s32>(1390, 550),
+        irr::core::position2d<irr::s32>(1500, 550),
+        irr::core::position2d<irr::s32>(1390, 660)
+    }
+};
+
+static std::vector<std::vector<irr::core::rect<irr::s32>>> pos_bind_rect =
+{
+    {
+        irr::core::rect<irr::s32>(430, 40, 530, 140),
+        irr::core::rect<irr::s32>(320, 150, 420, 250),
+        irr::core::rect<irr::s32>(430, 150, 530, 250),
+        irr::core::rect<irr::s32>(540, 150, 640, 250),
+        irr::core::rect<irr::s32>(430, 260, 530, 360)
+    },
+    {
+        irr::core::rect<irr::s32>(1390, 40, 1490, 140),
+        irr::core::rect<irr::s32>(1280, 150, 1380, 250),
+        irr::core::rect<irr::s32>(1390, 150, 1490, 250),
+        irr::core::rect<irr::s32>(1500, 150, 1600, 250),
+        irr::core::rect<irr::s32>(1390, 260, 1490, 360)
+    },
+    {
+        irr::core::rect<irr::s32>(430, 440, 530, 540),
+        irr::core::rect<irr::s32>(320, 550, 420, 650),
+        irr::core::rect<irr::s32>(430, 550, 530, 650),
+        irr::core::rect<irr::s32>(540, 550, 640, 650),
+        irr::core::rect<irr::s32>(430, 660, 530, 760)
+    },
+    {
+        irr::core::rect<irr::s32>(1390, 440, 1490, 540),
+        irr::core::rect<irr::s32>(1280, 550, 1380, 650),
+        irr::core::rect<irr::s32>(1390, 550, 1490, 650),
+        irr::core::rect<irr::s32>(1500, 550, 1600, 650),
+        irr::core::rect<irr::s32>(1390, 660, 1490, 760)
+    }
 };
 
 #endif /* !RECT_HPP_ */

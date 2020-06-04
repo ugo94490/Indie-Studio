@@ -27,10 +27,14 @@ class Menu : public IModule
         void select_nb_player();
         std::vector<std::pair<bool, std::string>> setBoolName(std::vector<std::pair<bool, std::string>> tab, int i);
         std::vector<std::pair<bool, std::string>> Skin_button( std::vector<std::pair<bool, std::string>> write, int nb);
-        std::vector<std::pair<bool, std::string>> Display_name(std::vector<std::pair<bool, std::string>> write, bool *click);
+        void Display_name(std::vector<std::pair<bool, std::string>> *write, bool *click);
         void getBind(std::vector<std::shared_ptr<APlayer>> player);
         std::vector<std::shared_ptr<APlayer>> create_player(std::vector<std::pair<bool, std::string>> write, int nb);
         std::shared_ptr<APlayer> createObject(std::string name, int skin);
+        void bind_player(std::vector<std::shared_ptr<APlayer>> player, int i);
+        std::vector<std::pair<bool, char>> setBoolBind(std::vector<std::pair<bool, char>> lol, int j);
+        void getTouche(std::shared_ptr<APlayer> player, int j);
+        bool check_touche(std::vector<std::shared_ptr<APlayer>> player);
     private:
         Core *core;
         irr::video::ITexture *images;
