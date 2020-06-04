@@ -191,6 +191,7 @@ std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pa
 std::shared_ptr<APlayer> Menu::createObject(std::string name, int skin)
 {
     std::shared_ptr<APlayer> ptr(new Normal(name, bomb[skin]));
+    ptr->type = APlayer::Normal;
     return (ptr);
 }
 
