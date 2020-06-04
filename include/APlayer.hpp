@@ -27,4 +27,5 @@ class APlayer
         int speed;
         int range;
         std::vector<float> pos;
+        std::vector<std::pair<bool, char>> bind;
 };

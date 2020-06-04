@@ -171,27 +171,29 @@ std::vector<std::pair<bool, std::string>> Menu::Skin_button( std::vector<std::pa
     return (write);
 }
 
-std::vector<std::pair<bool, std::string>> Menu::Display_name(std::vector<std::pair<bool, std::string>> write, bool *click)
+void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *click)
 {
-    if (core->recv->eve.KeyInput.PressedDown && *click == false)
-        for (size_t i = 0; i < write.size(); i++)
-            if (write[i].first == true) {
+    if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown == true && *click == false)
+        for (size_t i = 0; i < (*write).size(); i++)
+            if ((*write)[i].first == true) {
                 *click = true;
-                if (core->recv->eve.KeyInput.Char == 8 && write[i].second.size() > 0)
-                    write[i].second.erase(write[i].second.size() - 1);
-                else if (((core->recv->eve.KeyInput.Char >= 65 && core->recv->eve.KeyInput.Char <= 90) || (core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122)) && write[i].second.size() < 14)
-                    write[i].second += core->recv->eve.KeyInput.Char;
+                if (core->recv->eve.KeyInput.Char == 8 && (*write)[i].second.size() > 0)
+                    (*write)[i].second.erase((*write)[i].second.size() - 1);
+                else if (((core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122)) && (*write)[i].second.size() < 14)
+                    (*write)[i].second += core->recv->eve.KeyInput.Char;
             }
     if (core->font)
-        for (size_t i = 0; i < write.size(); i++)
-            core->font->draw(write[i].second.c_str(), input_rect[i], irr::video::SColor(255,0,0,0), true, true);
-    return (write);
+        for (size_t i = 0; i < (*write).size(); i++) {
+            if ((*write)[i].second.size() > 0)
+                core->font->draw((*write)[i].second.c_str(), input_rect[i], irr::video::SColor(255,0,0,0), true, true);
+        }
 }
 
 std::shared_ptr<APlayer> Menu::createObject(std::string name, int skin)
 {
     std::shared_ptr<APlayer> ptr(new Normal(name, bomb[skin]));
     ptr->type = APlayer::Normal;
+    ptr->bind = {{false, 97}, {false, 97}, {false, 97}, {false, 97}, {false, 97}};
     return (ptr);
 }
 
@@ -225,10 +227,51 @@ void Menu::New_Game(int nb)
             _start = std::chrono::steady_clock::now();
             click = false;
         }
-        write = Display_name(write, &click);
+        Display_name(&write, &click);
         display_skin();
         core->driver->endScene();
     }
+}
+
+std::vector<std::pair<bool, char>> Menu::setBoolBind(std::vector<std::pair<bool, char>> lol, int j)
+{
+    for (size_t i = 0; i < lol.size(); i++)
+        lol[i].first = false;
+    lol[j].first = true;
+    return (lol);
+}
+
+void Menu::getTouche(std::shared_ptr<APlayer> player, int j)
+{
+    std::string str;
+
+    if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown)
+        for (size_t i = 0; i < player->bind.size(); i++)
+            if (player->bind[i].first == true)
+                if (((core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122))) {
+                    player->bind[i].second = core->recv->eve.KeyInput.Char;
+                    player->bind[i].first = false;
+                }
+    if (core->font)
+        for (size_t i = 0; i < player->bind.size(); i++) {
+            str = player->bind[i].second;
+            core->font->draw(str.c_str(), pos_bind_rect[j][i], irr::video::SColor(255,0,0,0), true, true);
+        }
+}
+
+void Menu::bind_player(std::vector<std::shared_ptr<APlayer>> player, int i)
+{
+    if (Button_bool(pos_bind[i][0], touche_rect))
+        player[i]->bind = setBoolBind(player[i]->bind, 0);
+    if (Button_bool(pos_bind[i][1], touche_rect))
+        player[i]->bind = setBoolBind(player[i]->bind, 1);
+    if (Button_bool(pos_bind[i][2], touche_rect))
+        player[i]->bind = setBoolBind(player[i]->bind, 2);
+    if (Button_bool(pos_bind[i][3], touche_rect))
+        player[i]->bind = setBoolBind(player[i]->bind, 3);
+    if (Button_bool(pos_bind[i][4], touche_rect))
+        player[i]->bind = setBoolBind(player[i]->bind, 4);
+    getTouche(player[i], i);
 }
 
 void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
@@ -237,8 +280,14 @@ void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
+        if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true) {
+            //VERIF TOUCHE EN DOUBLON ET VERIF TOUCHE NON ASSIGNE
             break;
+        }
+        if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true)
+            Load_Game();
+        for (size_t i = 0; i < player.size(); i++)
+            bind_player(player, i);
         core->driver->endScene();
     }
 }
