@@ -24,6 +24,7 @@ class Menu : public IModule
         void Game();
         void New_Game(int nb);
         void Load_Game();
+        void select_nb_player();
         std::vector<std::pair<bool, std::string>> setBoolName(std::vector<std::pair<bool, std::string>> tab, int i);
         std::vector<std::pair<bool, std::string>> Skin_button( std::vector<std::pair<bool, std::string>> write, int nb);
         std::vector<std::pair<bool, std::string>> Display_name(std::vector<std::pair<bool, std::string>> write, bool *click);
