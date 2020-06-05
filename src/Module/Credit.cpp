@@ -13,8 +13,9 @@
 Credit::Credit(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/Menu.jpg");
+    images = core->driver->getTexture("assets/Sprite/credit.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
+    xbox = core->driver->getTexture("assets/Sprite/xbox.jpg");
 }
 
 bool Credit::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -61,6 +62,8 @@ void Credit::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(xbox, irr::core::position2d<irr::s32>(630,290));
+        core->font->draw(L"Game developed by Arthur Benard, Lucas Renard,\n Gregoire Brasseur, Paul Cochet and Ugo Levi", irr::core::rect<irr::s32>(400, 690, 1920, 750), irr::video::SColor(255,0,0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
         core->driver->endScene();

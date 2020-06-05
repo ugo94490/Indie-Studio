@@ -45,6 +45,7 @@ class Menu : public IModule
         irr::video::ITexture *red;
         irr::video::ITexture *green;
         irr::video::ITexture *blue;
+        irr::video::ITexture *title;
         std::vector<irr::video::ITexture *> bomb;
         std::vector<irr::core::rect<irr::s32>> bomb_rect;
         std::vector<std::shared_ptr<IModule>> tab;

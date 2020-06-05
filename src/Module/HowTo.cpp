@@ -13,7 +13,7 @@
 HowTo::HowTo(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/Menu.jpg");
+    images = core->driver->getTexture("assets/Sprite/credit.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
 }
 
@@ -63,6 +63,7 @@ void HowTo::Loop(std::vector<std::shared_ptr<IModule>> obj)
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
+        core->font->draw(L"Incarne un poseur de bombes, le but étant de faire\n   exploser les adversaires/ennemis pour gagner.", irr::core::rect<irr::s32>(400, 690, 1920, 750), irr::video::SColor(255,0,0,0));
         core->driver->endScene();
     }
 }

@@ -25,6 +25,7 @@ Menu::Menu(Core *obj)
     green = core->driver->getTexture("assets/Sprite/Button/green.png");
     red = core->driver->getTexture("assets/Sprite/Button/red.png");
     blue = core->driver->getTexture("assets/Sprite/Button/blue.png");
+    title = core->driver->getTexture("assets/Sprite/title.png");
     bomb.push_back(white);
     bomb.push_back(black);
     bomb.push_back(green);
@@ -35,6 +36,10 @@ Menu::Menu(Core *obj)
     bomb_rect.push_back(green_rect);
     bomb_rect.push_back(red_rect);
     bomb_rect.push_back(blue_rect);
+}
+
+Menu::~Menu()
+{
 }
 
 void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -82,6 +87,7 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(title, irr::core::position2d<irr::s32>(760,100), irr::core::rect<irr::s32>(0, 0, 400, 151), 0, irr::video::SColor(255,255,255,255), true);
         if (Button_bool(irr::core::position2d<irr::s32>(280, 94), play_rect) == true)
             Game();
         Button(tab[2], irr::core::position2d<irr::s32>(1240, 94), score_rect);
@@ -314,8 +320,4 @@ void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
 void Menu::Load_Game()
 {
     tab[1]->Loop(tab);
-}
-
-Menu::~Menu()
-{
 }
