@@ -12,6 +12,17 @@ Game::Game(Core *obj)
     core = obj;
 }
 
+std::shared_ptr<APlayer> Game::getPlayerInput(char c)
+{
+    int count = 0;
+
+    for (size_t i = 0; i < character.size(); i++)
+        for (size_t j = 0; j < character[i]->bind.size(); j++)
+            if (character[i]->bind[j].second == c)
+                return (character[i]);
+    return (nullptr);
+}
+
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
     core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
