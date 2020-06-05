@@ -14,8 +14,6 @@ Game::Game(Core *obj)
 
 std::shared_ptr<APlayer> Game::getPlayerInput(char c)
 {
-    int count = 0;
-
     for (size_t i = 0; i < character.size(); i++)
         for (size_t j = 0; j < character[i]->bind.size(); j++)
             if (character[i]->bind[j].second == c)
