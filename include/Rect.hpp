@@ -11,6 +11,20 @@
 #include <irrlicht.h>
 #include <vector>
 
+static std::vector<irr::core::rect<irr::s32>> right_rect =
+{
+    irr::core::rect<irr::s32>(0, 1914, 214, 2143),
+    irr::core::rect<irr::s32>(247, 1914, 461, 2143),
+    irr::core::rect<irr::s32>(515, 1914, 729, 2143)
+};
+
+static std::vector<irr::core::rect<irr::s32>> left_rect =
+{
+    irr::core::rect<irr::s32>(0, 2144, 214, 2374),
+    irr::core::rect<irr::s32>(247, 2144, 461, 2374),
+    irr::core::rect<irr::s32>(515, 2144, 729, 2374)
+};
+
 static std::vector<irr::core::rect<irr::s32>> play_rect =
 {
     irr::core::rect<irr::s32>(0, 0, 400, 173),
@@ -79,20 +93,6 @@ static std::vector<irr::core::rect<irr::s32>> menu_rect =
     irr::core::rect<irr::s32>(0, 1566, 400, 1739),
     irr::core::rect<irr::s32>(445, 1566, 845, 1739),
     irr::core::rect<irr::s32>(890, 1566, 1290, 1739)
-};
-
-static std::vector<irr::core::rect<irr::s32>> left_button =
-{
-    irr::core::rect<irr::s32>(116, 803, 331, 1033),
-    irr::core::rect<irr::s32>(363, 803, 578, 1033),
-    irr::core::rect<irr::s32>(631, 803, 846, 1033)
-};
-
-static std::vector<irr::core::rect<irr::s32>> right_button =
-{
-    irr::core::rect<irr::s32>(116, 1064, 331, 1294),
-    irr::core::rect<irr::s32>(363, 1064, 578, 1294),
-    irr::core::rect<irr::s32>(631, 1064, 846, 1294)
 };
 
 static std::vector<irr::core::rect<irr::s32>> rectangle_rect =
