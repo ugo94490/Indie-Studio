@@ -10,11 +10,12 @@
 #include <irrlicht.h>
 #include <vector>
 #include <memory>
+#include "APlayer.hpp"
 
 class IModule
 {
     public:
         virtual ~IModule() = default;
         virtual void Loop(std::vector<std::shared_ptr<IModule>> obj) = 0;
-    private:
+        std::vector<std::shared_ptr<APlayer>> character;
 };

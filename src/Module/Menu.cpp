@@ -300,8 +300,10 @@ void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
-        if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player))
-            Load_Game();
+        if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player)) {
+            tab[1]->character = player;
+            tab[1]->Loop(tab);
+        }
         for (size_t i = 0; i < player.size(); i++)
             bind_player(player, i);
         core->driver->endScene();
