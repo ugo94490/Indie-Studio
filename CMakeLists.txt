@@ -31,5 +31,6 @@ set(SOURCE_FILES
     src/Object/Wall.cpp
     src/Object/Empty.cpp
     src/Map/Map.cpp
-    src/Map/GeneratorMap.cpp)
+    src/Map/GeneratorMap.cpp
+    src/Factory.cpp)
 add_executable(${NAME} ${SOURCE_FILES})
