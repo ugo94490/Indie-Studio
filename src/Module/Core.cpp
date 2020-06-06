@@ -16,6 +16,7 @@
 
 Core::Core()
 {
+    std::string str = "assets/hometown.ogg";
     std::shared_ptr<IModule> ptr;
     device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080));
     if (!device)
@@ -35,11 +36,15 @@ Core::Core()
     title = driver->getTexture("assets/Sprite/title.png");
     xbox = driver->getTexture("assets/Sprite/xbox.jpg");
     other_back = driver->getTexture("assets/Sprite/credit.jpg");
+    menu_music = Sound::createMusic(str);
+    Sound::playMusic(menu_music);
+    Sound::setVolume(menu_music, 10);
 }
 
 Core::~Core()
 {
     delete recv;
+    Sound::destroyMusic(menu_music);
 	device->drop();
 }
 

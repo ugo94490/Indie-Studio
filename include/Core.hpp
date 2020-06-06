@@ -11,6 +11,7 @@
 #include <Exception.hpp>
 #include "Event.hpp"
 #include "IModule.hpp"
+#include "Sound.hpp"
 
 class Core
 {
@@ -31,4 +32,5 @@ class Core
         irr::video::ITexture *title;
         irr::video::ITexture *xbox;
         irr::video::ITexture *other_back;
+        sf::Music *menu_music;
 };

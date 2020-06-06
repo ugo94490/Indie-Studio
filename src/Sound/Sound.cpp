@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Sound.hpp"
 
-sf::Music *createMusic(std::string path)
+sf::Music *Sound::createMusic(std::string path)
 {
     sf::Music *music = new sf::Music;
 
@@ -22,7 +22,7 @@ void Sound::setVolume(sf::Music *music, int volume)
     music->setVolume(volume);
 }
 
-void setLoop(sf::Music *music)
+void Sound::setLoop(sf::Music *music)
 {
     music->setLoop(true);
 }
@@ -39,5 +39,5 @@ void Sound::stopMusic(sf::Music *music)
 
 void Sound::destroyMusic(sf::Music *music)
 {
-    delete music;
+    music->~Music();
 }
