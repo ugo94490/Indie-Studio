@@ -13,22 +13,22 @@ Map::Map(scene::ISceneManager *smgr, video::IVideoDriver *driver)
     loadMap(smgr, driver);
 }
 
+Map::~Map()
+{
+}
+
 void Map::createObject(float posy, float posx, char c, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
     if (c == 'X') {
-        std::shared_ptr<AObject> ptr(new Wall(posx, posy, smgr, driver));
-        _map.push_back(ptr);
+        std::shared_ptr<GameObject> objptr = std::make_shared<SolidWall>(posx, 40, posy, smgr, driver);
+        _objs.push_back(objptr);
     }
     if (c == 'O') {
-        std::shared_ptr<AObject> ptr(new Obstacle(posx, posy, smgr, driver));
-        _map.push_back(ptr);
+        std::shared_ptr<GameObject> objptr = std::make_shared<BreakableWall>(posx, 40, posy, smgr, driver);
+        _objs.push_back(objptr);
     }
-    if (c == ' ') {
-        std::shared_ptr<AObject> ptr(new Empty(posx, posy));
-        _map.push_back(ptr);
-    }
-    std::shared_ptr<AObject> ptr(new Floor(posx, posy, smgr, driver));
-    _floor.push_back(ptr);
+    std::shared_ptr<GameObject> objptr = std::make_shared<Ground>(posx, 0, posy, smgr, driver);
+    _objs.push_back(objptr);
 }
 
 void Map::loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver)
@@ -46,7 +46,7 @@ void Map::loadMap(scene::ISceneManager* smgr, video::IVideoDriver* driver)
     myfile.close();
 }
 
-Map::~Map()
+std::list<std::shared_ptr<GameObject>> Map::getMap() const
 {
-
+    return (_objs);
 }
