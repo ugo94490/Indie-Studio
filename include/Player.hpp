@@ -11,6 +11,7 @@
 
 class Player : public GameObject {
     public:
+        Player(std::string name, irr::video::ITexture *bomberman);
         Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, bool ia = false);
         Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, bool ia = false);
         ~Player();
@@ -26,17 +27,20 @@ class Player : public GameObject {
         int getPlanted() const;
         void setPlanted(int planted);
         int getPower() const;
+        void setBind(std::vector<std::pair<bool, char>> bind);
         irr::core::vector3d<f32> getNearest(irr::core::vector3d<f32> const &pos);
+
+        std::vector<std::pair<bool, char>> _bind;
 
     protected:
     private:
+        std::string _name;
+        irr::video::ITexture *_skin;
         scene::IAnimatedMeshSceneNode *_node;
         scene::ISceneManager* _smgr;
         video::IVideoDriver* _driver;
         irr::core::vector3d<f32> _pos;
         irr::core::vector3d<f32> _speed;
-        std::string _name;
-        irr::video::ITexture *_skin;
         bool _ia;
         bool _alive;
         bool _planting;
@@ -46,5 +50,4 @@ class Player : public GameObject {
         int _power;
         bool _throughwall;
         float _timepassed;
-        std::vector<std::pair<bool, char>> bind;
 };

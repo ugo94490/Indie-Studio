@@ -12,7 +12,6 @@
 #include <map>
 #include "Menu.hpp"
 #include "Rect.hpp"
-#include "Normal.hpp"
 
 Menu::Menu(Core *obj)
 {
@@ -196,17 +195,17 @@ void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *
         }
 }
 
-std::shared_ptr<APlayer> Menu::createObject(std::string name, int skin)
+std::shared_ptr<Player> Menu::createObject(std::string name, int skin)
 {
-    std::shared_ptr<APlayer> ptr(new Normal(name, bomb[skin]));
-    ptr->type = APlayer::Normal;
-    ptr->bind = {{false, 97}, {false, 97}, {false, 97}, {false, 97}, {false, 97}};
+    std::shared_ptr<Player> ptr = std::make_shared<Player>(name, bomb[skin]);
+
+    ptr->_bind = {{false, 97}, {false, 97}, {false, 97}, {false, 97}, {false, 97}};
     return (ptr);
 }
 
-std::vector<std::shared_ptr<APlayer>> Menu::create_player(std::vector<std::pair<bool, std::string>> write, int nb)
+std::vector<std::shared_ptr<Player>> Menu::create_player(std::vector<std::pair<bool, std::string>> write, int nb)
 {
-    std::vector<std::shared_ptr<APlayer>> player;
+    std::vector<std::shared_ptr<Player>> player;
 
     for (int i = 0; i < nb; i++)
         player.push_back(createObject(write[i].second, skin_nb[i]));
@@ -248,48 +247,48 @@ std::vector<std::pair<bool, char>> Menu::setBoolBind(std::vector<std::pair<bool,
     return (lol);
 }
 
-void Menu::getTouche(std::shared_ptr<APlayer> player, int j)
+void Menu::getTouche(std::shared_ptr<Player> player, int j)
 {
     std::string str;
 
     if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown)
-        for (size_t i = 0; i < player->bind.size(); i++)
-            if (player->bind[i].first == true)
+        for (size_t i = 0; i < player->_bind.size(); i++)
+            if (player->_bind[i].first == true)
                 if (((core->recv->eve.KeyInput.Char >= 97 && core->recv->eve.KeyInput.Char <= 122))) {
-                    player->bind[i].second = core->recv->eve.KeyInput.Char;
-                    player->bind[i].first = false;
+                    player->_bind[i].second = core->recv->eve.KeyInput.Char;
+                    player->_bind[i].first = false;
                 }
     if (core->font)
-        for (size_t i = 0; i < player->bind.size(); i++) {
-            str = player->bind[i].second;
+        for (size_t i = 0; i < player->_bind.size(); i++) {
+            str = player->_bind[i].second;
             core->font->draw(str.c_str(), pos_bind_rect[j][i], irr::video::SColor(255,0,0,0), true, true);
         }
 }
 
-void Menu::bind_player(std::vector<std::shared_ptr<APlayer>> player, int i)
+void Menu::bind_player(std::vector<std::shared_ptr<Player>> player, int i)
 {
     if (Button_bool(pos_bind[i][0], touche_rect))
-        player[i]->bind = setBoolBind(player[i]->bind, 0);
+        player[i]->_bind = setBoolBind(player[i]->_bind, 0);
     if (Button_bool(pos_bind[i][1], touche_rect))
-        player[i]->bind = setBoolBind(player[i]->bind, 1);
+        player[i]->_bind = setBoolBind(player[i]->_bind, 1);
     if (Button_bool(pos_bind[i][2], touche_rect))
-        player[i]->bind = setBoolBind(player[i]->bind, 2);
+        player[i]->_bind = setBoolBind(player[i]->_bind, 2);
     if (Button_bool(pos_bind[i][3], touche_rect))
-        player[i]->bind = setBoolBind(player[i]->bind, 3);
+        player[i]->_bind = setBoolBind(player[i]->_bind, 3);
     if (Button_bool(pos_bind[i][4], touche_rect))
-        player[i]->bind = setBoolBind(player[i]->bind, 4);
+        player[i]->_bind = setBoolBind(player[i]->_bind, 4);
     getTouche(player[i], i);
 }
 
-bool Menu::check_touche(std::vector<std::shared_ptr<APlayer>> player)
+bool Menu::check_touche(std::vector<std::shared_ptr<Player>> player)
 {
     int count = 0;
 
     for (size_t i = 0; i < player.size(); i++) {
-        for (size_t j = 0; j < player[i]->bind.size(); j++) {
+        for (size_t j = 0; j < player[i]->_bind.size(); j++) {
             for (size_t k = 0; k < player.size(); k++)
-                for (size_t l = 0; l < player[k]->bind.size(); l++)
-                    if (player[i]->bind[j].second == player[k]->bind[l].second)
+                for (size_t l = 0; l < player[k]->_bind.size(); l++)
+                    if (player[i]->_bind[j].second == player[k]->_bind[l].second)
                         count++;
             if (count != 1)
                 return (false);
@@ -299,7 +298,7 @@ bool Menu::check_touche(std::vector<std::shared_ptr<APlayer>> player)
     return (true);
 }
 
-void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
+void Menu::getBind(std::vector<std::shared_ptr<Player>> player)
 {
     (void)player;
     while (core->device->run()) {

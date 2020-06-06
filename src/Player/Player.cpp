@@ -7,6 +7,25 @@
 
 #include "Player.hpp"
 
+Player::Player(std::string name, irr::video::ITexture *skin)
+{
+    _name = name;
+    _skin = skin;
+    _pos = {0, 0, 0};
+    _node = NULL;
+    _speed = {0, 0, 0};
+    _ia = false;
+    _alive = true;
+    _planting = false;
+    _speedmul = 2;
+    _max_bombs = 1;
+    _planted = 0;
+    _power = 2;
+    _throughwall = false;
+    _smgr = NULL;
+    _driver = NULL;
+}
+
 Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, bool ia)
 {
     scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
@@ -206,4 +225,9 @@ irr::core::vector3d<f32> Player::getNearest(irr::core::vector3d<f32> const &pos)
     vec.Y = div1 * BLOCK_SIZE + BLOCK_SIZE / 2;
     vec.Z = div2 * BLOCK_SIZE + BLOCK_SIZE / 2;
     return (vec);
+}
+
+void Player::setBind(std::vector<std::pair<bool, char>> bind)
+{
+    _bind = bind;
 }

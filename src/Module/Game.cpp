@@ -12,11 +12,11 @@ Game::Game(Core *obj)
     core = obj;
 }
 
-std::shared_ptr<APlayer> Game::getPlayerInput(char c)
+std::shared_ptr<Player> Game::getPlayerInput(char c)
 {
     for (size_t i = 0; i < character.size(); i++)
-        for (size_t j = 0; j < character[i]->bind.size(); j++)
-            if (character[i]->bind[j].second == c)
+        for (size_t j = 0; j < character[i]->_bind.size(); j++)
+            if (character[i]->_bind[j].second == c)
                 return (character[i]);
     return (nullptr);
 }

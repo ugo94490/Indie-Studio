@@ -20,7 +20,7 @@ class Game : public IModule
         Game(Core *obj);
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
         ~Game();
-        std::shared_ptr<APlayer> getPlayerInput(char c);
+        std::shared_ptr<Player> getPlayerInput(char c);
     private:
     std::vector<std::shared_ptr<IModule>> tab;
     Core *core;
