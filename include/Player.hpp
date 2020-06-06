@@ -46,4 +46,5 @@ class Player : public GameObject {
         int _power;
         bool _throughwall;
         float _timepassed;
+        std::vector<std::pair<bool, char>> bind;
 };
