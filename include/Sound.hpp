@@ -8,25 +8,18 @@
 #ifndef SOUND_HPP_
 #define SOUND_HPP_
 
-/* #include "Exception.hpp" */
+#include "Exception.hpp"
 #include <SFML/Audio.hpp>
 
-class Sound {
+class Sound
+{
     public:
-        Sound();
-        void explodeBombe();
-        void setVolumeMusic(int volume);
-        void setVolumeEffects(int volume);
-        void playGameMusic();
-        void playMenuMusic();
-        void stopGameMusic();
-        void stopMenuMusic();
-        ~Sound();
-
-    private:
-        sf::Music _musicMenu;
-        sf::Music _musicGame;
-        sf::Music _explode;
+        static sf::Music *createMusic(std::string path);
+        static void setVolume(sf::Music *music, int volume);
+        static void setLoop(sf::Music *music);
+        static void playMusic(sf::Music *music);
+        static void stopMusic(sf::Music *music);
+        static void destroyMusic(sf::Music *music);
 };
 
 #endif /* !SOUND_HPP_ */
