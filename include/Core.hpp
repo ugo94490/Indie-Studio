@@ -26,4 +26,8 @@ class Core
         std::vector<std::shared_ptr<IModule>> obj;
         irr::gui::IGUIFont *font;
         Event *recv;
+        irr::video::ITexture *images;
+        irr::video::ITexture *button;
+        irr::video::ITexture *title;
+        irr::video::ITexture *xbox;
 };

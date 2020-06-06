@@ -22,8 +22,6 @@ class LeaderBoard : public IModule
         void getScore(std::string path);
     private:
         Core *core;
-        irr::video::ITexture *images;
-        irr::video::ITexture *button;
         std::vector<std::shared_ptr<IModule>> tab;
         std::vector<std::string> score;
 };

@@ -35,6 +35,10 @@ Core::Core()
     font = device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
     if (font == 0)
         throw(Exception("Cant load font"));
+    images = driver->getTexture("assets/Sprite/Menu.jpg");
+    button = driver->getTexture("assets/Sprite/Button/INDIE.png");
+    title = driver->getTexture("assets/Sprite/title.png");
+    xbox = driver->getTexture("assets/Sprite/xbox.jpg");
 }
 
 Core::~Core()

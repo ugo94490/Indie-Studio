@@ -16,8 +16,6 @@
 LeaderBoard::LeaderBoard(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/Menu.jpg");
-    button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
 }
 
 void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -26,12 +24,12 @@ void LeaderBoard::Button(std::shared_ptr<IModule> module, irr::core::position2d<
     int height = rect[2].getHeight();
 
     if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         module->Loop(tab);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
 void LeaderBoard::getScore(std::string path)
@@ -63,12 +61,12 @@ bool LeaderBoard::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<i
     }
     if (click == false && core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
         click = true;
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
     return (false);
 }
 
@@ -79,7 +77,7 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
     getScore("assets/Score/score.txt");
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
         Button_bool(irr::core::position2d<irr::s32>(760, 280), rectangle_rect);

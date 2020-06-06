@@ -37,15 +37,11 @@ class Menu : public IModule
         bool check_touche(std::vector<std::shared_ptr<APlayer>> player);
     private:
         Core *core;
-        irr::video::ITexture *images;
-        irr::video::ITexture *button;
-        irr::video::ITexture *other;
         irr::video::ITexture *white;
         irr::video::ITexture *black;
         irr::video::ITexture *red;
         irr::video::ITexture *green;
         irr::video::ITexture *blue;
-        irr::video::ITexture *title;
         std::vector<irr::video::ITexture *> bomb;
         std::vector<irr::core::rect<irr::s32>> bomb_rect;
         std::vector<std::shared_ptr<IModule>> tab;

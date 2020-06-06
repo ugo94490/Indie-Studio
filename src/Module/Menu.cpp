@@ -17,25 +17,13 @@
 Menu::Menu(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/Menu.jpg");
-    button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
-    other = core->driver->getTexture("assets/Sprite/Button/Button.png");
     white = core->driver->getTexture("assets/Sprite/Button/white.png");
     black = core->driver->getTexture("assets/Sprite/Button/black.png");
     green = core->driver->getTexture("assets/Sprite/Button/green.png");
     red = core->driver->getTexture("assets/Sprite/Button/red.png");
     blue = core->driver->getTexture("assets/Sprite/Button/blue.png");
-    title = core->driver->getTexture("assets/Sprite/title.png");
-    bomb.push_back(white);
-    bomb.push_back(black);
-    bomb.push_back(green);
-    bomb.push_back(red);
-    bomb.push_back(blue);
-    bomb_rect.push_back(white_rect);
-    bomb_rect.push_back(black_rect);
-    bomb_rect.push_back(green_rect);
-    bomb_rect.push_back(red_rect);
-    bomb_rect.push_back(blue_rect);
+    bomb = {white, black, green, red, blue};
+    bomb_rect = {white_rect, black_rect, green_rect, red_rect, blue_rect};
 }
 
 Menu::~Menu()
@@ -48,12 +36,12 @@ void Menu::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::s3
     int height = rect[2].getHeight();
 
     if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         module->Loop(tab);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
 bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -71,12 +59,12 @@ bool Menu::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::cor
     }
     if (click == false && core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
         click = true;
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
     return (false);
 }
 
@@ -86,8 +74,8 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
         tab = obj;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        core->driver->draw2DImage(title, irr::core::position2d<irr::s32>(760,100), irr::core::rect<irr::s32>(0, 0, 400, 151), 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->title, irr::core::position2d<irr::s32>(760,100), irr::core::rect<irr::s32>(0, 0, 400, 151), 0, irr::video::SColor(255,255,255,255), true);
         if (Button_bool(irr::core::position2d<irr::s32>(280, 94), play_rect) == true)
             Game();
         Button(tab[2], irr::core::position2d<irr::s32>(1240, 94), score_rect);
@@ -105,7 +93,7 @@ void Menu::select_nb_player()
     int nb_player = 1;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(1187, 425), right_rect) == true) {
             if (nb_player < 4)
                 nb_player += 1;
@@ -131,7 +119,7 @@ void Menu::Game()
 {
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(280, 454), new_rect) == true)
             select_nb_player();
         if (Button_bool(irr::core::position2d<irr::s32>(1240, 454), load_rect) == true)
@@ -223,7 +211,7 @@ void Menu::New_Game(int nb)
     skin_nb = {p1 = 0, p2 = (nb >= 2) ? 0 : -1, p3 = (nb >= 3) ? 0 : -1, p4 = (nb >= 4) ? 0 : -1};
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
         if (Button_bool(irr::core::position2d<irr::s32>(1456, 814), play_rect) == true)
@@ -304,7 +292,7 @@ void Menu::getBind(std::vector<std::shared_ptr<APlayer>> player)
     (void)player;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
         if (Button_bool(irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player)) {

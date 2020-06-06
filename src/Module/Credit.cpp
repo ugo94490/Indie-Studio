@@ -13,9 +13,6 @@
 Credit::Credit(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/credit.jpg");
-    button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
-    xbox = core->driver->getTexture("assets/Sprite/xbox.jpg");
 }
 
 bool Credit::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
@@ -33,12 +30,12 @@ bool Credit::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::c
     }
     if (click == false && core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
         click = true;
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
     return (false);
 }
 
@@ -48,12 +45,12 @@ void Credit::Button(std::shared_ptr<IModule> module, irr::core::position2d<irr::
     int height = rect[2].getHeight();
 
     if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
-        core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         module->Loop(tab);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
-        core->driver->draw2DImage(button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[1], 0, irr::video::SColor(255,255,255,255), true);
     else
-        core->driver->draw2DImage(button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
 }
 
 void Credit::Loop(std::vector<std::shared_ptr<IModule>> obj)
@@ -61,8 +58,8 @@ void Credit::Loop(std::vector<std::shared_ptr<IModule>> obj)
     tab = obj;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
-        core->driver->draw2DImage(xbox, irr::core::position2d<irr::s32>(630,290));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->xbox, irr::core::position2d<irr::s32>(630,290));
         core->font->draw(L"Game developed by Arthur Benard, Lucas Renard,\n Gregoire Brasseur, Paul Cochet and Ugo Levi", irr::core::rect<irr::s32>(400, 690, 1920, 750), irr::video::SColor(255,0,0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
