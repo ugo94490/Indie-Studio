@@ -30,4 +30,5 @@ class Core
         irr::video::ITexture *button;
         irr::video::ITexture *title;
         irr::video::ITexture *xbox;
+        irr::video::ITexture *other_back;
 };

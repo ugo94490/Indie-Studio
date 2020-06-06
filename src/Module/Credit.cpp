@@ -58,7 +58,7 @@ void Credit::Loop(std::vector<std::shared_ptr<IModule>> obj)
     tab = obj;
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
-        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(core->other_back, irr::core::position2d<irr::s32>(0,0));
         core->driver->draw2DImage(core->xbox, irr::core::position2d<irr::s32>(630,290));
         core->font->draw(L"Game developed by Arthur Benard, Lucas Renard,\n Gregoire Brasseur, Paul Cochet and Ugo Levi", irr::core::rect<irr::s32>(400, 690, 1920, 750), irr::video::SColor(255,0,0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
