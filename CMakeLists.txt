@@ -24,12 +24,13 @@ set(SOURCE_FILES
     src/Module/Credit.cpp
     src/Module/HowTo.cpp
     src/Player/Normal.cpp
-    src/Player/APlayer.cpp
-    src/Object/AObject.cpp
-    src/Object/Floor.cpp
-    src/Object/Obstacle.cpp
-    src/Object/Wall.cpp
-    src/Object/Empty.cpp
+    src/Object/SolidWall.cpp
+    src/Object/Ground.cpp
+    src/Object/BreakableWall.cpp
+    src/Object/Powerup.cpp
+    src/Object/Explosion.cpp
+    src/Object/Bomb.cpp
+    src/Player/Player.cpp
     src/Map/Map.cpp
     src/Map/GeneratorMap.cpp
     src/Factory.cpp)
