@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (UNIX)
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -isystem/usr/include/irrlicht/ -I/usr/X11R6/include -Wall -Wextra -Wshadow -L/usr/X11R6/lib64 -lGL -lXxf86vm -lXext -lX11 -lIrrlicht -g3")
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -isystem/usr/include/irrlicht/ -I/usr/X11R6/include -Wall -Wextra -Wshadow -L/usr/X11R6/lib64 -lGL -lXxf86vm -lXext -lX11 -lIrrlicht -g3 -lsfml-audio")
     include_directories(lib/irrlicht-1.8.4/include include)
     link_directories(${CMAKE_SOURCE_DIR}/lib/irrlicht-1.8.4/lib/Linux)
 endif (UNIX)
@@ -31,5 +31,7 @@ set(SOURCE_FILES
     src/Object/Bomb.cpp
     src/Player/Player.cpp
     src/Map/Map.cpp
-    src/Map/GeneratorMap.cpp)
+    src/Map/GeneratorMap.cpp
+    src/Factory.cpp
+    src/Sound/Sound.cpp)
 add_executable(${NAME} ${SOURCE_FILES})

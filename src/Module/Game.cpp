@@ -64,6 +64,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         core->driver->getTexture("./assets/textures/skybox/browncloud_lf.jpg"),
         core->driver->getTexture("./assets/textures/skybox/browncloud_ft.jpg"),
         core->driver->getTexture("./assets/textures/skybox/browncloud_bk.jpg"));
+    (void)skybox;
     core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
     Map mapBomber(core->smgr, core->driver);
     core->driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;

@@ -8,54 +8,36 @@
 #include <iostream>
 #include "Sound.hpp"
 
-Sound::Sound()
+sf::Music *Sound::createMusic(std::string path)
 {
-    sf::SoundBuffer buffer;
+    sf::Music *music = new sf::Music;
 
-    if (!_explode.openFromFile("explosion.wav"))
+    if (!(*music).openFromFile(path))
         throw(Exception("Can't load explosion.wav\n"));
-    if (!_musicGame.openFromFile("fight.ogg"))
-        throw(Exception("Can't load explosion.wav\n"));
+    return (music);
 }
 
-void Sound::setVolumeMusic(int volume)
+void Sound::setVolume(sf::Music *music, int volume)
 {
-    _musicMenu.setVolume(volume);
-    _musicGame.setVolume(volume);
+    music->setVolume(volume);
 }
 
-void Sound::setVolumeEffects(int volume)
+void Sound::setLoop(sf::Music *music)
 {
-    _explode.setVolume(volume);
+    music->setLoop(true);
 }
 
-void Sound::playGameMusic()
+void Sound::playMusic(sf::Music *music)
 {
-    _musicGame.play();
-    _musicGame.setLoop(true);
+    music->play();
 }
 
-void Sound::playMenuMusic()
+void Sound::stopMusic(sf::Music *music)
 {
-    _musicMenu.play();
-    _musicMenu.setLoop(true);
+    music->stop();
 }
 
-void Sound::stopGameMusic()
+void Sound::destroyMusic(sf::Music *music)
 {
-    _musicGame.stop();
-}
-
-void Sound::stopMenuMusic()
-{
-    _musicMenu.stop();
-}
-
-void Sound::explodeBombe()
-{
-    _explode.play();
-}
-
-Sound::~Sound()
-{
+    music->~Music();
 }

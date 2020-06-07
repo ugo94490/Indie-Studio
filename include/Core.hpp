@@ -12,6 +12,9 @@
 #include <irrlicht.h>
 #include <Exception.hpp>
 #include "Event.hpp"
+#include "IModule.hpp"
+#include "Sound.hpp"
+
 class IModule;
 
 class Core
@@ -28,6 +31,11 @@ class Core
         std::vector<std::shared_ptr<IModule>> obj;
         irr::gui::IGUIFont *font;
         Event *recv;
+        irr::video::ITexture *images;
+        irr::video::ITexture *button;
+        irr::video::ITexture *title;
+        irr::video::ITexture *xbox;
+        irr::video::ITexture *other_back;
+        sf::Music *menu_music;
+        int volume;
 };
-
-#include "IModule.hpp"

@@ -18,8 +18,6 @@ class Menu : public IModule
         Menu(Core *obj);
         ~Menu();
         void Loop(std::vector<std::shared_ptr<IModule>> obj);
-        void Button(std::shared_ptr<IModule> obj, irr::core::position2d<irr::s32>, std::vector<irr::core::rect<irr::s32>> rect);
-        bool Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect);
         void display_skin();
         void Game();
         void New_Game(int nb);
@@ -37,15 +35,11 @@ class Menu : public IModule
         bool check_touche(std::vector<std::shared_ptr<Player>> player);
     private:
         Core *core;
-        irr::video::ITexture *images;
-        irr::video::ITexture *button;
-        irr::video::ITexture *other;
         irr::video::ITexture *white;
         irr::video::ITexture *black;
         irr::video::ITexture *red;
         irr::video::ITexture *green;
         irr::video::ITexture *blue;
-        irr::video::ITexture *title;
         std::vector<irr::video::ITexture *> bomb;
         std::vector<irr::core::rect<irr::s32>> bomb_rect;
         std::vector<std::shared_ptr<IModule>> tab;
