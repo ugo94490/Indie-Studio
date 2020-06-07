@@ -45,6 +45,7 @@ Core::~Core()
 {
     delete recv;
     Sound::destroyMusic(menu_music);
+    delete menu_music;
 	device->drop();
 }
 
