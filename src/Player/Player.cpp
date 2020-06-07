@@ -161,6 +161,14 @@ void Player::setAnim()
         _node->setMaterialTexture(0, _driver->getTexture(std::string("assets/textures/chara" + std::to_string(_id) + "_diffuse.jpg").c_str()));
     }
     _do_anim = new_anim;
+    if (_speed.Z > 0)
+        _node->setRotation({0, 180, 0});
+    if (_speed.Z < 0)
+        _node->setRotation({0, 0, 0});
+    if (_speed.X > 0)
+        _node->setRotation({0, -90, 0});
+    if (_speed.X < 0)
+        _node->setRotation({0, 90, 0});
 }
 
 void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
