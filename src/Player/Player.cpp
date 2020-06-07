@@ -31,6 +31,7 @@ Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVi
     _driver = driver;
     _do_anim = false;
     _id = id;
+    idx_chara = id - 1;
 }
 
 Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)

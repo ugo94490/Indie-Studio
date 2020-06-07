@@ -213,6 +213,28 @@ static std::vector<std::vector<irr::core::rect<irr::s32>>> pos_bind_rect =
     }
 };
 
+static std::vector<std::string> idle =
+{
+    "assets/textures/chara1_idle.MD3",
+    "assets/textures/chara2_idle.MD3",
+    "assets/textures/chara3_idle.MD3",
+    "assets/textures/chara4_idle.MD3"
+};
 
+static std::vector<std::string> walk =
+{
+    "assets/textures/chara1_walk.MD3",
+    "assets/textures/chara2_walk.MD3",
+    "assets/textures/chara3_walk.MD3",
+    "assets/textures/chara4_walk.MD3"
+};
+
+static std::vector<std::string> texture_chara =
+{
+    "assets/textures/chara1_diffuse.jpg",
+    "assets/textures/chara2_diffuse.jpg",
+    "assets/textures/chara3_diffuse.jpg",
+    "assets/textures/chara4_diffuse.jpg"
+};
 
 #endif /* !RECT_HPP_ */

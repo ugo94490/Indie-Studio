@@ -143,13 +143,13 @@ void Menu::Game()
 
 void Menu::display_skin()
 {
-    core->driver->draw2DImage(bomb[p1], irr::core::position2d<irr::s32>(64 + (rectangle_rect[0].getWidth() - bomb_rect[p1].getWidth()) / 2, 280), bomb_rect[p1], 0, irr::video::SColor(255,255,255,255), true);
+    core->driver->draw2DImage(bomb[skin_nb[0]], irr::core::position2d<irr::s32>(64 + (rectangle_rect[0].getWidth() - bomb_rect[skin_nb[0]].getWidth()) / 2, 280), bomb_rect[skin_nb[0]], 0, irr::video::SColor(255,255,255,255), true);
     if (p2 != -1)
-        core->driver->draw2DImage(bomb[p2], irr::core::position2d<irr::s32>(528 + (rectangle_rect[0].getWidth() - bomb_rect[p2].getWidth()) / 2, 280), bomb_rect[p2], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(bomb[skin_nb[1]], irr::core::position2d<irr::s32>(528 + (rectangle_rect[0].getWidth() - bomb_rect[skin_nb[1]].getWidth()) / 2, 280), bomb_rect[skin_nb[1]], 0, irr::video::SColor(255,255,255,255), true);
     if (p3 != -1)
-        core->driver->draw2DImage(bomb[p3], irr::core::position2d<irr::s32>(992 + (rectangle_rect[0].getWidth() - bomb_rect[p3].getWidth()) / 2, 280), bomb_rect[p3], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(bomb[skin_nb[2]], irr::core::position2d<irr::s32>(992 + (rectangle_rect[0].getWidth() - bomb_rect[skin_nb[2]].getWidth()) / 2, 280), bomb_rect[skin_nb[2]], 0, irr::video::SColor(255,255,255,255), true);
     if (p4 != -1)
-        core->driver->draw2DImage(bomb[p4], irr::core::position2d<irr::s32>(1456 + (rectangle_rect[0].getWidth() - bomb_rect[p4].getWidth()) / 2, 280), bomb_rect[p4], 0, irr::video::SColor(255,255,255,255), true);
+        core->driver->draw2DImage(bomb[skin_nb[3]], irr::core::position2d<irr::s32>(1456 + (rectangle_rect[0].getWidth() - bomb_rect[skin_nb[3]].getWidth()) / 2, 280), bomb_rect[skin_nb[3]], 0, irr::video::SColor(255,255,255,255), true);
 }
 
 std::vector<std::pair<bool, std::string>> Menu::setBoolName(std::vector<std::pair<bool, std::string>> lol, int j)
@@ -162,10 +162,10 @@ std::vector<std::pair<bool, std::string>> Menu::setBoolName(std::vector<std::pai
 
 std::vector<std::pair<bool, std::string>> Menu::Skin_button( std::vector<std::pair<bool, std::string>> write, int nb)
 {
-    (Button_bool(irr::core::position2d<irr::s32>(64, 280), rectangle_rect) == true && nb >= 1) ? (p1 >= 4 ? p1 = 0 : p1++) : 0;
-    (Button_bool(irr::core::position2d<irr::s32>(528, 280), rectangle_rect) == true && nb >= 2) ? (p2 >= 4 ? p2 = 0 : p2++) : 0;
-    (Button_bool(irr::core::position2d<irr::s32>(992, 280), rectangle_rect) == true && nb >= 3) ? (p3 >= 4 ? p3 = 0 : p3++) : 0;
-    (Button_bool(irr::core::position2d<irr::s32>(1456, 280), rectangle_rect) == true && nb >= 4) ? (p4 >= 4 ? p4 = 0 : p4++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(64, 280), rectangle_rect) == true && nb >= 1) ? (skin_nb[0] >= 3 ? skin_nb[0] = 0 : skin_nb[0]++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(528, 280), rectangle_rect) == true && nb >= 2) ? (skin_nb[1] >= 3 ? skin_nb[1] = 0 : skin_nb[1]++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(992, 280), rectangle_rect) == true && nb >= 3) ? (skin_nb[2] >= 3 ? skin_nb[2] = 0 : skin_nb[2]++) : 0;
+    (Button_bool(irr::core::position2d<irr::s32>(1456, 280), rectangle_rect) == true && nb >= 4) ? (skin_nb[3] >= 3 ? skin_nb[3] = 0 : skin_nb[3]++) : 0;
     if (Button_bool(irr::core::position2d<irr::s32>(64, 160), name_rect) == true && nb >= 1)
         write = setBoolName(write, 0);
     if (Button_bool(irr::core::position2d<irr::s32>(528, 160), name_rect) && nb >= 2)

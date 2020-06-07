@@ -58,6 +58,7 @@ class Player : public GameObject {
         bool _do_anim;
         int _id;
         float _timepassed;
+        int idx_chara;
 };
 
 #include "Core.hpp"
