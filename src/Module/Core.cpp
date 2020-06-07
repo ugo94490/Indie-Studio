@@ -22,6 +22,7 @@ Core::Core()
     if (!device)
         throw(Exception ("Error window not open"));
     device->setWindowCaption(L"Indie Studio");
+    volume = 10;
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
@@ -38,7 +39,7 @@ Core::Core()
     other_back = driver->getTexture("assets/Sprite/credit.jpg");
     menu_music = Sound::createMusic(str);
     Sound::playMusic(menu_music);
-    Sound::setVolume(menu_music, 10);
+    Sound::setVolume(menu_music, volume);
 }
 
 Core::~Core()

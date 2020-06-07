@@ -33,4 +33,5 @@ class Core
         irr::video::ITexture *xbox;
         irr::video::ITexture *other_back;
         sf::Music *menu_music;
+        int volume;
 };
