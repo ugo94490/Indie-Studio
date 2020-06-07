@@ -23,5 +23,6 @@ class Credit : public IModule
         Core *core;
         irr::video::ITexture *images;
         irr::video::ITexture *button;
+        irr::video::ITexture *xbox;
         std::vector<std::shared_ptr<IModule>> tab;
 };

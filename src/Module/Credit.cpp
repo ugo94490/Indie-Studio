@@ -6,22 +6,33 @@
 */
 
 #include <vector>
+#include <chrono>
 #include "Credit.hpp"
 #include "Rect.hpp"
 
 Credit::Credit(Core *obj)
 {
     core = obj;
-    images = core->driver->getTexture("assets/Sprite/Menu.jpg");
+    images = core->driver->getTexture("assets/Sprite/credit.jpg");
     button = core->driver->getTexture("assets/Sprite/Button/INDIE.png");
+    xbox = core->driver->getTexture("assets/Sprite/xbox.jpg");
 }
 
 bool Credit::Button_bool(irr::core::position2d<irr::s32> pos, std::vector<irr::core::rect<irr::s32>> rect)
 {
     int width = rect[2].getWidth();
     int height = rect[2].getHeight();
+    static bool click = false;
+    static std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
 
-    if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
+    _end = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
+        _start = std::chrono::steady_clock::now();
+        click = false;
+    }
+    if (click == false && core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height) && core->recv->eve.MouseInput.isLeftPressed()) {
+        click = true;
         core->driver->draw2DImage(button, pos, rect[2], 0, irr::video::SColor(255,255,255,255), true);
         return (true);
     } else if (core->recv->eve.MouseInput.X >= pos.X && core->recv->eve.MouseInput.X <= (pos.X + width) && core->recv->eve.MouseInput.Y >= pos.Y && core->recv->eve.MouseInput.Y <= (pos.Y + height))
@@ -51,6 +62,8 @@ void Credit::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(images, irr::core::position2d<irr::s32>(0,0));
+        core->driver->draw2DImage(xbox, irr::core::position2d<irr::s32>(630,290));
+        core->font->draw(L"Game developed by Arthur Benard, Lucas Renard,\n Gregoire Brasseur, Paul Cochet and Ugo Levi", irr::core::rect<irr::s32>(400, 690, 1920, 750), irr::video::SColor(255,0,0,0));
         if (Button_bool(irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
         core->driver->endScene();

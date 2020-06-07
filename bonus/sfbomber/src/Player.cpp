@@ -9,7 +9,7 @@
 
 Player::Player(bool ia, mystruct::vector3f pos, unsigned int id) : _id(id),
 _ia(ia), _alive(true), _pos(pos), _planting(false), _speedmul(2),
-_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(3)
+_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(3), _timepassed(0)
 {
     _speed = mystruct::vector3f();
     _anims = whiteBomberAnims;
@@ -69,6 +69,46 @@ void Player::assignAnim()
         _anims[_animnb].setDoAnim(false);
 }
 
+void Player::collideWall(std::list<std::shared_ptr<GameObject>> const &objs, mystruct::vector3f const &wallPos)
+{
+    mystruct::vector3f objective = getNearest(_pos);
+    _speed.x = 0;
+    _speed.z = 0;
+    if (abs(_pos.x - objective.x) <= 2 && _pos.x != objective.x)
+        _pos.x = objective.x;
+    if (abs(_pos.z - objective.z) <= 2 && _pos.z != objective.z)
+        _pos.z = objective.z;
+    if (abs(_pos.x - objective.x) >= 10)
+        return;
+    if (abs(_pos.z - objective.z) >= 10)
+        return;
+    if (objective.x > _pos.x)
+        _speed.x = (_speedmul * BLOCK_SIZE);
+    if (objective.x < _pos.x)
+        _speed.x = -(_speedmul * BLOCK_SIZE);
+    if (objective.z > _pos.z)
+        _speed.z = (_speedmul * BLOCK_SIZE);
+    if (objective.z < _pos.z)
+        _speed.z = -(_speedmul * BLOCK_SIZE);
+    _speed.x *= (_timepassed / 1000.0);
+    _speed.z *= (_timepassed / 1000.0);
+}
+
+void Player::collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> powerup)
+{
+    ObjTypes type = powerup->getType();
+
+    if (type == BOMBUP)
+        _max_bombs += 1;
+    if (type == FIREUP)
+        _power += 1;
+    if (type == SPEEDUP)
+        _speedmul += 1;
+    if (type == THROUGHWALLUP)
+        _throughwall = true;
+    removeObj(objs, powerup);
+}
+
 void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
 {
     ObjTypes type;;
@@ -80,28 +120,14 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
         if (type == ObjTypes::EXPLOSION && collidePointObj(_pos, pos))
             _alive = false;
         else if (type >= ObjTypes::POWERUP && collide2objs(_pos, pos)) {
-            if (type == BOMBUP)
-                _max_bombs += 1;
-            if (type == FIREUP)
-                _power += 1;
-            if (type == SPEEDUP)
-                _speedmul += 1;
-            if (type == THROUGHWALLUP)
-                _throughwall = true;
-            removeObj(objs, (*it));
+            collidePowerUp(objs, (*it));
             it = objs.begin();
         }
         else if ((type == ObjTypes::SOLIDWALL ||
-        (type == ObjTypes::BREAKABLEWALL && !_throughwall)) && collide2objs(_pos + _speed, pos)) {
-            _speed.x = 0;
-            _speed.z = 0;
-            _pos = getNearest(_pos);
-        }
-        else if (type == ObjTypes::BOMB && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos)) {
-            _speed.x = 0;
-            _speed.z = 0;
-            _pos = getNearest(_pos);
-        }
+        (type == ObjTypes::BREAKABLEWALL && !_throughwall)) && collide2objs(_pos + _speed, pos))
+            collideWall(objs, pos);
+        else if (type == ObjTypes::BOMB && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos))
+            collideWall(objs, pos);
     }
 }
 
@@ -124,10 +150,11 @@ void Player::plantBomb(std::list<std::shared_ptr<GameObject>> &objs)
 
 void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
-    _speed.x *= (timepassed / 1000.0);
-    _speed.y *= (timepassed / 1000.0);
-    _speed.z *= (timepassed / 1000.0);
+    _timepassed = timepassed;
     assignAnim();
+    _speed.x *= (_timepassed / 1000.0);
+    _speed.y *= (_timepassed / 1000.0);
+    _speed.z *= (_timepassed / 1000.0);
     collide(objs);
     _anims[_animnb].update();
     if (!_alive)

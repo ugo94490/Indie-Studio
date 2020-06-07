@@ -16,6 +16,7 @@
 
 Core::Core()
 {
+    std::shared_ptr<IModule> ptr;
     device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080));
     if (!device)
         throw(Exception ("Error window not open"));
@@ -25,18 +26,15 @@ Core::Core()
     guienv = device->getGUIEnvironment();
     recv = new Event();
     device->setEventReceiver(recv);
-    std::shared_ptr<IModule> menu (new Menu(this));
-    std::shared_ptr<IModule> game (new Game(this));
-    std::shared_ptr<IModule> leaderboard (new LeaderBoard(this));
-    std::shared_ptr<IModule> settings (new Settings(this));
-    std::shared_ptr<IModule> howto (new HowTo(this));
-    std::shared_ptr<IModule> credit (new Credit(this));
-    obj.push_back(menu);
-    obj.push_back(game);
-    obj.push_back(leaderboard);
-    obj.push_back(settings);
-    obj.push_back(howto);
-    obj.push_back(credit);
+    obj.push_back(ptr = std::make_shared<Menu>(this));
+    obj.push_back(ptr = std::make_shared<Game>(this));
+    obj.push_back(ptr = std::make_shared<LeaderBoard>(this));
+    obj.push_back(ptr = std::make_shared<Settings>(this));
+    obj.push_back(ptr = std::make_shared<HowTo>(this));
+    obj.push_back(ptr = std::make_shared<Credit>(this));
+    font = device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
+    if (font == 0)
+        throw(Exception("Cant load font"));
 }
 
 Core::~Core()
