@@ -29,6 +29,7 @@ SolidWall::SolidWall(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, v
 
 SolidWall::~SolidWall()
 {
+    _node->remove();
 }
 
 void SolidWall::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
@@ -50,4 +51,14 @@ irr::core::vector3d<f32> SolidWall::getPos() const
 bool SolidWall::do_remove() const
 {
     return (false);
+}
+
+scene::IAnimatedMeshSceneNode *SolidWall::getNode() const
+{
+    return (_node);
+}
+
+void SolidWall::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

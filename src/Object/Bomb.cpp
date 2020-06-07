@@ -9,26 +9,29 @@
 
 Bomb::Bomb(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, Player *planter) : _smgr(smgr), _driver(driver), _planter(planter), _exploded(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/Regular_Bomb_Low_Poly.dae");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, driver->getTexture("assets/textures/Bomb_Diffuse.png"));
+    _start = std::chrono::steady_clock::now();
 }
 
 Bomb::Bomb(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, Player *planter) : _smgr(smgr), _driver(driver), _planter(planter), _exploded(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/Regular_Bomb_Low_Poly.dae");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, driver->getTexture("assets/textures/Bomb_Diffuse.png"));
+    _start = std::chrono::steady_clock::now();
 }
 
 Bomb::~Bomb()
 {
+    _node->remove();
 }
 
 void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
@@ -40,20 +43,19 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
 
     _exploded = true;
     _planter->setPlanted(_planter->getPlanted() - 1);
-    objs.push_back(std::make_shared<Explosion>(pos, _smgr, _driver));
+    pos = irr::core::vector3d<f32>(_pos.X, BLOCK_SIZE, _pos.Z);
+    exp = std::make_shared<Explosion>(pos, _smgr, _driver);
+    objs.push_back(exp);
     for (int i = 1; i <= power; i++) {
         flag = 0;
-        pos = irr::core::vector3d<f32>(_pos.X + BLOCK_SIZE * i, 0, _pos.Z);
-        if (i == power)
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
-        else
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
+        pos = irr::core::vector3d<f32>(_pos.X + BLOCK_SIZE * i, BLOCK_SIZE, _pos.Z);
+        exp = std::make_shared<Explosion>(pos, _smgr, _driver);
         for (auto it = objs.begin(); it != objs.end(); ++it)
             if ((*it)->getType() == SOLIDWALL && collide2objs((*it)->getPos(), pos)) {
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -64,17 +66,14 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
     }
     for (int i = 1; i <= power; i++) {
         flag = 0;
-        pos = irr::core::vector3d<f32>(_pos.X - BLOCK_SIZE * i, 0, _pos.Z);
-        if (i == power)
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
-        else
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
+        pos = irr::core::vector3d<f32>(_pos.X - BLOCK_SIZE * i, BLOCK_SIZE, _pos.Z);
+        exp = std::make_shared<Explosion>(pos, _smgr, _driver);
         for (auto it = objs.begin(); it != objs.end(); ++it)
             if ((*it)->getType() == SOLIDWALL && collide2objs((*it)->getPos(), pos)) {
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -85,17 +84,14 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
     }
     for (int i = 1; i <= power; i++) {
         flag = 0;
-        pos = irr::core::vector3d<f32>(_pos.X, 0, _pos.Z + BLOCK_SIZE * i);
-        if (i == power)
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
-        else
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
+        pos = irr::core::vector3d<f32>(_pos.X, BLOCK_SIZE, _pos.Z + BLOCK_SIZE * i);
+        exp = std::make_shared<Explosion>(pos, _smgr, _driver);
         for (auto it = objs.begin(); it != objs.end(); ++it)
             if ((*it)->getType() == SOLIDWALL && collide2objs((*it)->getPos(), pos)) {
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -106,17 +102,14 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
     }
     for (int i = 1; i <= power; i++) {
         flag = 0;
-        pos = irr::core::vector3d<f32>(_pos.X, 0, _pos.Z - BLOCK_SIZE * i);
-        if (i == power)
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
-        else
-            exp = std::make_shared<Explosion>(pos, _smgr, _driver);
+        pos = irr::core::vector3d<f32>(_pos.X, BLOCK_SIZE, _pos.Z - BLOCK_SIZE * i);
+        exp = std::make_shared<Explosion>(pos, _smgr, _driver);
         for (auto it = objs.begin(); it != objs.end(); ++it)
             if ((*it)->getType() == SOLIDWALL && collide2objs((*it)->getPos(), pos)) {
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -130,7 +123,8 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
 void Bomb::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     (void)timepassed;
-    if (true)
+    _end = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 4000)
         return (explode(objs));
     for (auto it = objs.begin(); it != objs.end(); ++it) {
         if ((*it)->getType() == EXPLOSION && collide2objs(_pos, (*it)->getPos()))
@@ -151,4 +145,14 @@ GameObject::ObjTypes Bomb::getType() const
 bool Bomb::do_remove() const
 {
     return (_exploded);
+}
+
+scene::IAnimatedMeshSceneNode *Bomb::getNode() const
+{
+    return (_node);
+}
+
+void Bomb::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

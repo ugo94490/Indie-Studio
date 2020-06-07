@@ -15,6 +15,8 @@ Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, vide
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _dead = false;
+    _start = std::chrono::steady_clock::now();
 }
 
 Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
@@ -25,16 +27,22 @@ Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, v
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _dead = false;
+    _start = std::chrono::steady_clock::now();
 }
 
 Explosion::~Explosion()
 {
+    _node->remove();
 }
 
 void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     (void)objs;
     (void)timepassed;
+    _end = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 600)
+        _dead = true;
 }
 
 GameObject::ObjTypes Explosion::getType() const
@@ -49,5 +57,15 @@ irr::core::vector3d<f32> Explosion::getPos() const
 
 bool Explosion::do_remove() const
 {
-    return (false);
+    return (_dead);
+}
+
+scene::IAnimatedMeshSceneNode *Explosion::getNode() const
+{
+    return (_node);
+}
+
+void Explosion::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

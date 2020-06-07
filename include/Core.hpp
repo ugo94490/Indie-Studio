@@ -7,10 +7,12 @@
 
 #pragma once
 
+#include <vector>
+#include <memory>
 #include <irrlicht.h>
 #include <Exception.hpp>
 #include "Event.hpp"
-#include "IModule.hpp"
+class IModule;
 
 class Core
 {
@@ -27,3 +29,5 @@ class Core
         irr::gui::IGUIFont *font;
         Event *recv;
 };
+
+#include "IModule.hpp"

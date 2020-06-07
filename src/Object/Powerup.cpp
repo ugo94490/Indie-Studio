@@ -29,6 +29,7 @@ Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISce
 
 Powerup::~Powerup()
 {
+    _node->remove();
 }
 
 void Powerup::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
@@ -52,4 +53,14 @@ GameObject::ObjTypes Powerup::getType() const
 bool Powerup::do_remove() const
 {
     return (_dead);
+}
+
+scene::IAnimatedMeshSceneNode *Powerup::getNode() const
+{
+    return (_node);
+}
+
+void Powerup::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

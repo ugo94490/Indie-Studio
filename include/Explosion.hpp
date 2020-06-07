@@ -18,9 +18,14 @@ class Explosion : public GameObject {
         irr::core::vector3d<f32> getPos() const;
         GameObject::ObjTypes getType() const;
         bool do_remove() const;
+        scene::IAnimatedMeshSceneNode *getNode() const;
+        void setNode(scene::IAnimatedMeshSceneNode *node);
 
     protected:
         scene::IAnimatedMeshSceneNode *_node;
         irr::core::vector3d<f32> _pos;
+        bool _dead;
+        std::chrono::steady_clock::time_point _start;
+        std::chrono::steady_clock::time_point _end;
     private:
 };

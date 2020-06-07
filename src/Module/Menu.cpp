@@ -197,7 +197,7 @@ void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *
 
 std::shared_ptr<Player> Menu::createObject(std::string name, int skin)
 {
-    std::shared_ptr<Player> ptr = std::make_shared<Player>(name, bomb[skin]);
+    std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, name, bomb[skin], skin + 1, false);
 
     ptr->_bind = {{false, 97}, {false, 97}, {false, 97}, {false, 97}, {false, 97}};
     return (ptr);

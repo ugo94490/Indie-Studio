@@ -29,6 +29,7 @@ BreakableWall::BreakableWall(irr::core::vector3d<f32> pos, scene::ISceneManager*
 
 BreakableWall::~BreakableWall()
 {
+    _node->remove();
 }
 
 void BreakableWall::tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const
@@ -50,6 +51,7 @@ void BreakableWall::update(std::list<std::shared_ptr<GameObject>> &objs, float c
         if ((*it)->getType() == ObjTypes::EXPLOSION && (*it)->getPos() == _pos) {
             _exploded = true;
             tryAddPowerUp(objs);
+            removeObj(objs, (*it));
             break;
         }
     }
@@ -68,4 +70,14 @@ irr::core::vector3d<f32> BreakableWall::getPos() const
 bool BreakableWall::do_remove() const
 {
     return (_exploded);
+}
+
+scene::IAnimatedMeshSceneNode *BreakableWall::getNode() const
+{
+    return (_node);
+}
+
+void BreakableWall::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

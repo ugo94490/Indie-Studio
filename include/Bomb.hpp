@@ -21,6 +21,8 @@ class Bomb : public GameObject {
         irr::core::vector3d<f32> getPos() const;
         GameObject::ObjTypes getType() const;
         bool do_remove() const;
+        scene::IAnimatedMeshSceneNode *getNode() const;
+        void setNode(scene::IAnimatedMeshSceneNode *node);
         void explode(std::list<std::shared_ptr<GameObject>> &objs);
 
     protected:
@@ -30,6 +32,8 @@ class Bomb : public GameObject {
         irr::core::vector3d<f32> _pos;
         Player *_planter;
         bool _exploded;
+        std::chrono::steady_clock::time_point _start;
+        std::chrono::steady_clock::time_point _end;
     private:
 };
 

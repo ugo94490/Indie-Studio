@@ -213,4 +213,6 @@ static std::vector<std::vector<irr::core::rect<irr::s32>>> pos_bind_rect =
     }
 };
 
+
+
 #endif /* !RECT_HPP_ */

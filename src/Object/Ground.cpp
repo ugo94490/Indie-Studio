@@ -29,6 +29,7 @@ Ground::Ground(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::
 
 Ground::~Ground()
 {
+    _node->remove();
 }
 
 void Ground::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
@@ -50,4 +51,14 @@ irr::core::vector3d<f32> Ground::getPos() const
 bool Ground::do_remove() const
 {
     return (false);
+}
+
+scene::IAnimatedMeshSceneNode *Ground::getNode() const
+{
+    return (_node);
+}
+
+void Ground::setNode(scene::IAnimatedMeshSceneNode *node)
+{
+    _node = node;
 }

@@ -23,7 +23,6 @@ set(SOURCE_FILES
     src/Module/LeaderBoard.cpp
     src/Module/Credit.cpp
     src/Module/HowTo.cpp
-    src/Player/Normal.cpp
     src/Object/SolidWall.cpp
     src/Object/Ground.cpp
     src/Object/BreakableWall.cpp
