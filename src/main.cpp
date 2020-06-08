@@ -18,6 +18,7 @@ int main()
 {
 	try {
 		Core prog;
+		prog.Splash();
 		prog.launch();
 	} catch (Exception &err) {
 		std::cerr << err.what() << std::endl;
