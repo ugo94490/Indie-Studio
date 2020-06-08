@@ -9,22 +9,22 @@
 
 Powerup::Powerup(float x, float y, float z, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, driver->getTexture("assets/textures/power.png"));
 }
 
 Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, driver->getTexture("assets/textures/power.png"));
 }
 
 Powerup::~Powerup()
