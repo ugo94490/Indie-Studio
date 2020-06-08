@@ -6,26 +6,27 @@
 */
 
 #include "Bomb.hpp"
+#include "Factory.hpp"
 
 Bomb::Bomb(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, Player *planter) : _smgr(smgr), _driver(driver), _planter(planter), _exploded(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/Regular_Bomb_Low_Poly.dae");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/Regular_Bomb_Low_Poly.dae");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/Bomb_Diffuse.png"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/Bomb_Diffuse.png"));
     _start = std::chrono::steady_clock::now();
 }
 
 Bomb::Bomb(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, Player *planter) : _smgr(smgr), _driver(driver), _planter(planter), _exploded(false)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/Regular_Bomb_Low_Poly.dae");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/Regular_Bomb_Low_Poly.dae");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/Bomb_Diffuse.png"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/Bomb_Diffuse.png"));
     _start = std::chrono::steady_clock::now();
 }
 

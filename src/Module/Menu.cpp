@@ -17,13 +17,12 @@
 Menu::Menu(Core *obj)
 {
     core = obj;
-    white = core->driver->getTexture("assets/Sprite/Button/white.png");
-    black = core->driver->getTexture("assets/Sprite/Button/black.png");
-    green = core->driver->getTexture("assets/Sprite/Button/green.png");
-    red = core->driver->getTexture("assets/Sprite/Button/red.png");
-    blue = core->driver->getTexture("assets/Sprite/Button/blue.png");
-    bomb = {white, black, green, red, blue};
-    bomb_rect = {white_rect, black_rect, green_rect, red_rect, blue_rect};
+    white = Factory::Check_load(core->driver, "assets/Sprite/Button/white.png");
+    black = Factory::Check_load(core->driver, "assets/Sprite/Button/black.png");
+    green = Factory::Check_load(core->driver, "assets/Sprite/Button/green.png");
+    red = Factory::Check_load(core->driver, "assets/Sprite/Button/red.png");
+    bomb = {white, black, green, red};
+    bomb_rect = {white_rect, black_rect, green_rect, red_rect};
 }
 
 Menu::~Menu()

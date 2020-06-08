@@ -6,16 +6,17 @@
 */
 
 #include "Player.hpp"
+#include "Factory.hpp"
 
 Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)
 {
     _pos = {x, y, z};
-    _meshIdle = smgr->getMesh(std::string("assets/textures/chara" + std::to_string(id) + "_idle.MD3").c_str());
-    _meshMove = smgr->getMesh(std::string("assets/textures/chara" + std::to_string(id) + "_walk.MD3").c_str());
+    _meshIdle = Factory::Check_mesh(smgr, std::string("assets/textures/chara" + std::to_string(id) + "_idle.MD3").c_str());
+    _meshMove = Factory::Check_mesh(smgr, std::string("assets/textures/chara" + std::to_string(id) + "_walk.MD3").c_str());
     _node = smgr->addAnimatedMeshSceneNode(_meshIdle);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture(std::string("assets/textures/chara" + std::to_string(id) + "_diffuse.jpg").c_str()));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, std::string("assets/textures/chara" + std::to_string(id) + "_diffuse.jpg").c_str()));
     _speed = {0, 0, 0};
     _name = name;
     _skin = skin;
@@ -37,12 +38,12 @@ Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVi
 Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)
 {
     _pos = pos;
-    _meshIdle = smgr->getMesh(std::string("assets/textures/chara" + std::to_string(id) + "_idle.MD3").c_str());
-    _meshMove = smgr->getMesh(std::string("assets/textures/chara" + std::to_string(id) + "_walk.MD3").c_str());
+    _meshIdle = Factory::Check_mesh(smgr, std::string("assets/textures/chara" + std::to_string(id) + "_idle.MD3").c_str());
+    _meshMove = Factory::Check_mesh(smgr, std::string("assets/textures/chara" + std::to_string(id) + "_walk.MD3").c_str());
     _node = smgr->addAnimatedMeshSceneNode(_meshIdle);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture(std::string("assets/textures/chara" + std::to_string(id) + "_diffuse.jpg").c_str()));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, std::string("assets/textures/chara" + std::to_string(id) + "_diffuse.jpg").c_str()));
     _speed = {0, 0, 0};
     _name = name;
     _skin = skin;
@@ -159,7 +160,7 @@ void Player::setAnim()
             _node = _smgr->addAnimatedMeshSceneNode(_meshIdle);
         _node->setPosition(_pos);
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        _node->setMaterialTexture(0, _driver->getTexture(std::string("assets/textures/chara" + std::to_string(_id) + "_diffuse.jpg").c_str()));
+        _node->setMaterialTexture(0, Factory::Check_load(_driver, std::string("assets/textures/chara" + std::to_string(_id) + "_diffuse.jpg").c_str()));
     }
     _do_anim = new_anim;
     if (_speed.Z > 0)

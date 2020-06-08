@@ -13,6 +13,7 @@
 #include "Credit.hpp"
 #include "LeaderBoard.hpp"
 #include "Settings.hpp"
+#include "Factory.hpp"
 
 Core::Core()
 {
@@ -32,12 +33,12 @@ Core::Core()
     font = device->getGUIEnvironment()->getFont("assets/Font/FONT.png");
     if (font == 0)
         throw(Exception("Cant load font"));
-    images = driver->getTexture("assets/Sprite/Menu.jpg");
-    button = driver->getTexture("assets/Sprite/Button/INDIE.png");
-    title = driver->getTexture("assets/Sprite/title.png");
-    xbox = driver->getTexture("assets/Sprite/xbox.jpg");
-    other_back = driver->getTexture("assets/Sprite/credit.jpg");
-    splash_screen = driver->getTexture("assets/Sprite/splash.jpg");
+    images = Factory::Check_load(driver, "assets/Sprite/Menu.jpg");
+    button = Factory::Check_load(driver, "assets/Sprite/Button/INDIE.png");
+    title = Factory::Check_load(driver, "assets/Sprite/title.png");
+    xbox = Factory::Check_load(driver, "assets/Sprite/xbox.jpg");
+    other_back = Factory::Check_load(driver, "assets/Sprite/credit.jpg");
+    splash_screen = Factory::Check_load(driver, "assets/Sprite/splash.jpg");
     menu_music = Sound::createMusic(str);
 }
 

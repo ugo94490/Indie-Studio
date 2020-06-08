@@ -6,25 +6,26 @@
 */
 
 #include "SolidWall.hpp"
+#include "Factory.hpp"
 
 SolidWall::SolidWall(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/brick.jpg"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/brick.jpg"));
 }
 
 SolidWall::SolidWall(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/brick.jpg"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/brick.jpg"));
 }
 
 SolidWall::~SolidWall()

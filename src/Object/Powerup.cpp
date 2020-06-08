@@ -6,11 +6,12 @@
 */
 
 #include "Powerup.hpp"
+#include "Factory.hpp"
 
 Powerup::Powerup(float x, float y, float z, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
     std::string path;
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/power1.obj");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
@@ -23,13 +24,13 @@ Powerup::Powerup(float x, float y, float z, ObjTypes const &type, scene::ISceneM
         path = "assets/textures/speedup.png";
     if (_type == GameObject::THROUGHWALLUP)
         path = "assets/textures/throughwall.png";
-    _node->setMaterialTexture(0, driver->getTexture(path.c_str()));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, path.c_str()));
 }
 
 Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
     std::string path;
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/power1.obj");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
@@ -42,7 +43,7 @@ Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISce
         path = "assets/textures/speedup.png";
     if (_type == GameObject::THROUGHWALLUP)
         path = "assets/textures/throughwall.png";
-    _node->setMaterialTexture(0, driver->getTexture(path.c_str()));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, path.c_str()));
 }
 
 Powerup::~Powerup()

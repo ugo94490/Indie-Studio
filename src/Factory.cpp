@@ -45,3 +45,19 @@ bool Factory::Button_bool(Core *core, irr::core::position2d<irr::s32> pos, std::
         core->driver->draw2DImage(core->button, pos, rect[0], 0, irr::video::SColor(255,255,255,255), true);
     return (false);
 }
+
+irr::video::ITexture *Factory::Check_load(irr::video::IVideoDriver *driver, std::string path)
+{
+    irr::video::ITexture *texture = driver->getTexture(path.c_str());
+    if (driver == 0)
+        throw (Exception("Can't Load texture"));
+    return (texture);
+}
+
+irr::scene::IAnimatedMesh *Factory::Check_mesh(scene::ISceneManager* smgr, std::string path)
+{
+    irr::scene::IAnimatedMesh *mesh = smgr->getMesh(path.c_str());
+    if (mesh == 0)
+        throw (Exception("Can't Load Mesh"));
+    return (mesh);
+}

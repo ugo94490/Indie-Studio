@@ -6,27 +6,28 @@
 */
 
 #include "Explosion.hpp"
+#include "Factory.hpp"
 
 Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
     _dead = false;
     _start = std::chrono::steady_clock::now();
 }
 
 Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/box.MD3");
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
     _dead = false;
     _start = std::chrono::steady_clock::now();
 }

@@ -13,7 +13,7 @@ sf::Music *Sound::createMusic(std::string path)
     sf::Music *music = new sf::Music;
 
     if (!(*music).openFromFile(path))
-        throw(Exception("Can't load explosion.wav\n"));
+        throw(Exception("Can't load music\n"));
     return (music);
 }
 
