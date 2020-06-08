@@ -15,6 +15,7 @@ BreakableWall::BreakableWall(float x, float y, float z, scene::ISceneManager* sm
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _exploded = false;
 }
 
 BreakableWall::BreakableWall(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _smgr(smgr), _driver(driver)
@@ -25,6 +26,7 @@ BreakableWall::BreakableWall(irr::core::vector3d<f32> pos, scene::ISceneManager*
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, driver->getTexture("assets/textures/box.jpg"));
+    _exploded = false;
 }
 
 BreakableWall::~BreakableWall()
