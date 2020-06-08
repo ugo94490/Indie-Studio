@@ -28,7 +28,7 @@ class Menu : public IModule
         void Display_name(std::vector<std::pair<bool, std::string>> *write, bool *click);
         void getBind(std::vector<std::shared_ptr<Player>> player);
         std::vector<std::shared_ptr<Player>> create_player(std::vector<std::pair<bool, std::string>> write, int nb);
-        std::shared_ptr<Player> createObject(std::string name, int skin);
+        std::shared_ptr<Player> createObject(std::string name, int skin, bool ia);
         void bind_player(std::vector<std::shared_ptr<Player>> player, int i);
         std::vector<std::pair<bool, char>> setBoolBind(std::vector<std::pair<bool, char>> lol, int j);
         void getTouche(std::shared_ptr<Player> player, int j);
