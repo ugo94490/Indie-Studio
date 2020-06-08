@@ -58,7 +58,7 @@ void Core::Splash()
         driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         driver->draw2DImage(splash_screen, irr::core::position2d<irr::s32>(0,0));
         _end = std::chrono::steady_clock::now();
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 5000)
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 4000)
             break;
         driver->endScene();
     }

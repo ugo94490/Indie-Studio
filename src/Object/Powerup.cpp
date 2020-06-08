@@ -9,22 +9,40 @@
 
 Powerup::Powerup(float x, float y, float z, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
+    std::string path;
     scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
     _pos = {x, y, z};
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/power.png"));
+    if (_type == GameObject::BOMBUP)
+        path = "assets/textures/bombup.png";
+    if (_type == GameObject::FIREUP)
+        path = "assets/textures/fireup.png";
+    if (_type == GameObject::SPEEDUP)
+        path = "assets/textures/speedup.png";
+    if (_type == GameObject::THROUGHWALLUP)
+        path = "assets/textures/throughwall.png";
+    _node->setMaterialTexture(0, driver->getTexture(path.c_str()));
 }
 
 Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISceneManager* smgr, video::IVideoDriver* driver) : _type(type), _dead(false)
 {
+    std::string path;
     scene::IAnimatedMesh* mesh = smgr->getMesh("assets/textures/power1.obj");
     _pos = pos;
     _node = smgr->addAnimatedMeshSceneNode(mesh);
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, driver->getTexture("assets/textures/power.png"));
+    if (_type == GameObject::BOMBUP)
+        path = "assets/textures/bombup.png";
+    if (_type == GameObject::FIREUP)
+        path = "assets/textures/fireup.png";
+    if (_type == GameObject::SPEEDUP)
+        path = "assets/textures/speedup.png";
+    if (_type == GameObject::THROUGHWALLUP)
+        path = "assets/textures/throughwall.png";
+    _node->setMaterialTexture(0, driver->getTexture(path.c_str()));
 }
 
 Powerup::~Powerup()
