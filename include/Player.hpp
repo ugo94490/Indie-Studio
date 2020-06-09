@@ -59,6 +59,8 @@ class Player : public GameObject {
         bool _throughbomb;
         bool _bombpierce;
         float _invincbletime;
+        float _buffscore;
+        int _score;
         bool _do_anim;
         int _id;
         float _timepassed;

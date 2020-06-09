@@ -31,6 +31,8 @@ Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVi
     _throughbomb = false;
     _bombpierce = false;
     _invincbletime = 0;
+    _buffscore = 0;
+    _score = 0;
     _smgr = smgr;
     _driver = driver;
     _do_anim = false;
@@ -61,6 +63,8 @@ Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::
     _throughbomb = false;
     _bombpierce = false;
     _invincbletime = 0;
+    _buffscore = 0;
+    _score = 0;
     _smgr = smgr;
     _driver = driver;
     _do_anim = false;
@@ -205,6 +209,11 @@ void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &t
     collide(objs);
     if (!_alive)
         return;
+    _buffscore += timepassed;
+    if (_buffscore >= 1000) {
+        _score += 1;
+        _buffscore = 0;
+    }
     _pos = _pos + _speed;
     if (_planting)
         plantBomb(objs);
