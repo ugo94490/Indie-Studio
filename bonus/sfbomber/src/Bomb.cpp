@@ -48,7 +48,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -69,7 +69,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -90,7 +90,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -111,7 +111,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == ObjTypes::BREAKABLEWALL || (*it)->getType() == ObjTypes::POWERUP) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }

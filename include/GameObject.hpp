@@ -34,7 +34,14 @@ class GameObject {
             BOMBUP,
             FIREUP,
             SPEEDUP,
-            THROUGHWALLUP
+            THROUGHWALLUP,
+            THROUGHBOMBUP,
+            FIRESUPERUP,
+            BOMBPIERCEUP,
+            BOMBDOWN,
+            FIREDOWN,
+            SPEEDDOWN,
+            INVINCIBLEUP
         };
         virtual ~GameObject() = default;
         virtual void update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed) = 0;

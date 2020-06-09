@@ -56,7 +56,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -74,7 +74,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -92,7 +92,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }
@@ -110,7 +110,7 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
                 flag = 1;
                 break;
             }
-            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && collide2objs((*it)->getPos(), pos)) {
+            else if (((*it)->getType() == BOMB || (*it)->getType() == POWERUP || (*it)->getType() == BREAKABLEWALL) && !_planter->getPierce() && collide2objs((*it)->getPos(), pos)) {
                 flag = 2;
                 break;
             }

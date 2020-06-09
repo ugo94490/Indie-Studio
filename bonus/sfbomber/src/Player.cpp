@@ -8,8 +8,9 @@
 #include "Player.hpp"
 
 Player::Player(bool ia, mystruct::vector3f pos, unsigned int id) : _id(id),
-_ia(ia), _alive(true), _pos(pos), _planting(false), _speedmul(2),
-_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(3), _timepassed(0)
+_ia(ia), _alive(true), _pos(pos), _planting(false), _speedmul(3),
+_max_bombs(1), _planted(0), _power(2), _throughwall(false), _animnb(3), _timepassed(0),
+_throughbomb(false), _bombpierce(false), _invincbletime(0)
 {
     _speed = mystruct::vector3f();
     _anims = whiteBomberAnims;
@@ -106,6 +107,20 @@ void Player::collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::s
         _speedmul += 1;
     if (type == THROUGHWALLUP)
         _throughwall = true;
+    if (type == THROUGHBOMBUP)
+        _throughbomb = true;
+    if (type == FIRESUPERUP)
+        _power += 20;
+    if (type == BOMBPIERCEUP)
+        _bombpierce = true;
+    if (type == BOMBDOWN && _max_bombs > 1)
+        _max_bombs -= 1;
+    if (type == FIREDOWN && _power > 1)
+        _power -= 1;
+    if (type == SPEEDDOWN && _speedmul > 1)
+        _speedmul -= 1;
+    if (type == INVICIBLEUP)
+        _invincbletime = 10000;
     removeObj(objs, powerup);
 }
 
@@ -117,7 +132,7 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
     for (auto it = objs.begin(); it != objs.end(); ++it) {
         type = (*it)->getType();
         pos = (*it)->getPos();
-        if (type == ObjTypes::EXPLOSION && collidePointObj(_pos, pos))
+        if (type == ObjTypes::EXPLOSION && _invincbletime <= 0 && collidePointObj(_pos, pos))
             _alive = false;
         else if (type >= ObjTypes::POWERUP && collide2objs(_pos, pos)) {
             collidePowerUp(objs, (*it));
@@ -126,7 +141,7 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
         else if ((type == ObjTypes::SOLIDWALL ||
         (type == ObjTypes::BREAKABLEWALL && !_throughwall)) && collide2objs(_pos + _speed, pos))
             collideWall(objs, pos);
-        else if (type == ObjTypes::BOMB && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos))
+        else if (type == ObjTypes::BOMB && !_throughbomb && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos))
             collideWall(objs, pos);
     }
 }
@@ -151,6 +166,9 @@ void Player::plantBomb(std::list<std::shared_ptr<GameObject>> &objs)
 void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     _timepassed = timepassed;
+    _invincbletime -= timepassed;
+    if (_invincbletime < 0)
+        _invincbletime = 0;
     assignAnim();
     _speed.x *= (_timepassed / 1000.0);
     _speed.y *= (_timepassed / 1000.0);
@@ -223,4 +241,9 @@ mystruct::vector3f Player::getNearest(mystruct::vector3f const &pos)
     vec.x = div1 * BLOCK_SIZE + BLOCK_SIZE / 2;
     vec.z = div2 * BLOCK_SIZE + BLOCK_SIZE / 2;
     return (vec);
+}
+
+bool Player::getPierce() const
+{
+    return (_bombpierce);
 }

@@ -24,6 +24,20 @@ Powerup::Powerup(float x, float y, float z, ObjTypes const &type, scene::ISceneM
         path = "assets/textures/speedup.png";
     if (_type == GameObject::THROUGHWALLUP)
         path = "assets/textures/throughwall.png";
+    if (_type == GameObject::THROUGHBOMBUP)
+        path = "assets/textures/throughbomb.png";
+    if (_type == GameObject::FIRESUPERUP)
+        path = "assets/textures/yellowflame.png";
+    if (_type == GameObject::BOMBPIERCEUP)
+        path = "assets/textures/crossbomb.png";
+    if (_type == GameObject::BOMBDOWN)
+        path = "assets/textures/bombdown.png";
+    if (_type == GameObject::FIREDOWN)
+        path = "assets/textures/blueflame.png";
+    if (_type == GameObject::SPEEDDOWN)
+        path = "assets/textures/speeddown.png";
+    if (_type == GameObject::INVINCIBLEUP)
+        path = "assets/textures/angry.png";
     _node->setMaterialTexture(0, Factory::Check_load(driver, path.c_str()));
 }
 
@@ -43,6 +57,20 @@ Powerup::Powerup(irr::core::vector3d<f32> pos, ObjTypes const &type, scene::ISce
         path = "assets/textures/speedup.png";
     if (_type == GameObject::THROUGHWALLUP)
         path = "assets/textures/throughwall.png";
+    if (_type == GameObject::THROUGHBOMBUP)
+        path = "assets/textures/throughbomb.png";
+    if (_type == GameObject::FIRESUPERUP)
+        path = "assets/textures/yellowflame.png";
+    if (_type == GameObject::BOMBPIERCEUP)
+        path = "assets/textures/crossbomb.png";
+    if (_type == GameObject::BOMBDOWN)
+        path = "assets/textures/bombdown.png";
+    if (_type == GameObject::FIREDOWN)
+        path = "assets/textures/blueflame.png";
+    if (_type == GameObject::SPEEDDOWN)
+        path = "assets/textures/speeddown.png";
+    if (_type == GameObject::INVINCIBLEUP)
+        path = "assets/textures/angry.png";
     _node->setMaterialTexture(0, Factory::Check_load(driver, path.c_str()));
 }
 
