@@ -52,7 +52,7 @@ Game::~Game()
 void Game::draw() const
 {
     _window->clear(sf::Color::Black);
-    for (int i = 0; i <= GameObject::ObjTypes::THROUGHWALLUP; i++)
+    for (int i = 0; i <= GameObject::ObjTypes::INVICIBLEUP; i++)
         for (auto it = _objects.begin(); it != _objects.end(); ++it)
             if ((*it)->getType() == i)
                 (*it)->draw(_window, _sprite);

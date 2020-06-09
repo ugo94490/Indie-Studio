@@ -268,6 +268,34 @@ static const std::vector<mystruct::intRect> _throughwallPowerupRects = {
     {51, 287, 16, 16}
 };
 
+static const std::vector<mystruct::intRect> _throughbombPowerupRects = {
+    {68, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _firesuperPowerupRects = {
+    {85, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _bombpiercePowerupRects = {
+    {102, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _bombdownPowerupRects = {
+    {119, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _firedownPowerupRects = {
+    {136, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _speeddownPowerupRects = {
+    {153, 287, 16, 16}
+};
+
+static const std::vector<mystruct::intRect> _inviciblePowerupRects = {
+    {170, 287, 16, 16}
+};
+
 class Animation {
     public:
         Animation() = default;
@@ -368,3 +396,10 @@ static const Animation bombUpAnim(_bombPowerupRects, 0);
 static const Animation fireUpAnim(_firePowerupRects, 0);
 static const Animation speedUpAnim(_rollerPowerupRects, 0);
 static const Animation throughwallUpAnim(_throughwallPowerupRects, 0);
+static const Animation throughbombUpAnim(_throughbombPowerupRects, 0);
+static const Animation firesuperUpAnim(_firesuperPowerupRects, 0);
+static const Animation bombpierceUpAnim(_bombpiercePowerupRects, 0);
+static const Animation bombdownAnim(_bombdownPowerupRects, 0);
+static const Animation firedownAnim(_firedownPowerupRects, 0);
+static const Animation speeddownAnim(_speeddownPowerupRects, 0);
+static const Animation invincibleUpAnim(_inviciblePowerupRects, 0);

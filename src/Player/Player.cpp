@@ -103,6 +103,20 @@ void Player::collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::s
         _speedmul += 1;
     if (type == THROUGHWALLUP)
         _throughwall = true;
+    if (type == THROUGHBOMBUP)
+        _throughbomb = true;
+    if (type == FIRESUPERUP)
+        _power += 20;
+    if (type == BOMBPIERCEUP)
+        _bombpierce = true;
+    if (type == BOMBDOWN && _max_bombs > 1)
+        _max_bombs -= 1;
+    if (type == FIREDOWN && _power > 1)
+        _power -= 1;
+    if (type == SPEEDDOWN && _speedmul > 1)
+        _speedmul -= 1;
+    if (type == INVINCIBLEUP)
+        _invincbletime = 10000;
     removeObj(objs, powerup);
 }
 
@@ -114,9 +128,8 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
     for (auto it = objs.begin(); it != objs.end(); ++it) {
         type = (*it)->getType();
         pos = (*it)->getPos();
-        if (type == ObjTypes::EXPLOSION && collidePointObj(_pos, pos)) {
+        if (type == ObjTypes::EXPLOSION && _invincbletime <= 0 && collidePointObj(_pos, pos))
             _alive = false;
-        }
         else if (type >= ObjTypes::POWERUP && collide2objs(_pos, pos)) {
             collidePowerUp(objs, (*it));
             it = objs.begin();
@@ -124,7 +137,7 @@ void Player::collide(std::list<std::shared_ptr<GameObject>> &objs)
         else if ((type == ObjTypes::SOLIDWALL ||
         (type == ObjTypes::BREAKABLEWALL && !_throughwall)) && collide2objs(_pos + _speed, pos))
             collideWall();
-        else if (type == ObjTypes::BOMB && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos))
+        else if (type == ObjTypes::BOMB && !_throughbomb && collide2objs(_pos + _speed, pos) && !collide2objs(_pos, pos))
             collideWall();
     }
 }
@@ -177,6 +190,9 @@ void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &t
 {
     setAnim();
     _timepassed = timepassed;
+    _invincbletime -= timepassed;
+    if (_invincbletime < 0)
+        _invincbletime = 0;
     _speed.X *= (_timepassed / 1000.0);
     _speed.Y *= (_timepassed / 1000.0);
     _speed.Z *= (_timepassed / 1000.0);
@@ -283,4 +299,9 @@ scene::IAnimatedMeshSceneNode *Player::getNode() const
 void Player::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
+}
+
+bool Player::getPierce() const
+{
+    return (_bombpierce);
 }

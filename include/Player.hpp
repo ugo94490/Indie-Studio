@@ -29,6 +29,7 @@ class Player : public GameObject {
         int getPlanted() const;
         void setPlanted(int planted);
         int getPower() const;
+        bool getPierce() const;
         void setAnim();
         void setBind(std::vector<std::pair<bool, char>> bind);
         void setPos(irr::core::vector3d<f32> pos);
@@ -55,6 +56,9 @@ class Player : public GameObject {
         int _planted;
         int _power;
         bool _throughwall;
+        bool _throughbomb;
+        bool _bombpierce;
+        float _invincbletime;
         bool _do_anim;
         int _id;
         float _timepassed;

@@ -27,7 +27,14 @@ class GameObject {
             BOMBUP,
             FIREUP,
             SPEEDUP,
-            THROUGHWALLUP
+            THROUGHWALLUP,
+            THROUGHBOMBUP,
+            FIRESUPERUP,
+            BOMBPIERCEUP,
+            BOMBDOWN,
+            FIREDOWN,
+            SPEEDDOWN,
+            INVICIBLEUP
         };
         virtual ~GameObject() = default;
         virtual void draw(std::shared_ptr<sf::RenderWindow>, sf::Sprite) const = 0;
