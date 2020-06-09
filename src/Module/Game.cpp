@@ -110,8 +110,18 @@ void Game::Pause()
         if (core->device->isWindowActive()) {
             core->driver->beginScene(true, true, video::SColor(0,0,0,0));
             core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
-            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
+            Factory::Button(core, tab[3], irr::core::position2d<irr::s32>(760, 454), options_rect);
+            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
                 break;
+            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(120, 300), name_rect))
+                std::cout << "SAVE 1" << std::endl;
+            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 300), name_rect))
+                std::cout << "SAVE 2" << std::endl;
+            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1400, 300), name_rect))
+                std::cout << "SAVE 3" << std::endl;
+            core->font->draw(L"SAVE 1", irr::core::rect<irr::s32>(120, 300, 520, 400), irr::video::SColor(255,0,0,0), true, true);
+            core->font->draw(L"SAVE 2", irr::core::rect<irr::s32>(760, 300, 1160, 400), irr::video::SColor(255,0,0,0), true, true);
+            core->font->draw(L"SAVE 3", irr::core::rect<irr::s32>(1400, 300, 1800, 400), irr::video::SColor(255,0,0,0), true, true);
             core->driver->endScene();
         }
     }
