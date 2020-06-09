@@ -55,6 +55,18 @@ void Game::removeDead()
     }
 }
 
+bool Game::check_end()
+{
+    int nb_alive = 0;
+
+    for (auto it = _players.begin(); it != _players.end(); ++it)
+        if (!(*it)->do_remove())
+            nb_alive += 1;
+    if (nb_alive > 1)
+        return (false);
+    return (true);
+}
+
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
     tab = obj;
@@ -82,7 +94,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         _objects.push_back(*it);
     }
     assignPlayerPos();
-    while(core->device->run() && core->driver) {
+    while(core->device->run() && core->driver && !check_end()) {
         _end = std::chrono::steady_clock::now();
         timepassed = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
         _start = std::chrono::steady_clock::now();

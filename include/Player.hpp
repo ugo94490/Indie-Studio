@@ -33,6 +33,7 @@ class Player : public GameObject {
         void setAnim();
         void setBind(std::vector<std::pair<bool, char>> bind);
         void setPos(irr::core::vector3d<f32> pos);
+        int getScore(void) const;
         irr::core::vector3d<f32> getNearest(irr::core::vector3d<f32> const &pos);
 
         std::vector<std::pair<bool, char>> _bind;

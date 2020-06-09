@@ -37,10 +37,10 @@ BreakableWall::~BreakableWall()
 
 void BreakableWall::tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const
 {
-    int generate = std::rand() % 2;
+    int generate = std::rand() % 4;
     int power = std::rand() % 11;
 
-    if (generate != 0)
+    if (generate == 0)
         return;
     objs.push_back(std::shared_ptr<GameObject>(new Powerup(_pos, ObjTypes(POWERUP + 1 + power), _smgr, _driver)));
 }
