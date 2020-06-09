@@ -28,6 +28,9 @@ Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVi
     _planted = 0;
     _power = 2;
     _throughwall = false;
+    _throughbomb = false;
+    _bombpierce = false;
+    _invincbletime = 0;
     _smgr = smgr;
     _driver = driver;
     _do_anim = false;
@@ -55,6 +58,9 @@ Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::
     _planted = 0;
     _power = 2;
     _throughwall = false;
+    _throughbomb = false;
+    _bombpierce = false;
+    _invincbletime = 0;
     _smgr = smgr;
     _driver = driver;
     _do_anim = false;
