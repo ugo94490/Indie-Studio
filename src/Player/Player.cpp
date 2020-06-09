@@ -320,3 +320,8 @@ bool Player::getPierce() const
 {
     return (_bombpierce);
 }
+
+int Player::getScore(void) const
+{
+    return (_score);
+}
