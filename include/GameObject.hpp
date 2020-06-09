@@ -72,6 +72,20 @@ class GameObject {
                 return (0);
             return (1);
         }
+        static int collPointLine(irr::core::vector3d<f32> point, irr::core::vector3d<f32> p2)
+        {
+            if ((point.Z + BLOCK_SIZE / 2) >= (p2.Z + BLOCK_SIZE)
+            || (point.Z + BLOCK_SIZE / 2) <= p2.Z)
+                return (0);
+            return (1);
+        }
+        static int collPointCol(irr::core::vector3d<f32> point, irr::core::vector3d<f32> p2)
+        {
+            if ((point.X + BLOCK_SIZE / 2) >= (p2.X + BLOCK_SIZE)
+            || (point.X + BLOCK_SIZE / 2) <= p2.X)
+                return (0);
+            return (1);
+        }
 
     protected:
     private:
