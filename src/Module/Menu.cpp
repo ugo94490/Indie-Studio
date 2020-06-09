@@ -145,11 +145,12 @@ void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *
         }
 }
 
-std::shared_ptr<Player> Menu::createObject(std::string name, int skin, bool ia)
+std::shared_ptr<Player> Menu::createObject(std::string name, int skin, bool ia, int i)
 {
+    std::string str = (name != "") ? name : name_p[i];
     std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, name, bomb[skin], skin + 1, ia);
 
-    ptr->_bind = {{false, 97}, {false, 97}, {false, 97}, {false, 97}, {false, 97}};
+    ptr->_bind = bind_p[i];
     return (ptr);
 }
 
@@ -158,7 +159,7 @@ std::vector<std::shared_ptr<Player>> Menu::create_player(std::vector<std::pair<b
     std::vector<std::shared_ptr<Player>> player;
 
     for (int i = 0; i < nb; i++)
-        player.push_back(createObject(write[i].second, skin_nb[i], false));
+        player.push_back(createObject(write[i].second, skin_nb[i], false, i));
     return (player);
 }
 

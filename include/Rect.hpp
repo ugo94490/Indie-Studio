@@ -213,4 +213,20 @@ static std::vector<std::vector<irr::core::rect<irr::s32>>> pos_bind_rect =
     }
 };
 
+static std::vector<std::vector<std::pair<bool, char>>> bind_p =
+{
+    {{false, 'z'}, {false, 'q'}, {false, 's'}, {false, 'd'}, {false, 'a'}},
+    {{false, 't'}, {false, 'f'}, {false, 'g'}, {false, 'h'}, {false, 'r'}},
+    {{false, 'i'}, {false, 'j'}, {false, 'k'}, {false, 'l'}, {false, 'u'}},
+    {{false, 'w'}, {false, 'x'}, {false, 'c'}, {false, 'v'}, {false, 'b'}}
+};
+
+static std::vector<std::string> name_p =
+{
+    "Player1",
+    "Player2",
+    "Player3",
+    "Player4"
+};
+
 #endif /* !RECT_HPP_ */
