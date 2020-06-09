@@ -37,8 +37,8 @@ BreakableWall::~BreakableWall()
 
 void BreakableWall::tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const
 {
-    int generate = std::rand() % 3;
-    int power = std::rand() % 4;
+    int generate = std::rand() % 2;
+    int power = std::rand() % 11;
 
     if (generate != 0)
         return;
