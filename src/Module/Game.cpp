@@ -29,13 +29,13 @@ void Game::assignPlayerPos()
 
     for (auto it = _players.begin(); it != _players.end() && i < 4; ++it, i++) {
         if (i == 0)
-            (*it)->setPos({BLOCK_SIZE * 1, 40, BLOCK_SIZE * 1});
+            (*it)->setPos({BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE});
         if (i == 1)
-            (*it)->setPos({BLOCK_SIZE * 15, 40, BLOCK_SIZE * 15});
+            (*it)->setPos({BLOCK_SIZE * 15, BLOCK_SIZE, BLOCK_SIZE * 15});
         if (i == 2)
-            (*it)->setPos({BLOCK_SIZE * 15, 40, BLOCK_SIZE * 1});
+            (*it)->setPos({BLOCK_SIZE * 15, BLOCK_SIZE, BLOCK_SIZE});
         if (i == 3)
-            (*it)->setPos({BLOCK_SIZE * 1, 40, BLOCK_SIZE * 15});
+            (*it)->setPos({BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE * 15});
     }
 }
 
@@ -88,8 +88,11 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         _start = std::chrono::steady_clock::now();
         getInput();
         if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown == true
-            && core->recv->eve.KeyInput.Char == 27)
+            && core->recv->eve.KeyInput.Char == 27) {
             Pause();
+            _end = std::chrono::steady_clock::now();
+            _start = std::chrono::steady_clock::now();
+        }
         for (auto it = _objects.begin(); it != _objects.end(); ++it)
             (*it)->update(_objects, timepassed);
         removeDead();
