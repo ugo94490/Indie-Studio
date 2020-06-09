@@ -17,4 +17,5 @@ class IModule
         virtual ~IModule() = default;
         virtual void Loop(std::vector<std::shared_ptr<IModule>> obj) = 0;
         std::vector<std::shared_ptr<Player>> character;
+        int save;
 };

@@ -25,6 +25,7 @@ class Game : public IModule
         void assignPlayerPos();
         void getInput();
         void removeDead();
+        void Pause();
     private:
         std::vector<std::shared_ptr<IModule>> tab;
         std::list<std::shared_ptr<Player>> _players;

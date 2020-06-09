@@ -7,6 +7,7 @@
 
 #include "Game.hpp"
 #include "Factory.hpp"
+#include "Rect.hpp"
 
 Game::Game(Core *obj)
 {
@@ -86,12 +87,28 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         timepassed = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
         _start = std::chrono::steady_clock::now();
         getInput();
+        if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown == true
+            && core->recv->eve.KeyInput.Char == 27)
+            Pause();
         for (auto it = _objects.begin(); it != _objects.end(); ++it)
             (*it)->update(_objects, timepassed);
         removeDead();
         if (core->device->isWindowActive()) {
             core->driver->beginScene(true, true, video::SColor(0,0,0,0));
             core->smgr->drawAll();
+            core->driver->endScene();
+        }
+    }
+}
+
+void Game::Pause()
+{
+    while(core->device->run()) {
+        if (core->device->isWindowActive()) {
+            core->driver->beginScene(true, true, video::SColor(0,0,0,0));
+            core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
+            if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
+                break;
             core->driver->endScene();
         }
     }
