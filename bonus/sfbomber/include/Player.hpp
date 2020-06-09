@@ -27,6 +27,7 @@ class Player : public GameObject {
         int getPlanted() const;
         void setPlanted(int planted);
         int getPower() const;
+        bool getPierce() const;
         mystruct::vector3f getNearest(mystruct::vector3f const &pos);
 
     protected:
@@ -42,6 +43,9 @@ class Player : public GameObject {
         int _planted;
         int _power;
         bool _throughwall;
+        bool _throughbomb;
+        bool _bombpierce;
+        float _invincbletime;
         float _timepassed;
         sf::Keyboard::Key _leftkey;
         sf::Keyboard::Key _rightkey;

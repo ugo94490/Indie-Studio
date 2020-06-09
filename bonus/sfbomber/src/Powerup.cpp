@@ -16,6 +16,20 @@ Powerup::Powerup(ObjTypes const &type, mystruct::vector3f const &pos) : _type(ty
         _anim = speedUpAnim;
     if (type == ObjTypes::THROUGHWALLUP)
         _anim = throughwallUpAnim;
+    if (type == ObjTypes::THROUGHBOMBUP)
+        _anim = throughbombUpAnim;
+    if (type == ObjTypes::FIRESUPERUP)
+        _anim = firesuperUpAnim;
+    if (type == ObjTypes::BOMBPIERCEUP)
+        _anim = bombpierceUpAnim;
+    if (type == ObjTypes::BOMBDOWN)
+        _anim = bombdownAnim;
+    if (type == ObjTypes::FIREDOWN)
+        _anim = firedownAnim;
+    if (type == ObjTypes::SPEEDDOWN)
+        _anim = speeddownAnim;
+    if (type == ObjTypes::INVICIBLEUP)
+        _anim = invincibleUpAnim;
 }
 
 Powerup::~Powerup()
