@@ -8,87 +8,6 @@
 #include "Player.hpp"
 #include "Factory.hpp"
 
-static std::shared_ptr<GameObject> getObjbyPos(std::list<std::shared_ptr<GameObject>> const &objs, irr::core::vector3d<f32> const &pos)
-{
-    for (auto it : objs)
-        if (it->getPos() == pos)
-            return (it);
-    return (nullptr);
-}
-
-static void printTab(std::vector<std::vector<char>> vec)
-{
-    printf("tab:\n");
-    for (size_t i = 0; i < vec.size(); i++) {
-        for (size_t j = 0; j < vec[i].size(); j++)
-            printf("%d", vec[i][j]);
-        printf("\n");
-    }
-}
-
-std::vector<std::vector<char>> Player::getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs)
-{
-    std::vector<std::vector<char>> vec;
-    int posx;
-    int posz;
-    GameObject::ObjTypes type;
-    std::shared_ptr<GameObject> objptr = nullptr;
-
-    for (int i = 0; i < 17; i++) {
-        std::vector<char> temp;
-        for (int j = 0; j < 17; j++)
-            temp.push_back(1);
-        vec.push_back(temp);
-    }
-    for (auto it : objs) {
-        type = it->getType();
-        posx = it->getPos().X / BLOCK_SIZE;
-        posz = it->getPos().Z / BLOCK_SIZE;
-        if (type == EXPLOSION)
-            vec[posz][posx] = -1;
-        if (type == BOMB) {
-            vec[posz][posx] = -1;
-            for (int i = 1; i <= 3 && (posx + i) < 17; i++) {
-                objptr = getObjbyPos(objs, {(float)(posx + i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
-                    break;
-                vec[posz][posx + i] = -1;
-            }
-            for (int i = 1; i <= 3 && (posx - i) >= 0; i++) {
-                objptr = getObjbyPos(objs, {(float)(posx - i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
-                    break;
-                vec[posz][posx - i] = -1;
-            }
-            for (int i = 1; i <= 3 && (posz + i) < 17; i++) {
-                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz + i) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
-                    break;
-                vec[posz + 1][posx] = -1;
-            }
-            for (int i = 1; i <= 3 && (posz - i) >= 0; i++) {
-                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz - i) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
-                    break;
-                vec[posz - 1][posx] = -1;
-            }
-        }
-        if ((type == BREAKABLEWALL && !_throughwall) || type == SOLIDWALL)
-            vec[posz][posx] = 0;
-    }
-    return (vec);
-}
-
-void Player::ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs)
-{
-    int posx = getNearest(_pos).X / BLOCK_SIZE;
-    int posz = getNearest(_pos).Z / BLOCK_SIZE;
-    std::vector<std::vector<char>> tab = getTabDanger(objs);
-
-    if (tab[posz][posx] == -1)
-        _speed.Z = -_speedmul * BLOCK_SIZE;
-}
-
 Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)
 {
     _pos = {x, y, z};
@@ -300,6 +219,119 @@ void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &t
         plantBomb(objs);
     _pos = _pos + _speed;
     _node->setPosition(_pos);
+}
+
+std::vector<std::vector<char>> Player::getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs)
+{
+    std::vector<std::vector<char>> vec;
+    int posx;
+    int posz;
+    GameObject::ObjTypes type;
+    std::shared_ptr<GameObject> objptr = nullptr;
+
+    for (int i = 0; i < 17; i++) {
+        std::vector<char> temp;
+        for (int j = 0; j < 17; j++)
+            temp.push_back(1);
+        vec.push_back(temp);
+    }
+    for (auto it : objs) {
+        type = it->getType();
+        posx = it->getPos().X / BLOCK_SIZE;
+        posz = it->getPos().Z / BLOCK_SIZE;
+        if (type == EXPLOSION)
+            vec[posz][posx] = -1;
+        if (type == BOMB) {
+            vec[posz][posx] = -1;
+            for (int i = 1; i <= 4 && (posx + i) < 17; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx + i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz][posx + i] = -1;
+            }
+            for (int i = 1; i <= 4 && (posx - i) >= 0; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx - i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz][posx - i] = -1;
+            }
+            for (int i = 1; i <= 3 && (posz + i) < 17; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz + i) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz + i][posx] = -1;
+            }
+            for (int i = 1; i <= 4 && (posz - i) >= 0; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz - i) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz - i][posx] = -1;
+            }
+        }
+        if ((type == BREAKABLEWALL && !_throughwall) || type == SOLIDWALL)
+            vec[posz][posx] = 0;
+    }
+    return (vec);
+}
+
+static int getDirectionToGo(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction)
+{
+    int dist1 = 1000;
+    int dist2 = 1000;
+    int dist3 = 1000;
+    int dist4 = 1000;
+
+    if (tab[starty][startx] == 0 || distance > 10)
+        return (10000);
+    if (tab[starty][startx] != -1)
+        return (distance);
+    if (startx < 16 && direction != 2 && tab[starty][startx + 1] != 0)
+        dist1 = getDirectionToGo(startx + 1, starty, tab, distance + 1, 1);
+    if (startx > 0 && direction != 1 && tab[starty][startx - 1] != 0)
+        dist2 = getDirectionToGo(startx - 1, starty, tab, distance + 1, 2);
+    if (starty < 16 && direction != 4 && tab[starty + 1][startx] != 0)
+        dist3 = getDirectionToGo(startx, starty + 1, tab, distance + 1, 3);
+    if (starty > 0 && direction != 3 && tab[starty - 1][startx] != 0)
+        dist4 = getDirectionToGo(startx, starty - 1, tab, distance + 1, 4);
+    if (dist2 < dist1)
+        dist1 = dist2;
+    if (dist3 < dist1)
+        dist1 = dist3;
+    if (dist4 < dist1)
+        dist1 = dist4;
+    return (dist1);
+}
+
+void Player::IADodge(int posx, int posz, std::vector<std::vector<char>> tab)
+{
+    int distance = 1000;
+    int temp = 0;
+
+    if (tab[posz][posx] != -1)
+        return;
+    if ((temp = getDirectionToGo(posx + 1, posz, tab, 1, 1)) < distance) {
+        distance = temp;
+        _speed = {(float)(_speedmul * BLOCK_SIZE), 0, 0};
+    }
+    if ((temp = getDirectionToGo(posx - 1, posz, tab, 1, 2)) < distance) {
+        distance = temp;
+        _speed = {(float)(-_speedmul * BLOCK_SIZE), 0, 0};
+    }
+    if ((temp = getDirectionToGo(posx, posz + 1, tab, 1, 3)) < distance) {
+        distance = temp;
+        _speed = {0, 0, (float)(_speedmul * BLOCK_SIZE)};
+    }
+    if ((temp = getDirectionToGo(posx, posz - 1, tab, 1, 4)) < distance)
+        _speed = {0, 0, (float)(-_speedmul * BLOCK_SIZE)};
+}
+
+void Player::ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs)
+{
+    int posx = getNearest(_pos).X / BLOCK_SIZE;
+    int posz = getNearest(_pos).Z / BLOCK_SIZE;
+    std::vector<std::vector<char>> tab = getTabDanger(objs);
+
+    IADodge(posx, posz, tab);
 }
 
 void Player::handle_input(Core *core, std::list<std::shared_ptr<GameObject>> const &objs)

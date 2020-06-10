@@ -36,6 +36,7 @@ class Player : public GameObject {
         int getScore(void) const;
         std::string getName();
         void ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs);
+        void IADodge(int posx, int posz, std::vector<std::vector<char>> tab);
         std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
 
         std::vector<std::pair<bool, char>> _bind;

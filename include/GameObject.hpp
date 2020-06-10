@@ -104,6 +104,13 @@ class GameObject {
             vec.Y = BLOCK_SIZE;
             return (vec);
         }
+        static std::shared_ptr<GameObject> getObjbyPos(std::list<std::shared_ptr<GameObject>> const &objs, irr::core::vector3d<f32> const &pos)
+        {
+            for (auto it : objs)
+                if (it->getPos() == pos)
+                    return (it);
+            return (nullptr);
+        }
 
     protected:
     private:
