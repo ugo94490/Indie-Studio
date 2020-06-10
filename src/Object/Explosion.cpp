@@ -10,24 +10,58 @@
 
 Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
-    _pos = {x, y, z};
-    _node = smgr->addAnimatedMeshSceneNode(mesh);
-    _node->setPosition(_pos);
-    _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
+        _pos = {x, y, z};
+    particleSystem = smgr->addParticleSystemSceneNode(true);
+	irr::scene::IParticleEmitter* emitter = particleSystem->createBoxEmitter(
+        core::aabbox3d<f32>(-7,0,-7,7,1,7), // taille de l'émetteur
+        core::vector3df(0.0f,0.09f,0.0f),   // position initiale
+        80,100,                             // taux d'émission
+        video::SColor(0,255,255,255),       // la couleur la plus sombre
+        video::SColor(0,255,255,255),       // la couleur la plus lumineuse
+        800,2000,0,                         // minimum et maximum âge, angle
+        core::dimension2df(10.f,10.f),         // taille minimum
+        core::dimension2df(20.f,20.f));        // taille maximum
+	particleSystem->setEmitter(emitter);    // on attache l'emetteur
+	emitter->drop();                        // plus besoin de ca
+	irr::scene::IParticleAffector* paf = particleSystem->createFadeOutParticleAffector();
+    particleSystem->addAffector(paf); // de même pour l'affecteur
+    paf->drop();
+    particleSystem->setPosition(irr::core::vector3df(x,y,z));
+    particleSystem->setScale(irr::core::vector3df(2,2,2));
+    particleSystem->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    particleSystem->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
+    particleSystem->setMaterialTexture(0, driver->getTexture("assets/textures/fire.bmp"));
+    particleSystem->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+
     _dead = false;
     _start = std::chrono::steady_clock::now();
 }
 
 Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
     _pos = pos;
-    _node = smgr->addAnimatedMeshSceneNode(mesh);
-    _node->setPosition(_pos);
-    _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
+    particleSystem = smgr->addParticleSystemSceneNode(true);
+	irr::scene::IParticleEmitter* emitter = particleSystem->createBoxEmitter(
+        core::aabbox3d<f32>(-7,0,-7,7,1,7), // taille de l'émetteur
+        core::vector3df(0.0f,0.09f,0.0f),   // position initiale
+        80,100,                             // taux d'émission
+        video::SColor(0,255,255,255),       // la couleur la plus sombre
+        video::SColor(0,255,255,255),       // la couleur la plus lumineuse
+        800,2000,0,                         // minimum et maximum âge, angle
+        core::dimension2df(10.f,10.f),         // taille minimum
+        core::dimension2df(20.f,20.f));        // taille maximum
+	particleSystem->setEmitter(emitter);              // on attache l'emetteur
+	emitter->drop();                                  // plus besoin de ca
+	irr::scene::IParticleAffector* paf = particleSystem->createFadeOutParticleAffector();
+    particleSystem->addAffector(paf); // de même pour l'affecteur
+    paf->drop();
+    particleSystem->setPosition(irr::core::vector3df(pos.X, pos.Y, pos.Z));
+    particleSystem->setScale(irr::core::vector3df(2,2,2));
+    particleSystem->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    particleSystem->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
+    particleSystem->setMaterialTexture(0, driver->getTexture("assets/textures/fire.bmp"));
+    particleSystem->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+
     _dead = false;
     _start = std::chrono::steady_clock::now();
 }

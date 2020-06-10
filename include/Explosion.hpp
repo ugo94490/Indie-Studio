@@ -22,6 +22,7 @@ class Explosion : public GameObject {
         void setNode(scene::IAnimatedMeshSceneNode *node);
 
     protected:
+        irr::scene::IParticleSystemSceneNode* particleSystem;
         scene::IAnimatedMeshSceneNode *_node;
         irr::core::vector3d<f32> _pos;
         bool _dead;
