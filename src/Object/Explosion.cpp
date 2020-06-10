@@ -92,6 +92,7 @@ Explosion::~Explosion()
 {
     _node->remove();
     particleSystem->clearParticles();
+    particleSystem->remove();
     std::cout << "luuuul" << std::endl;
 }
 
