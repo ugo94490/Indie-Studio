@@ -19,6 +19,7 @@ int main()
 	try {
 		Core prog;
 		prog.Splash();
+		prog.Cinematic();
 		prog.launch();
 	} catch (Exception &err) {
 		std::cerr << err.what() << std::endl;
