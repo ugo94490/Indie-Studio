@@ -44,7 +44,7 @@ void Menu::Loop(std::vector<std::shared_ptr<IModule>> obj)
         Factory::Button(core, tab[4], irr::core::position2d<irr::s32>(1240, 454), rules_rect);
         Factory::Button(core, tab[5], irr::core::position2d<irr::s32>(280, 814), credit_rect);
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1240, 814), quit_rect) == true)
-            break;
+            core->device->closeDevice();
         core->driver->endScene();
     }
 }
@@ -147,8 +147,8 @@ void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *
 
 std::shared_ptr<Player> Menu::createObject(std::string name, int skin, bool ia, int i)
 {
-    std::string str = (name != "") ? name : name_p[i];
-    std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, name, bomb[skin], skin + 1, ia);
+    std::string str = (name.size() > 0) ? name : name_p[i];
+    std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, str, bomb[skin], skin + 1, ia);
 
     ptr->_bind = bind_p[i];
     return (ptr);

@@ -114,6 +114,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
             core->driver->endScene();
         }
     }
+    end();
 }
 
 void Game::Pause()
@@ -136,6 +137,114 @@ void Game::Pause()
             core->font->draw(L"SAVE 3", irr::core::rect<irr::s32>(1400, 300, 1800, 400), irr::video::SColor(255,0,0,0), true, true);
             core->driver->endScene();
         }
+    }
+}
+
+std::pair<std::string, int> Game::getPlayerScore()
+{
+    std::pair<std::string, int> score;
+    int max = -1;
+
+    for (auto i = _players.begin(); i != _players.end(); i++)
+        if (i->get()->getScore() > max)
+            max = i->get()->getScore();
+    for (auto i = _players.begin(); i != _players.end(); i++)
+        if (i->get()->getScore() == max)
+            score = std::make_pair(i->get()->getName(), i->get()->getScore());
+    return (score);
+}
+
+bool Factory::num(std::string str)
+{
+    for (size_t i = 0; i < str.size(); i++)
+        if ((str[i] > '9' || str[i] < '0') && str[i] != 0 && str[i] != '\n')
+            return (false);
+    return (true);
+}
+
+std::vector<std::pair<std::string, int>> Game::getScore(std::string path)
+{
+    std::fstream myfile(path);
+    std::string line;
+    std::vector<std::pair<std::string, int>> score;
+    int offset = 0;
+    std::string nb;
+
+    score.erase(score.begin(), score.end());
+    if (!myfile.is_open())
+        throw(Exception("Can't open file"));
+    for (int i = 0; !myfile.eof(); i++) {
+        offset = -1;
+        getline (myfile, line);
+        offset = line.find(' ');
+        if (offset == (int)line.size())
+            continue;
+        nb = line.substr(offset + 1);
+        if (Factory::num(nb) == false || nb.size() == 0 || nb[0] == '\n')
+            continue;
+        score.push_back(std::make_pair(line.substr(0, offset), std::stoi(nb)));
+    }
+    return (score);
+}
+
+std::vector<std::pair<std::string, int>> Game::concat_score(std::vector<std::pair<std::string, int>> tab_score, std::pair<std::string, int> score)
+{
+    int idx = -1;
+    std::vector<std::pair<std::string, int>> new_tab;
+
+    for (size_t i = 0; i < tab_score.size(); i++) {
+        if (score.second > tab_score[i].second)
+            idx = i;
+        if (idx != -1)
+            break;
+    }
+    if (idx == -1) {
+        if (tab_score.size() >= 9)
+            return (tab_score);
+        tab_score.push_back(score);
+        return (tab_score);
+    }
+    for (size_t i = 0; i < tab_score.size(); i++) {
+        if ((int)i == idx)
+            new_tab.push_back(score);
+        new_tab.push_back(tab_score[i]);
+    }
+    return (new_tab);
+}
+
+void Game::write_score(std::string path, std::vector<std::pair<std::string, int>> tab_score)
+{
+    std::ofstream ofs;
+    ofs.open(path, std::ofstream::trunc | std::ofstream::out);
+
+    for (size_t i = 0; i < tab_score.size(); i++)
+        ofs << tab_score[i].first + " " + std::to_string(tab_score[i].second) + "\n";
+    ofs.close();
+}
+
+void Game::end()
+{
+    std::pair<std::string, int> score = getPlayerScore();
+    std::vector<std::pair<std::string, int>> file_score = getScore("assets/Score/score.txt");
+    std::string str;
+    int j = 0;
+
+    file_score = concat_score(file_score, score);
+    write_score("assets/Score/score.txt", file_score);
+    while(core->device->run()) {
+        core->driver->beginScene(true, true, video::SColor(0,0,0,0));
+        core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
+        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), quit_rect) == true)
+            core->obj[0]->Loop(core->obj);
+        Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 280), rectangle_rect);
+        if (core->font) {
+            for (auto i = _players.begin(); i != _players.end(); i++, j++) {
+                str = i->get()->getName() + " " + std::to_string(i->get()->getScore());
+                core->font->draw(str.c_str(), irr::core::rect<irr::s32>(960 - (str.size() * 24 / 2), 300 + 50 * j, 960 + str.size(), 650), irr::video::SColor(255,0,0,0));
+            }
+            j = 0;
+        }
+        core->driver->endScene();
     }
 }
 

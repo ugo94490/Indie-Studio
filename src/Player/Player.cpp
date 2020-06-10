@@ -325,3 +325,8 @@ int Player::getScore(void) const
 {
     return (_score);
 }
+
+std::string Player::getName()
+{
+    return (_name);
+}
