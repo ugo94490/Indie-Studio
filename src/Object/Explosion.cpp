@@ -93,7 +93,6 @@ Explosion::~Explosion()
     _node->remove();
     particleSystem->clearParticles();
     particleSystem->remove();
-    std::cout << "luuuul" << std::endl;
 }
 
 void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
