@@ -86,6 +86,23 @@ class GameObject {
                 return (0);
             return (1);
         }
+        static irr::core::vector3d<f32> getNearest(irr::core::vector3d<f32> const &pos)
+        {
+            irr::core::vector3d<f32> vec;
+            int div1 = pos.X / BLOCK_SIZE;
+            int div2 = pos.Z / BLOCK_SIZE;
+
+            if ((pos.X - div1 * BLOCK_SIZE) < (BLOCK_SIZE / 2))
+                vec.X = div1 * BLOCK_SIZE;
+            else
+                vec.X = (div1 + 1) * BLOCK_SIZE;
+            if ((pos.Z - div2 * BLOCK_SIZE) < (BLOCK_SIZE / 2))
+                vec.Z = div2 * BLOCK_SIZE;
+            else
+                vec.Z = (div2 + 1) * BLOCK_SIZE;
+            vec.Y = BLOCK_SIZE;
+            return (vec);
+        }
 
     protected:
     private:

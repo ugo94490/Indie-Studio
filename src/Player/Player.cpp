@@ -8,6 +8,87 @@
 #include "Player.hpp"
 #include "Factory.hpp"
 
+static std::shared_ptr<GameObject> getObjbyPos(std::list<std::shared_ptr<GameObject>> const &objs, irr::core::vector3d<f32> const &pos)
+{
+    for (auto it : objs)
+        if (it->getPos() == pos)
+            return (it);
+    return (nullptr);
+}
+
+static void printTab(std::vector<std::vector<char>> vec)
+{
+    printf("tab:\n");
+    for (size_t i = 0; i < vec.size(); i++) {
+        for (size_t j = 0; j < vec[i].size(); j++)
+            printf("%d", vec[i][j]);
+        printf("\n");
+    }
+}
+
+std::vector<std::vector<char>> Player::getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs)
+{
+    std::vector<std::vector<char>> vec;
+    int posx;
+    int posz;
+    GameObject::ObjTypes type;
+    std::shared_ptr<GameObject> objptr = nullptr;
+
+    for (int i = 0; i < 17; i++) {
+        std::vector<char> temp;
+        for (int j = 0; j < 17; j++)
+            temp.push_back(1);
+        vec.push_back(temp);
+    }
+    for (auto it : objs) {
+        type = it->getType();
+        posx = it->getPos().X / BLOCK_SIZE;
+        posz = it->getPos().Z / BLOCK_SIZE;
+        if (type == EXPLOSION)
+            vec[posz][posx] = -1;
+        if (type == BOMB) {
+            vec[posz][posx] = -1;
+            for (int i = 1; i <= 3 && (posx + i) < 17; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx + i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz][posx + i] = -1;
+            }
+            for (int i = 1; i <= 3 && (posx - i) >= 0; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx - i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz][posx - i] = -1;
+            }
+            for (int i = 1; i <= 3 && (posz + i) < 17; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz + i) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz + 1][posx] = -1;
+            }
+            for (int i = 1; i <= 3 && (posz - i) >= 0; i++) {
+                objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz - i) * BLOCK_SIZE});
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                    break;
+                vec[posz - 1][posx] = -1;
+            }
+        }
+        if ((type == BREAKABLEWALL && !_throughwall) || type == SOLIDWALL)
+            vec[posz][posx] = 0;
+    }
+    return (vec);
+}
+
+void Player::ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs)
+{
+    int posx = getNearest(_pos).X / BLOCK_SIZE;
+    int posz = getNearest(_pos).Z / BLOCK_SIZE;
+    std::vector<std::vector<char>> tab = getTabDanger(objs);
+
+    if (tab[posz][posx] == -1)
+        _speed.Z = -_speedmul * BLOCK_SIZE;
+}
+
 Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)
 {
     _pos = {x, y, z};
@@ -69,6 +150,7 @@ Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::
     _driver = driver;
     _do_anim = false;
     _id = id;
+    idx_chara = id - 1;
 }
 
 Player::~Player()
@@ -214,18 +296,18 @@ void Player::update(std::list<std::shared_ptr<GameObject>> &objs, float const &t
         _score += 1;
         _buffscore = 0;
     }
-    _pos = _pos + _speed;
     if (_planting)
         plantBomb(objs);
+    _pos = _pos + _speed;
     _node->setPosition(_pos);
 }
 
-void Player::handle_input(Core *core)
+void Player::handle_input(Core *core, std::list<std::shared_ptr<GameObject>> const &objs)
 {
     _planting = false;
     _speed = {0, 0, 0};
     if (_ia)
-        return;
+        return ComputeIA(objs);
     if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown == true
     && core->recv->eve.KeyInput.Char == _bind[1].second) {
         _speed.X += -(_speedmul * BLOCK_SIZE);
@@ -276,24 +358,6 @@ void Player::setPlanted(int planted)
 int Player::getPower() const
 {
     return (_power);
-}
-
-irr::core::vector3d<f32> Player::getNearest(irr::core::vector3d<f32> const &pos)
-{
-    irr::core::vector3d<f32> vec;
-    int div1 = pos.X / BLOCK_SIZE;
-    int div2 = pos.Z / BLOCK_SIZE;
-
-    if ((pos.X - div1 * BLOCK_SIZE) < (BLOCK_SIZE / 2))
-        vec.X = div1 * BLOCK_SIZE;
-    else
-        vec.X = (div1 + 1) * BLOCK_SIZE;
-    if ((pos.Z - div2 * BLOCK_SIZE) < (BLOCK_SIZE / 2))
-        vec.Z = div2 * BLOCK_SIZE;
-    else
-        vec.Z = (div2 + 1) * BLOCK_SIZE;
-    vec.Y = BLOCK_SIZE;
-    return (vec);
 }
 
 void Player::setBind(std::vector<std::pair<bool, char>> bind)

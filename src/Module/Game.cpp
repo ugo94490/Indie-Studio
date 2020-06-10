@@ -42,7 +42,7 @@ void Game::assignPlayerPos()
 void Game::getInput()
 {
     for (auto it = _players.begin(); it != _players.end(); ++it)
-        (*it)->handle_input(core);
+        (*it)->handle_input(core, _objects);
 }
 
 void Game::removeDead()
