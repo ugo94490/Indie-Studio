@@ -66,8 +66,10 @@ void Menu::select_nb_player()
             auto s = std::to_string(nb_player);
         }
         Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(910, 490), touche_rect);
-        if (Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(800, 814), play_rect) == true)
+        if (Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(800, 814), play_rect) == true) {
             New_Game(nb_player);
+            break;
+        }
         if (Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
         auto s = std::to_string(nb_player);
@@ -81,10 +83,14 @@ void Menu::Game()
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
         core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
-        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(280, 454), new_rect) == true)
+        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(280, 454), new_rect) == true) {
             select_nb_player();
-        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1240, 454), load_rect) == true)
+            break;
+        }
+        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1240, 454), load_rect) == true) {
             Load_Game();
+            break;
+        }
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
             break;
         core->driver->endScene();
@@ -154,9 +160,16 @@ std::shared_ptr<Player> Menu::createObject(std::string name, int skin, bool ia, 
     return (ptr);
 }
 
+std::shared_ptr<Player> Menu::createIA(int skin, int i)
+{
+    std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, name_p[i], bomb[skin], skin + 1, true);
+    return (ptr);
+}
+
 std::vector<std::shared_ptr<Player>> Menu::create_player(std::vector<std::pair<bool, std::string>> write, int nb)
 {
     std::vector<std::shared_ptr<Player>> player;
+    std::cout << nb << std::endl;
 
     for (int i = 0; i < nb; i++)
         player.push_back(createObject(write[i].second, skin_nb[i], false, i));
@@ -176,8 +189,10 @@ void Menu::New_Game(int nb)
         core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
-        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1456, 814), play_rect) == true)
+        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1456, 814), play_rect) == true) {
             getBind(create_player(write, nb));
+            break;
+        }
         write = Skin_button(write, nb);
         _end = std::chrono::steady_clock::now();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 500) {
@@ -258,9 +273,13 @@ void Menu::getBind(std::vector<std::shared_ptr<Player>> player)
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(64, 814), back_rect) == true)
             break;
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player)) {
+            for (int i = player.size(); i < 4; i++)
+                player.push_back(createIA(0, i));
+            tab[1]->character.clear();
             tab[1]->character = player;
             tab[1]->save = 0;
             tab[1]->Loop(tab);
+            break;
         }
         for (size_t i = 0; i < player.size(); i++)
             bind_player(player, i);
@@ -278,14 +297,17 @@ void Menu::Load_Game()
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(120, 490), name_rect)) {
             tab[1]->save = 1;
             tab[1]->Loop(tab);
+            break;
         }
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 490), name_rect)) {
             tab[1]->save = 2;
             tab[1]->Loop(tab);
+            break;
         }
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1400, 490), name_rect)) {
             tab[1]->save = 3;
             tab[1]->Loop(tab);
+            break;
         }
         core->font->draw(L"SAVE 1", irr::core::rect<irr::s32>(120, 490, 520, 590), irr::video::SColor(255,0,0,0), true, true);
         core->font->draw(L"SAVE 2", irr::core::rect<irr::s32>(760, 490, 1160, 590), irr::video::SColor(255,0,0,0), true, true);

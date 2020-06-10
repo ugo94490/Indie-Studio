@@ -33,6 +33,7 @@ class Menu : public IModule
         std::vector<std::pair<bool, char>> setBoolBind(std::vector<std::pair<bool, char>> lol, int j);
         void getTouche(std::shared_ptr<Player> player, int j);
         bool check_touche(std::vector<std::shared_ptr<Player>> player);
+        std::shared_ptr<Player> createIA(int skin, int i);
     private:
         Core *core;
         irr::video::ITexture *white;
