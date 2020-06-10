@@ -24,6 +24,7 @@ class Core
         ~Core();
         void launch();
         void Splash();
+        void Cinematic();
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* smgr;
@@ -38,6 +39,7 @@ class Core
         irr::video::ITexture *xbox;
         irr::video::ITexture *other_back;
         irr::video::ITexture *splash_screen;
+        irr::video::ITexture *cine;
         sf::Music *menu_music;
         int volume;
 };

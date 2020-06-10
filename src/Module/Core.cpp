@@ -39,6 +39,7 @@ Core::Core()
     xbox = Factory::Check_load(driver, "assets/Sprite/xbox.jpg");
     other_back = Factory::Check_load(driver, "assets/Sprite/credit.jpg");
     splash_screen = Factory::Check_load(driver, "assets/Sprite/splash.jpg");
+    cine = Factory::Check_load(driver, "assets/cinematic.png");
     menu_music = Sound::createMusic(str);
 }
 
@@ -62,6 +63,36 @@ void Core::Splash()
         if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 4000)
             break;
         driver->endScene();
+    }
+}
+
+void Core::Cinematic()
+{
+    int posx = 0;
+    int posy = 0;
+    static std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    static std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
+
+    while (device->run()) {
+        _end = std::chrono::steady_clock::now();
+        driver->beginScene(true, true, irr::video::SColor(0,0,0,0));
+        driver->draw2DImage(images, irr::core::position2d<irr::s32>(0, 0));
+        driver->draw2DImage(cine, irr::core::position2d<irr::s32>(640, 360), irr::core::rect<irr::s32>(posx, posy, posx + 640, posy + 360));
+        driver->endScene();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 66) {
+            _start = _end;
+            posx += 640;
+            if (posx >= 10240) {
+                posx = 0;
+                posy += 360;
+            }
+            if (posx == 9600 && posy == 5760) {
+                posx = 0;
+                posy = 0;
+            }
+        }
+        if (recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && recv->eve.KeyInput.PressedDown == true)
+            break;
     }
 }
 
