@@ -234,8 +234,10 @@ void Game::end()
     while(core->device->run()) {
         core->driver->beginScene(true, true, video::SColor(0,0,0,0));
         core->driver->draw2DImage(core->images, irr::core::position2d<irr::s32>(0,0));
-        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), quit_rect) == true)
+        if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), quit_rect) == true) {
+            _players.clear();
             core->obj[0]->Loop(core->obj);
+        }
         Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 280), rectangle_rect);
         if (core->font) {
             for (auto i = _players.begin(); i != _players.end(); i++, j++) {
