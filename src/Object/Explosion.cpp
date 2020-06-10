@@ -10,7 +10,17 @@
 
 Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
-        _pos = {x, y, z};
+    _pos = {x, y, z};
+
+    //lucas
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
+    _node = smgr->addAnimatedMeshSceneNode(mesh);
+    _node->setPosition(_pos);
+    _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
+    //lucas
+
+    //particles
     particleSystem = smgr->addParticleSystemSceneNode(true);
 	irr::scene::IParticleEmitter* emitter = particleSystem->createBoxEmitter(
         core::aabbox3d<f32>(-7,0,-7,7,1,7), // taille de l'émetteur
@@ -32,6 +42,7 @@ Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, vide
     particleSystem->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
     particleSystem->setMaterialTexture(0, driver->getTexture("assets/textures/fire.bmp"));
     particleSystem->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+    //particles
 
     _dead = false;
     _start = std::chrono::steady_clock::now();
@@ -40,6 +51,16 @@ Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, vide
 Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
 {
     _pos = pos;
+
+    //lucas
+    scene::IAnimatedMesh* mesh = Factory::Check_mesh(smgr, "assets/textures/box.MD3");
+    _node = smgr->addAnimatedMeshSceneNode(mesh);
+    _node->setPosition(_pos);
+    _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/box.jpg"));
+    //lucas
+
+    //particles
     particleSystem = smgr->addParticleSystemSceneNode(true);
 	irr::scene::IParticleEmitter* emitter = particleSystem->createBoxEmitter(
         core::aabbox3d<f32>(-7,0,-7,7,1,7), // taille de l'émetteur
@@ -61,6 +82,7 @@ Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, v
     particleSystem->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
     particleSystem->setMaterialTexture(0, driver->getTexture("assets/textures/fire.bmp"));
     particleSystem->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+    //particles
 
     _dead = false;
     _start = std::chrono::steady_clock::now();
@@ -69,6 +91,8 @@ Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, v
 Explosion::~Explosion()
 {
     _node->remove();
+    particleSystem->clearParticles();
+    std::cout << "luuuul" << std::endl;
 }
 
 void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
@@ -76,8 +100,9 @@ void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const
     (void)objs;
     (void)timepassed;
     _end = std::chrono::steady_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 600)
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 600) {
         _dead = true;
+    }
 }
 
 GameObject::ObjTypes Explosion::getType() const
