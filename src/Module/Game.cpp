@@ -246,6 +246,8 @@ void Game::end()
         }
         core->driver->endScene();
     }
+    _objects.clear();
+    _players.clear();
 }
 
 Game::~Game()

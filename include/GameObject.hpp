@@ -51,7 +51,8 @@ class GameObject {
         virtual scene::IAnimatedMeshSceneNode *getNode() const = 0;
         virtual void setNode(scene::IAnimatedMeshSceneNode *node) = 0;
         static void removeObj(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> to_remove) {
-            to_remove->getNode()->setVisible(false);
+            if (to_remove->getNode())
+                to_remove->getNode()->setVisible(false);
             objs.remove(to_remove);
         }
         static int collidePointObj(irr::core::vector3d<f32> point, irr::core::vector3d<f32> p2)
