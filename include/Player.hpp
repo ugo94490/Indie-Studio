@@ -21,7 +21,7 @@ class Player : public GameObject {
         bool do_remove() const;
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
-        void handle_input(Core *core);
+        void handle_input(Core *core, std::list<std::shared_ptr<GameObject>> const &objs);
         void collide(std::list<std::shared_ptr<GameObject>> &objs);
         void collideWall();
         void collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> powerup);
@@ -34,8 +34,9 @@ class Player : public GameObject {
         void setBind(std::vector<std::pair<bool, char>> bind);
         void setPos(irr::core::vector3d<f32> pos);
         int getScore(void) const;
-        irr::core::vector3d<f32> getNearest(irr::core::vector3d<f32> const &pos);
         std::string getName();
+        void ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs);
+        std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
 
         std::vector<std::pair<bool, char>> _bind;
 
