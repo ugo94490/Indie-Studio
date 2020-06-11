@@ -27,6 +27,7 @@ class Game : public IModule
         void removeDead();
         void Pause();
         bool check_end();
+        void draw_time(float time);
         void end();
         std::pair<std::string, int> getPlayerScore();
         std::vector<std::pair<std::string, int>> getScore(std::string path);

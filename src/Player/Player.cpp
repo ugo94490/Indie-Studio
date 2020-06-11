@@ -286,6 +286,8 @@ static int getDirectionToGoDef(int startx, int starty, std::vector<std::vector<c
     int dist3 = 1000;
     int dist4 = 1000;
 
+    if (starty > 16 || startx > 16 || starty < 0 || startx < 0)
+        return (1000);
     if (tab[starty][startx] == -3 || tab[starty][startx] == 0 || (tab[starty][startx] == -2 && distance != 0) || distance > 10)
         return (10000);
     if (tab[starty][startx] != -1)
@@ -371,6 +373,8 @@ static int getDirectionToGoAtk(int startx, int starty, std::vector<std::vector<c
     int dist3 = 1000;
     int dist4 = 1000;
 
+    if (starty > 16 || startx > 16 || starty < 0 || startx < 0)
+        return (1000);
     if ((tab[starty][startx] == 0 || tab[starty][startx] == 2) && ((startx % 2) == 1 || (starty % 2) == 1) && startx != 0 && starty != 0 && starty != 16 && startx != 16)
         return (distance);
     else if (tab[starty][startx] == 0 || distance > 10)
@@ -394,7 +398,6 @@ static int getDirectionToGoAtk(int startx, int starty, std::vector<std::vector<c
 
 void Player::IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab)
 {
-    int moved = 0;
     int distance = 1000;
     int temp = 1000;
 

@@ -71,8 +71,28 @@ bool Game::check_end()
     return (true);
 }
 
+void Game::draw_time(float time)
+{
+    int seconds = (int)(time / 1000) % 60;
+    int mins = (int)(time / 1000) / 60;
+    std::string strmin;
+    if (seconds / 10 > 0)
+        strmin = std::to_string(mins) + " : " + std::to_string(seconds);
+    else
+        strmin = std::to_string(mins) + " : 0" + std::to_string(seconds);
+
+    if (core->font)
+        core->font->draw(strmin.c_str(), irr::core::rect<irr::s32>(950, 50, 1200, 200), irr::video::SColor(255, 0, 0, 0));
+}
+
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
+    float timegame = 0;
+    float timepassed = 0;
+    std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
+    Map mapBomber(core->smgr, core->driver);
+
     tab = obj;
     core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
     scene::ISceneNode *skybox = core->smgr->addSkyBoxSceneNode(
@@ -84,14 +104,9 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         Factory::Check_load(core->driver, "./assets/textures/skybox/browncloud_bk.jpg"));
     (void)skybox;
     core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
-    Map mapBomber(core->smgr, core->driver);
     core->driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     core->driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
     core->smgr->addCameraSceneNode(0, irr::core::vector3df(340,700,160), irr::core::vector3df(340,0,340));
-
-    std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
-    std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
-    float timepassed;
     _objects = mapBomber.getMap();
     for (auto it = tab[1]->character.begin(); it != tab[1]->character.end(); ++it) {
         _players.push_back(*it);
@@ -101,6 +116,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
     while(core->device->run() && core->driver && !check_end()) {
         _end = std::chrono::steady_clock::now();
         timepassed = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
+        timegame += timepassed;
         _start = std::chrono::steady_clock::now();
         getInput();
         if (core->recv->eve.EventType == irr::EET_KEY_INPUT_EVENT && core->recv->eve.KeyInput.PressedDown == true
@@ -115,6 +131,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
         if (core->device->isWindowActive()) {
             core->driver->beginScene(true, true, video::SColor(0,0,0,0));
             core->smgr->drawAll();
+            draw_time(timegame);
             core->driver->endScene();
         }
     }
