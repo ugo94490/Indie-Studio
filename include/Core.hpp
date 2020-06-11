@@ -41,5 +41,7 @@ class Core
         irr::video::ITexture *splash_screen;
         irr::video::ITexture *cine;
         sf::Music *menu_music;
+        sf::Music *battle_music;
+        sf::Music *explosion_sound;
         int volume;
 };

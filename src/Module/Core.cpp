@@ -40,14 +40,20 @@ Core::Core()
     other_back = Factory::Check_load(driver, "assets/Sprite/credit.jpg");
     splash_screen = Factory::Check_load(driver, "assets/Sprite/splash.jpg");
     cine = Factory::Check_load(driver, "assets/cinematic.png");
-    menu_music = Sound::createMusic(str);
+    battle_music = Sound::createMusic("assets/Sound/battle_music.ogg");
+    menu_music = Sound::createMusic("assets/Sound/menu_music.ogg");
+    explosion_sound = Sound::createMusic("assets/Sound/explosion_sound.ogg");
 }
 
 Core::~Core()
 {
     delete recv;
     Sound::destroyMusic(menu_music);
+    Sound::destroyMusic(battle_music);
+    Sound::destroyMusic(explosion_sound);
     delete menu_music;
+    delete battle_music;
+    delete explosion_sound;
 	device->drop();
 }
 
