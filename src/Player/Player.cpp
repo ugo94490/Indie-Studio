@@ -240,59 +240,64 @@ std::vector<std::vector<char>> Player::getTabDanger(std::list<std::shared_ptr<Ga
         posx = it->getPos().X / BLOCK_SIZE;
         posz = it->getPos().Z / BLOCK_SIZE;
         if (type == EXPLOSION)
-            vec[posz][posx] = -1;
+            vec[posz][posx] = -3;
         if (type == BOMB) {
-            vec[posz][posx] = -1;
+            if (_throughbomb)
+                vec[posz][posx] = -1;
+            else
+                vec[posz][posx] = -2;
             for (int i = 1; i <= 4 && (posx + i) < 17; i++) {
                 objptr = getObjbyPos(objs, {(float)(posx + i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL || objptr->getType() == BOMB))
                     break;
                 vec[posz][posx + i] = -1;
             }
             for (int i = 1; i <= 4 && (posx - i) >= 0; i++) {
                 objptr = getObjbyPos(objs, {(float)(posx - i) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL || objptr->getType() == BOMB))
                     break;
                 vec[posz][posx - i] = -1;
             }
             for (int i = 1; i <= 3 && (posz + i) < 17; i++) {
                 objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz + i) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL || objptr->getType() == BOMB))
                     break;
                 vec[posz + i][posx] = -1;
             }
             for (int i = 1; i <= 4 && (posz - i) >= 0; i++) {
                 objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz - i) * BLOCK_SIZE});
-                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL))
+                if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL || objptr->getType() == BOMB))
                     break;
                 vec[posz - i][posx] = -1;
             }
         }
+        if (type == BREAKABLEWALL && _throughwall)
+            vec[posz][posx] = 2;
         if ((type == BREAKABLEWALL && !_throughwall) || type == SOLIDWALL)
             vec[posz][posx] = 0;
     }
     return (vec);
 }
 
-static int getDirectionToGo(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction)
+static int getDirectionToGoDef(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction)
 {
     int dist1 = 1000;
     int dist2 = 1000;
     int dist3 = 1000;
     int dist4 = 1000;
 
-    if (tab[starty][startx] == 0 || distance > 10)
+    if (tab[starty][startx] == -3 || tab[starty][startx] == 0 || (tab[starty][startx] == -2 && distance != 0) || distance > 10)
         return (10000);
     if (tab[starty][startx] != -1)
         return (distance);
     if (startx < 16 && direction != 2 && tab[starty][startx + 1] != 0)
-        dist1 = getDirectionToGo(startx + 1, starty, tab, distance + 1, 1);
+        dist1 = getDirectionToGoDef(startx + 1, starty, tab, distance + 1, 1);
     if (startx > 0 && direction != 1 && tab[starty][startx - 1] != 0)
-        dist2 = getDirectionToGo(startx - 1, starty, tab, distance + 1, 2);
+        dist2 = getDirectionToGoDef(startx - 1, starty, tab, distance + 1, 2);
     if (starty < 16 && direction != 4 && tab[starty + 1][startx] != 0)
-        dist3 = getDirectionToGo(startx, starty + 1, tab, distance + 1, 3);
+        dist3 = getDirectionToGoDef(startx, starty + 1, tab, distance + 1, 3);
     if (starty > 0 && direction != 3 && tab[starty - 1][startx] != 0)
-        dist4 = getDirectionToGo(startx, starty - 1, tab, distance + 1, 4);
+        dist4 = getDirectionToGoDef(startx, starty - 1, tab, distance + 1, 4);
     if (dist2 < dist1)
         dist1 = dist2;
     if (dist3 < dist1)
@@ -302,36 +307,153 @@ static int getDirectionToGo(int startx, int starty, std::vector<std::vector<char
     return (dist1);
 }
 
-void Player::IADodge(int posx, int posz, std::vector<std::vector<char>> tab)
+int Player::IADodge(int posx, int posz, std::vector<std::vector<char>> tab)
 {
     int distance = 1000;
     int temp = 0;
 
-    if (tab[posz][posx] != -1)
-        return;
-    if ((temp = getDirectionToGo(posx + 1, posz, tab, 1, 1)) < distance) {
+    if (tab[posz][posx] >= 0)
+        return (2);
+    if ((temp = getDirectionToGoDef(posx + 1, posz, tab, 1, 1)) < distance) {
         distance = temp;
         _speed = {(float)(_speedmul * BLOCK_SIZE), 0, 0};
     }
-    if ((temp = getDirectionToGo(posx - 1, posz, tab, 1, 2)) < distance) {
+    if ((temp = getDirectionToGoDef(posx - 1, posz, tab, 1, 2)) < distance) {
         distance = temp;
         _speed = {(float)(-_speedmul * BLOCK_SIZE), 0, 0};
     }
-    if ((temp = getDirectionToGo(posx, posz + 1, tab, 1, 3)) < distance) {
+    if ((temp = getDirectionToGoDef(posx, posz + 1, tab, 1, 3)) < distance) {
         distance = temp;
         _speed = {0, 0, (float)(_speedmul * BLOCK_SIZE)};
     }
-    if ((temp = getDirectionToGo(posx, posz - 1, tab, 1, 4)) < distance)
+    if ((temp = getDirectionToGoDef(posx, posz - 1, tab, 1, 4)) < distance)
         _speed = {0, 0, (float)(-_speedmul * BLOCK_SIZE)};
+    if (_speed.X != 0 || _speed.Z != 0)
+        return (1);
+    return (0);
+}
+
+std::vector<std::vector<char>> Player::simulatePlant(int posx, int posz, std::vector<std::vector<char>> const &vec)
+{
+    std::vector<std::vector<char>> res = vec;
+
+    if (_throughbomb)
+        res[posz][posx] = -1;
+    else
+        res[posz][posx] = -2;
+    for (int i = 1; i <= 4 && (posx + i) < 17; i++) {
+        if (res[posz][posx + i] != 1)
+            break;
+        res[posz][posx + i] = -1;
+    }
+    for (int i = 1; i <= 4 && (posx - i) > 0; i++) {
+        if (res[posz][posx - i] != 1)
+            break;
+        res[posz][posx - i] = -1;
+    }
+    for (int i = 1; i <= 4 && (posz + i) < 17; i++) {
+        if (res[posz + i][posx] != 1)
+            break;
+        res[posz + i][posx] = -1;
+    }
+    for (int i = 1; i <= 4 && (posz - i) > 0; i++) {
+        if (res[posz - i][posx] != 1)
+            break;
+        res[posz - i][posx] = -1;
+    }
+    return (res);
+}
+
+static int getDirectionToGoAtk(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction)
+{
+    int dist1 = 1000;
+    int dist2 = 1000;
+    int dist3 = 1000;
+    int dist4 = 1000;
+
+    if ((tab[starty][startx] == 0 || tab[starty][startx] == 2) && ((startx % 2) == 1 || (starty % 2) == 1) && startx != 0 && starty != 0 && starty != 16 && startx != 16)
+        return (distance);
+    else if (tab[starty][startx] == 0 || distance > 10)
+        return (10000);
+    if (startx < 16 && direction != 2)
+        dist1 = getDirectionToGoAtk(startx + 1, starty, tab, distance + 1, 1);
+    if (startx > 0 && direction != 1)
+        dist2 = getDirectionToGoAtk(startx - 1, starty, tab, distance + 1, 2);
+    if (starty < 16 && direction != 4)
+        dist3 = getDirectionToGoAtk(startx, starty + 1, tab, distance + 1, 3);
+    if (starty > 0 && direction != 3)
+        dist4 = getDirectionToGoAtk(startx, starty - 1, tab, distance + 1, 4);
+    if (dist2 < dist1)
+        dist1 = dist2;
+    if (dist3 < dist1)
+        dist1 = dist3;
+    if (dist4 < dist1)
+        dist1 = dist4;
+    return (dist1);
+}
+
+void Player::IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab)
+{
+    int moved = 0;
+    int distance = 1000;
+    int temp = 1000;
+
+    if (tab[posz][posx] < 0)
+        return;
+    if ((temp = getDirectionToGoAtk(posx + 1, posz, tab, 1, 1)) < distance) {
+        distance = temp;
+        _speed = {(float)(_speedmul * BLOCK_SIZE), 0, 0};
+    }
+    if ((temp = getDirectionToGoAtk(posx - 1, posz, tab, 1, 2)) < distance) {
+        distance = temp;
+        _speed = {(float)(-_speedmul * BLOCK_SIZE), 0, 0};
+    }
+    if ((temp = getDirectionToGoAtk(posx, posz + 1, tab, 1, 3)) < distance) {
+        distance = temp;
+        _speed = {0, 0, (float)(_speedmul * BLOCK_SIZE)};
+    }
+    if ((temp = getDirectionToGoAtk(posx, posz - 1, tab, 1, 4)) < distance) {
+        distance = temp;
+        _speed = {0, 0, (float)(-_speedmul * BLOCK_SIZE)};
+    }
+    if (distance <= 1 || distance == 1000) {
+        _speed = {0, 0, 0};
+        if (IADodge(posx, posz, simulatePlant(posx, posz, tab)) == 1)
+            _planting = true;
+        _speed = {0, 0, 0};
+    }
 }
 
 void Player::ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs)
 {
     int posx = getNearest(_pos).X / BLOCK_SIZE;
     int posz = getNearest(_pos).Z / BLOCK_SIZE;
+    int do_dodge;
+    irr::core::vector3d<f32> speedsave;
     std::vector<std::vector<char>> tab = getTabDanger(objs);
 
-    IADodge(posx, posz, tab);
+    if (posx < 0 || posx > 16 || posz < 0 || posz > 16)
+        return;
+    IAAtk(posx, posz, tab);
+    do_dodge = IADodge(posx, posz, tab);
+    speedsave = _speed;
+    if (do_dodge == 2 && _speed.X > 0 && IADodge(posx + 1, posz, tab) != 2) {
+        _speed = {0, 0, 0};
+        return;
+    }
+    if (do_dodge == 2 && _speed.X < 0 && IADodge(posx - 1, posz, tab) != 2) {
+        _speed = {0, 0, 0};
+        return;
+    }
+    if (do_dodge == 2 && _speed.Z > 0 && IADodge(posx, posz + 1, tab) != 2) {
+        _speed = {0, 0, 0};
+        return;
+    }
+    if (do_dodge == 2 && _speed.Z < 0 && IADodge(posx, posz - 1, tab) != 2) {
+        _speed = {0, 0, 0};
+        return;
+    }
+    _speed = speedsave;
 }
 
 void Player::handle_input(Core *core, std::list<std::shared_ptr<GameObject>> const &objs)
@@ -425,4 +547,9 @@ int Player::getScore(void) const
 std::string Player::getName()
 {
     return (_name);
+}
+
+void Player::setScore(int score)
+{
+    _score = score;
 }

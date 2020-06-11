@@ -65,6 +65,9 @@ bool Game::check_end()
             nb_alive += 1;
     if (nb_alive > 1)
         return (false);
+    for (auto it = _players.begin(); it != _players.end(); ++it)
+        if (!(*it)->do_remove())
+            (*it)->setScore((*it)->getScore() + 100);
     return (true);
 }
 

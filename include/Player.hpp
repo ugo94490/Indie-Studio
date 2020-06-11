@@ -33,10 +33,13 @@ class Player : public GameObject {
         void setAnim();
         void setBind(std::vector<std::pair<bool, char>> bind);
         void setPos(irr::core::vector3d<f32> pos);
+        void setScore(int score);
         int getScore(void) const;
         std::string getName();
         void ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs);
-        void IADodge(int posx, int posz, std::vector<std::vector<char>> tab);
+        int IADodge(int posx, int posz, std::vector<std::vector<char>> tab);
+        void IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab);
+        std::vector<std::vector<char>> simulatePlant(int posx, int posz, std::vector<std::vector<char>> const &vec);
         std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
 
         std::vector<std::pair<bool, char>> _bind;
