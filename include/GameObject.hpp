@@ -50,6 +50,7 @@ class GameObject {
         virtual bool do_remove() const = 0;
         virtual scene::IAnimatedMeshSceneNode *getNode() const = 0;
         virtual void setNode(scene::IAnimatedMeshSceneNode *node) = 0;
+        virtual void save(std::ofstream &stream) = 0;
         static void removeObj(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> to_remove) {
             if (to_remove->getNode())
                 to_remove->getNode()->setVisible(false);
@@ -115,3 +116,5 @@ class GameObject {
     protected:
     private:
 };
+
+#include "Save.hpp"

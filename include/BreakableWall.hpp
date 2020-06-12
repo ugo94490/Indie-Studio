@@ -21,6 +21,9 @@ class BreakableWall : public GameObject {
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
         void tryAddPowerUp(std::list<std::shared_ptr<GameObject>> &objs) const;
+        void save(std::ofstream &stream);
+        void setExploded(bool exploded);
+        friend std::ostream &operator<<(std::ostream &os, BreakableWall const &wall);
 
     protected:
         scene::IAnimatedMeshSceneNode *_node;

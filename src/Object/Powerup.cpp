@@ -111,3 +111,23 @@ void Powerup::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
 }
+
+void Powerup::setDead(bool dead)
+{
+    _dead = dead;
+}
+
+void Powerup::save(std::ofstream &stream)
+{
+    Save<Powerup>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, Powerup const &powerup)
+{
+    os << "Powerup:" << std::endl;
+    os << " posx: " << powerup._pos.X << std::endl;
+    os << " posz: " << powerup._pos.Z << std::endl;
+    os << " type: " << powerup._type << std::endl;
+    os << " dead: " << powerup._dead << std::endl;
+    return (os);
+}

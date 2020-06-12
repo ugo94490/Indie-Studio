@@ -84,3 +84,22 @@ void BreakableWall::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
 }
+
+void BreakableWall::save(std::ofstream &stream)
+{
+    Save<BreakableWall>::save(*this, stream);
+}
+
+void BreakableWall::setExploded(bool exploded)
+{
+    _exploded = exploded;
+}
+
+std::ostream &operator<<(std::ostream &os, BreakableWall const &wall)
+{
+    os << "BreakableWall:" << std::endl;
+    os << " posx: " << wall._pos.X << std::endl;
+    os << " posz: " << wall._pos.Z << std::endl;
+    os << " exploded: " << wall._exploded << std::endl;
+    return (os);
+}

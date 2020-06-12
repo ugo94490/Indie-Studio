@@ -36,6 +36,7 @@ void Game::assignPlayerPos()
             (*it)->setPos({BLOCK_SIZE * 15, BLOCK_SIZE, BLOCK_SIZE});
         if (i == 3)
             (*it)->setPos({BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE * 15});
+        (*it)->setBomberId(i + 1);
     }
 }
 
@@ -87,14 +88,30 @@ void Game::draw_time(float time)
         core->font->draw(strmin.c_str(), irr::core::rect<irr::s32>(950, 50, 1200, 200), irr::video::SColor(255, 0, 0, 0));
 }
 
-void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
+void Game::saveGame(std::string const &filepath)
 {
-    float timegame = 0;
-    float timepassed = 0;
-    std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
-    std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
-    Map mapBomber(core->smgr, core->driver);
+    std::ofstream file(filepath);
 
+    if (!file.is_open())
+        throw(Exception("Could not save\n"));
+    for (auto it : _players)
+        it->save(file);
+    for (auto it : _objects)
+        if (it->getType() != GameObject::PLAYER)
+            it->save(file);
+}
+
+void Game::loadGame(std::string const &filepath)
+{
+    _players.clear();
+    _objects.clear();
+    Load loading(filepath, core);
+    _players = loading.getPlayers();
+    _objects = loading.getObjects();
+}
+
+void Game::initLoop(std::vector<std::shared_ptr<IModule>> obj)
+{
     tab = obj;
     core->driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
     scene::ISceneNode *skybox = core->smgr->addSkyBoxSceneNode(
@@ -109,12 +126,28 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
     core->driver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
     core->driver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
     core->smgr->addCameraSceneNode(0, irr::core::vector3df(340,700,160), irr::core::vector3df(340,0,340));
-    _objects = mapBomber.getMap();
-    for (auto it = tab[1]->character.begin(); it != tab[1]->character.end(); ++it) {
-        _players.push_back(*it);
-        _objects.push_back(*it);
+
+    if (tab[1]->save == 0) {
+        Map mapBomber(core->smgr, core->driver);
+        _objects = mapBomber.getMap();
+        for (auto it = tab[1]->character.begin(); it != tab[1]->character.end(); ++it) {
+            _players.push_back(*it);
+            _objects.push_back(*it);
+        }
+        assignPlayerPos();
     }
-    assignPlayerPos();
+    else
+        loadGame(std::string("save" + std::to_string(tab[1]->save) + ".txt"));
+}
+
+void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
+{
+    float timegame = 0;
+    float timepassed = 0;
+    std::chrono::steady_clock::time_point _start = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point _end = std::chrono::steady_clock::now();
+
+    initLoop(obj);
     Sound::stopMusic(core->menu_music);
     Sound::setLoop(core->battle_music);
     Sound::playMusic(core->battle_music);
@@ -153,11 +186,11 @@ void Game::Pause()
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
                 break;
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(120, 300), name_rect))
-                std::cout << "SAVE 1" << std::endl;
+                saveGame("save1.txt");
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 300), name_rect))
-                std::cout << "SAVE 2" << std::endl;
+                saveGame("save2.txt");
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1400, 300), name_rect))
-                std::cout << "SAVE 3" << std::endl;
+                saveGame("save3.txt");
             core->font->draw(L"SAVE 1", irr::core::rect<irr::s32>(120, 300, 520, 400), irr::video::SColor(255,0,0,0), true, true);
             core->font->draw(L"SAVE 2", irr::core::rect<irr::s32>(760, 300, 1160, 400), irr::video::SColor(255,0,0,0), true, true);
             core->font->draw(L"SAVE 3", irr::core::rect<irr::s32>(1400, 300, 1800, 400), irr::video::SColor(255,0,0,0), true, true);
