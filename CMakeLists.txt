@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 set(NAME bomberman)
 project(${NAME})
 set(CMAKE_CXX_STANDARD 17)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -isystem/usr/include/irrlicht/ -I/usr/X11R6/include -Wall -Wextra -Wshadow -L/usr/X11R6/lib64 -lGL -lXxf86vm -lXext -lX11 -lIrrlicht -g3 -lsfml-audio")
@@ -19,7 +19,6 @@ if (WIN32)
     set(SFML_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SFML-2.5.1/lib/cmake/SFML)
     find_package (SFML 2.5 COMPONENTS system audio REQUIRED)
     include_directories(${SFML_INCLUDE_DIR})
-    
 endif(WIN32)
 
 set(SOURCE_FILES
