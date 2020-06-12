@@ -274,7 +274,7 @@ void Menu::getBind(std::vector<std::shared_ptr<Player>> player)
             break;
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player)) {
             for (int i = player.size(); i < 4; i++)
-                player.push_back(createIA(0, i));
+                player.push_back(createIA(i, i));
             tab[1]->character.clear();
             tab[1]->character = player;
             tab[1]->save = 0;
