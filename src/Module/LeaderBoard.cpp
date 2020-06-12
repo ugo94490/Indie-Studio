@@ -45,7 +45,7 @@ void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
             break;
         Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 280), rectangle_rect);
         if (core->font) {
-            for (size_t i = 0; i < score.size(); i++)
+            for (size_t i = 0; i < score.size() && i < 9; i++)
                 core->font->draw(score[i].c_str(), irr::core::rect<irr::s32>(960 - (score[i].size() * 24 / 2), 300 + (50 * i), 960 + score[i].size(), 650), irr::video::SColor(255,0,0,0));
         }
         core->driver->endScene();
