@@ -43,6 +43,14 @@ class Player : public GameObject {
         std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
         void setBomberId(int id);
         int getBomberId() const;
+        void setAlive(bool alive);
+        void setSpeedmul(int speedmul);
+        void setMaxBombs(int max_bombs);
+        void setPower(int power);
+        void setInvincibleTime(float invincibletime);
+        void setThroughwall(bool throughwall);
+        void setThroughbomb(bool throughbomb);
+        void setBombpierce(bool bombpierce);
         void save(std::ofstream &stream);
         friend std::ostream &operator<<(std::ostream &os, Player const &player);
 
@@ -69,7 +77,7 @@ class Player : public GameObject {
         bool _throughwall;
         bool _throughbomb;
         bool _bombpierce;
-        float _invincbletime;
+        float _invincibletime;
         float _buffscore;
         int _score;
         bool _do_anim;

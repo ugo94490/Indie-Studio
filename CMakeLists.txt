@@ -31,6 +31,7 @@ set(SOURCE_FILES
     src/Module/LeaderBoard.cpp
     src/Module/Credit.cpp
     src/Module/HowTo.cpp
+    src/Module/Load.cpp
     src/Object/SolidWall.cpp
     src/Object/Ground.cpp
     src/Object/BreakableWall.cpp

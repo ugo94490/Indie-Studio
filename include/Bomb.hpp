@@ -24,6 +24,8 @@ class Bomb : public GameObject {
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
         void explode(std::list<std::shared_ptr<GameObject>> &objs);
+        void setExploded(bool exploded);
+        void setTimedead(float timedead);
         void save(std::ofstream &stream);
         friend std::ostream &operator<<(std::ostream &os, Bomb const &bomb);
 

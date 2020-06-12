@@ -20,6 +20,8 @@ class Explosion : public GameObject {
         bool do_remove() const;
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
+        void setTimedead(float timedead);
+        void setDead(bool dead);
         void save(std::ofstream &stream);
         friend std::ostream &operator<<(std::ostream &os, Explosion const &explosion);
 

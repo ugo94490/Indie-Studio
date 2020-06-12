@@ -112,6 +112,11 @@ void Powerup::setNode(scene::IAnimatedMeshSceneNode *node)
     _node = node;
 }
 
+void Powerup::setDead(bool dead)
+{
+    _dead = dead;
+}
+
 void Powerup::save(std::ofstream &stream)
 {
     Save<Powerup>::save(*this, stream);

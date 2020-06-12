@@ -90,6 +90,11 @@ void BreakableWall::save(std::ofstream &stream)
     Save<BreakableWall>::save(*this, stream);
 }
 
+void BreakableWall::setExploded(bool exploded)
+{
+    _exploded = exploded;
+}
+
 std::ostream &operator<<(std::ostream &os, BreakableWall const &wall)
 {
     os << "BreakableWall:" << std::endl;

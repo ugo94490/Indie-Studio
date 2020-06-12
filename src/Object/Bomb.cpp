@@ -157,6 +157,16 @@ void Bomb::setNode(scene::IAnimatedMeshSceneNode *node)
     _node = node;
 }
 
+void Bomb::setExploded(bool exploded)
+{
+    _exploded = exploded;
+}
+
+void Bomb::setTimedead(float timedead)
+{
+    _timedead = timedead;
+}
+
 void Bomb::save(std::ofstream &stream)
 {
     Save<Bomb>::save(*this, stream);
@@ -166,7 +176,7 @@ std::ostream &operator<<(std::ostream &os, Bomb const &bomb)
 {
     os << "Bomb:" << std::endl;
     os << " posx: " << bomb._pos.X << std::endl;
-    os << " posy: " << bomb._pos.Y << std::endl;
+    os << " posz: " << bomb._pos.Z << std::endl;
     os << " exploded: " << bomb._exploded << std::endl;
     os << " planter: " << bomb._planter->getBomberId() << std::endl;
     os << " timedead: " << bomb._timedead << std::endl;
