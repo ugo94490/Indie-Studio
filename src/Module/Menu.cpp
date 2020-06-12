@@ -23,6 +23,7 @@ Menu::Menu(Core *obj)
     red = Factory::Check_load(core->driver, "assets/Sprite/Button/red.png");
     bomb = {white, black, green, red};
     bomb_rect = {white_rect, black_rect, green_rect, red_rect};
+    skin_ia = {{false, 0}, {false, 1}, {false, 2}, {false, 3}};
 }
 
 Menu::~Menu()
@@ -156,12 +157,22 @@ std::shared_ptr<Player> Menu::createObject(std::string name, int skin, bool ia, 
     std::string str = (name.size() > 0) ? name : name_p[i];
     std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, str, bomb[skin], skin + 1, ia);
 
+
+    for (size_t j = 0; j < skin_ia.size(); j++)
+        if (skin == skin_ia[j].second)
+            skin_ia[j].first = true;
     ptr->_bind = bind_p[i];
     return (ptr);
 }
 
 std::shared_ptr<Player> Menu::createIA(int skin, int i)
 {
+    for (size_t j = 0; j < skin_ia.size(); j++)
+        if (skin_ia[j].first == false) {
+            skin = skin_ia[j].second;
+            skin_ia[j].first = true;
+            break;
+        }
     std::shared_ptr<Player> ptr = std::make_shared<Player>(0, 80, 0, core->smgr, core->driver, name_p[i], bomb[skin], skin + 1, true);
     return (ptr);
 }
@@ -169,7 +180,6 @@ std::shared_ptr<Player> Menu::createIA(int skin, int i)
 std::vector<std::shared_ptr<Player>> Menu::create_player(std::vector<std::pair<bool, std::string>> write, int nb)
 {
     std::vector<std::shared_ptr<Player>> player;
-    std::cout << nb << std::endl;
 
     for (int i = 0; i < nb; i++)
         player.push_back(createObject(write[i].second, skin_nb[i], false, i));
@@ -274,7 +284,7 @@ void Menu::getBind(std::vector<std::shared_ptr<Player>> player)
             break;
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(800, 814), play_rect) == true && check_touche(player)) {
             for (int i = player.size(); i < 4; i++)
-                player.push_back(createIA(0, i));
+                player.push_back(createIA(i, i));
             tab[1]->character.clear();
             tab[1]->character = player;
             tab[1]->save = 0;

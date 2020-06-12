@@ -45,6 +45,7 @@ class Menu : public IModule
         std::vector<irr::core::rect<irr::s32>> bomb_rect;
         std::vector<std::shared_ptr<IModule>> tab;
         std::vector<int> skin_nb;
+        std::vector<std::pair<bool, int>> skin_ia;
         int p1;
         int p2;
         int p3;

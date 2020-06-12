@@ -11,7 +11,15 @@ if (UNIX)
 endif (UNIX)
 if (WIN32)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Irrlicht_win/include)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include include)
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Irrlicht_win)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-2.5.1/include)
+    set(SFML_STATIC_LIBRARIES TRUE)
+    set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/SFML-2.5.1/lib/cmake/SFML)
+    set(SFML_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SFML-2.5.1/lib/cmake/SFML)
+    find_package (SFML 2.5 COMPONENTS system audio REQUIRED)
+    include_directories(${SFML_INCLUDE_DIR})
+    
 endif(WIN32)
 
 set(SOURCE_FILES
@@ -35,3 +43,5 @@ set(SOURCE_FILES
     src/Factory.cpp
     src/Sound/Sound.cpp)
 add_executable(${NAME} ${SOURCE_FILES})
+
+target_link_libraries(${NAME} sfml-system sfml-audio)
