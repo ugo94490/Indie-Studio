@@ -16,7 +16,7 @@ Bomb::Bomb(float x, float y, float z, scene::ISceneManager* smgr, video::IVideoD
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/Bomb_Diffuse.png"));
-    _start = std::chrono::steady_clock::now();
+    _timedead = 4000;
 }
 
 Bomb::Bomb(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, Player *planter) : _smgr(smgr), _driver(driver), _planter(planter), _exploded(false)
@@ -27,7 +27,7 @@ Bomb::Bomb(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVid
     _node->setPosition(_pos);
     _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     _node->setMaterialTexture(0, Factory::Check_load(driver, "assets/textures/Bomb_Diffuse.png"));
-    _start = std::chrono::steady_clock::now();
+    _timedead = 4000;
 }
 
 Bomb::~Bomb()
@@ -123,9 +123,8 @@ void Bomb::explode(std::list<std::shared_ptr<GameObject>> &objs)
 
 void Bomb::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
-    (void)timepassed;
-    _end = std::chrono::steady_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 4000)
+    _timedead -= timepassed;
+    if (_timedead <= 0)
         return (explode(objs));
     for (auto it = objs.begin(); it != objs.end(); ++it) {
         if ((*it)->getType() == EXPLOSION && collide2objs(_pos, (*it)->getPos()))
@@ -156,4 +155,20 @@ scene::IAnimatedMeshSceneNode *Bomb::getNode() const
 void Bomb::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
+}
+
+void Bomb::save(std::ofstream &stream)
+{
+    Save<Bomb>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, Bomb const &bomb)
+{
+    os << "Bomb:" << std::endl;
+    os << " posx: " << bomb._pos.X << std::endl;
+    os << " posy: " << bomb._pos.Y << std::endl;
+    os << " exploded: " << bomb._exploded << std::endl;
+    os << " planter: " << bomb._planter->getBomberId() << std::endl;
+    os << " timedead: " << bomb._timedead << std::endl;
+    return (os);
 }

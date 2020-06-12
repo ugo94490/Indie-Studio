@@ -20,13 +20,14 @@ class Explosion : public GameObject {
         bool do_remove() const;
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
+        void save(std::ofstream &stream);
+        friend std::ostream &operator<<(std::ostream &os, Explosion const &explosion);
 
     protected:
         irr::scene::IParticleSystemSceneNode* particleSystem;
         scene::IAnimatedMeshSceneNode *_node;
         irr::core::vector3d<f32> _pos;
         bool _dead;
-        std::chrono::steady_clock::time_point _start;
-        std::chrono::steady_clock::time_point _end;
+        float _timedead;
     private:
 };

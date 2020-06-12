@@ -41,6 +41,10 @@ class Player : public GameObject {
         void IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab);
         std::vector<std::vector<char>> simulatePlant(int posx, int posz, std::vector<std::vector<char>> const &vec);
         std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
+        void setBomberId(int id);
+        int getBomberId() const;
+        void save(std::ofstream &stream);
+        friend std::ostream &operator<<(std::ostream &os, Player const &player);
 
         std::vector<std::pair<bool, char>> _bind;
 
@@ -71,7 +75,8 @@ class Player : public GameObject {
         bool _do_anim;
         int _id;
         float _timepassed;
-        int idx_chara;
+        int _idx_chara;
+        int _id_bomber;
 };
 
 #include "Core.hpp"

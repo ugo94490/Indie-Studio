@@ -36,6 +36,7 @@ void Game::assignPlayerPos()
             (*it)->setPos({BLOCK_SIZE * 15, BLOCK_SIZE, BLOCK_SIZE});
         if (i == 3)
             (*it)->setPos({BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE * 15});
+        (*it)->setBomberId(i + 1);
     }
 }
 
@@ -85,6 +86,25 @@ void Game::draw_time(float time)
 
     if (core->font)
         core->font->draw(strmin.c_str(), irr::core::rect<irr::s32>(950, 50, 1200, 200), irr::video::SColor(255, 0, 0, 0));
+}
+
+void Game::saveGame(std::string const &filepath)
+{
+    std::ofstream file(filepath);
+
+    if (!file.is_open())
+        throw(Exception("Could not save\n"));
+    for (auto it : _players)
+        it->save(file);
+    for (auto it : _objects)
+        if (it->getType() != GameObject::PLAYER)
+            it->save(file);
+}
+
+void Game::loadGame(std::string const &filepath)
+{
+    _players.clear();
+    _objects.clear();
 }
 
 void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
@@ -153,11 +173,11 @@ void Game::Pause()
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 814), back_rect) == true)
                 break;
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(120, 300), name_rect))
-                std::cout << "SAVE 1" << std::endl;
+                saveGame("save1.txt");
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(760, 300), name_rect))
-                std::cout << "SAVE 2" << std::endl;
+                saveGame("save2.txt");
             if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(1400, 300), name_rect))
-                std::cout << "SAVE 3" << std::endl;
+                saveGame("save3.txt");
             core->font->draw(L"SAVE 1", irr::core::rect<irr::s32>(120, 300, 520, 400), irr::video::SColor(255,0,0,0), true, true);
             core->font->draw(L"SAVE 2", irr::core::rect<irr::s32>(760, 300, 1160, 400), irr::video::SColor(255,0,0,0), true, true);
             core->font->draw(L"SAVE 3", irr::core::rect<irr::s32>(1400, 300, 1800, 400), irr::video::SColor(255,0,0,0), true, true);

@@ -41,7 +41,7 @@ Explosion::Explosion(float x, float y, float z, scene::ISceneManager* smgr, vide
     //particles
 
     _dead = false;
-    _start = std::chrono::steady_clock::now();
+    _timedead = 600;
 }
 
 Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver)
@@ -77,7 +77,7 @@ Explosion::Explosion(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, v
     //particles
 
     _dead = false;
-    _start = std::chrono::steady_clock::now();
+    _timedead = 600;
 }
 
 Explosion::~Explosion()
@@ -91,9 +91,8 @@ Explosion::~Explosion()
 void Explosion::update(std::list<std::shared_ptr<GameObject>> &objs, float const &timepassed)
 {
     (void)objs;
-    (void)timepassed;
-    _end = std::chrono::steady_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() > 600) {
+    _timedead -= timepassed;
+    if (_timedead <= 0) {
         _dead = true;
     }
 }
@@ -121,4 +120,19 @@ scene::IAnimatedMeshSceneNode *Explosion::getNode() const
 void Explosion::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
+}
+
+void Explosion::save(std::ofstream &stream)
+{
+    Save<Explosion>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, Explosion const &explosion)
+{
+    os << "Explosion:" << std::endl;
+    os << " posx: " << explosion._pos.X << std::endl;
+    os << " posy: " << explosion._pos.Y << std::endl;
+    os << " dead: " << explosion._dead << std::endl;
+    os << " timedead: " << explosion._timedead << std::endl;
+    return (os);
 }

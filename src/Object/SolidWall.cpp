@@ -63,3 +63,15 @@ void SolidWall::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
 }
+
+void SolidWall::save(std::ofstream &stream)
+{
+    Save<SolidWall>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, SolidWall const &wall) {
+    os << "SolidWall:" << std::endl;
+    os << " posx: " << wall._pos.X << std::endl;
+    os << " posz: " << wall._pos.Z << std::endl;
+    return (os);
+}

@@ -24,6 +24,8 @@ class Bomb : public GameObject {
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
         void explode(std::list<std::shared_ptr<GameObject>> &objs);
+        void save(std::ofstream &stream);
+        friend std::ostream &operator<<(std::ostream &os, Bomb const &bomb);
 
     protected:
         scene::IAnimatedMeshSceneNode *_node;
@@ -32,8 +34,7 @@ class Bomb : public GameObject {
         irr::core::vector3d<f32> _pos;
         Player *_planter;
         bool _exploded;
-        std::chrono::steady_clock::time_point _start;
-        std::chrono::steady_clock::time_point _end;
+        float _timedead;
     private:
 };
 

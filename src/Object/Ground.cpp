@@ -63,3 +63,16 @@ void Ground::setNode(scene::IAnimatedMeshSceneNode *node)
 {
     _node = node;
 }
+
+void Ground::save(std::ofstream &stream)
+{
+    Save<Ground>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, Ground const &ground)
+{
+    os << "Ground:" << std::endl;
+    os << " posx: " << ground._pos.X << std::endl;
+    os << " posz: " << ground._pos.Z << std::endl;
+    return (os);
+}

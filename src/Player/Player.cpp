@@ -37,7 +37,8 @@ Player::Player(float x, float y, float z, scene::ISceneManager* smgr, video::IVi
     _driver = driver;
     _do_anim = false;
     _id = id;
-    idx_chara = id - 1;
+    _idx_chara = id - 1;
+    _id_bomber = 0;
 }
 
 Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::IVideoDriver* driver, std::string name, irr::video::ITexture *skin, int id, bool ia)
@@ -69,7 +70,8 @@ Player::Player(irr::core::vector3d<f32> pos, scene::ISceneManager* smgr, video::
     _driver = driver;
     _do_anim = false;
     _id = id;
-    idx_chara = id - 1;
+    _idx_chara = id - 1;
+    _id_bomber = 0;
 }
 
 Player::~Player()
@@ -555,4 +557,39 @@ std::string Player::getName()
 void Player::setScore(int score)
 {
     _score = score;
+}
+
+void Player::setBomberId(int id)
+{
+    _id_bomber = id;
+}
+
+int Player::getBomberId() const
+{
+    return (_id_bomber);
+}
+
+void Player::save(std::ofstream &stream) {
+    Save<Player>::save(*this, stream);
+}
+
+std::ostream &operator<<(std::ostream &os, Player const &player) {
+    os << "Player:" << std::endl;
+    os << " name: \"" << player._name << "\"" << std::endl;
+    os << " posx: " << player._pos.X << std::endl;
+    os << " posz: " << player._pos.Z << std::endl;
+    os << " ia: " << player._ia << std::endl;
+    os << " alive: " << player._alive << std::endl;
+    os << " id: " << player._id << std::endl;
+    os << " id_bomber: " << player._id_bomber << std::endl;
+    os << " speedmul: " << player._speedmul << std::endl;
+    os << " max_bombs: " << player._max_bombs << std::endl;
+    os << " planted: " << player._planted << std::endl;
+    os << " power: " << player._power << std::endl;
+    os << " throughwall: " << player._throughwall << std::endl;
+    os << " throughbomb: " << player._throughbomb << std::endl;
+    os << " bombpierce: " << player._bombpierce << std::endl;
+    os << " invincibletime: " << player._invincbletime << std::endl;
+    os << " score: " << player._score << std::endl;
+    return (os);
 }

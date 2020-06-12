@@ -20,6 +20,8 @@ class Powerup : public GameObject {
         bool do_remove() const;
         scene::IAnimatedMeshSceneNode *getNode() const;
         void setNode(scene::IAnimatedMeshSceneNode *node);
+        void save(std::ofstream &stream);
+        friend std::ostream &operator<<(std::ostream &os, Powerup const &powerup);
 
     protected:
         scene::IAnimatedMeshSceneNode *_node;
