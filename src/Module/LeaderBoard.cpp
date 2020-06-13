@@ -35,8 +35,7 @@ void LeaderBoard::getScore(std::string path)
 
 void LeaderBoard::Loop(std::vector<std::shared_ptr<IModule>> obj)
 {
-    if (tab.empty() == true)
-        tab = obj;
+    (void)obj;
     getScore("assets/Score/score.txt");
     while (core->device->run()) {
         core->driver->beginScene(true, true, irr::video::SColor(0,0,0,0));

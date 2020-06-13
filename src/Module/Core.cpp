@@ -17,7 +17,6 @@
 
 Core::Core()
 {
-    std::string str = "assets/hometown.ogg";
     std::shared_ptr<IModule> ptr;
     device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080));
     if (!device)

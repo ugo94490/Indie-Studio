@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 set(NAME bomberman)
 project(${NAME})
 set(CMAKE_CXX_STANDARD 17)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -isystem/usr/include/irrlicht/ -I/usr/X11R6/include -Wall -Wextra -Wshadow -L/usr/X11R6/lib64 -lGL -lXxf86vm -lXext -lX11 -lIrrlicht -g3 -lsfml-audio")

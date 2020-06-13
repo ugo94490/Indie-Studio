@@ -28,11 +28,15 @@ void Settings::Loop(std::vector<std::shared_ptr<IModule>> obj)
             if (core->volume <= 90) {
                 core->volume += 10;
                 Sound::setVolume(core->menu_music, core->volume);
+                Sound::setVolume(core->battle_music, core->volume);
+                Sound::setVolume(core->explosion_sound, core->volume);
             }
         if (Factory::Button_bool(core, irr::core::position2d<irr::s32>(533, 425), left_rect) == true)
             if (core->volume >= 10) {
                 core->volume -= 10;
                 Sound::setVolume(core->menu_music, core->volume);
+                Sound::setVolume(core->battle_music, core->volume);
+                Sound::setVolume(core->explosion_sound, core->volume);
             }
         auto s = std::to_string(core->volume);
         Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(910, 490), touche_rect);

@@ -51,8 +51,10 @@ void Game::removeDead()
 {
     for (auto it = _objects.begin(); it != _objects.end(); ++it) {
         if ((*it)->do_remove()) {
-            if ((*it)->getType() == GameObject::BOMB)
+            if ((*it)->getType() == GameObject::BOMB) {
                 Sound::playMusic(core->explosion_sound);
+                Sound::setVolume(core->explosion_sound, core->volume);
+            }
             GameObject::removeObj(_objects, (*it));
             it = _objects.begin();
         }
@@ -151,6 +153,7 @@ void Game::Loop(std::vector<std::shared_ptr<IModule>> obj)
     Sound::stopMusic(core->menu_music);
     Sound::setLoop(core->battle_music);
     Sound::playMusic(core->battle_music);
+    Sound::setVolume(core->battle_music, core->volume);
     while(core->device->run() && core->driver && !check_end()) {
         _end = std::chrono::steady_clock::now();
         timepassed = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
