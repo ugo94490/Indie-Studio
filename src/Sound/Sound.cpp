@@ -29,6 +29,7 @@ void Sound::setLoop(sf::Music *music)
 
 void Sound::playMusic(sf::Music *music)
 {
+    music->stop();
     music->play();
 }
 
