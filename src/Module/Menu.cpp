@@ -75,6 +75,7 @@ void Menu::select_nb_player()
             break;
         auto s = std::to_string(nb_player);
         core->font->draw(s.c_str(), irr::core::rect<irr::s32>(950, 520, 1010, 590), irr::video::SColor(255,0,0,0));
+        core->font->draw(L"NOMBRE DE JOUEURS :", irr::core::rect<irr::s32>(750, 280, 1010, 350), irr::video::SColor(255,0,0,0));
         core->driver->endScene();
     }
 }
