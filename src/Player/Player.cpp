@@ -260,7 +260,7 @@ std::vector<std::vector<char>> Player::getTabDanger(std::list<std::shared_ptr<Ga
                     break;
                 vec[posz][posx - i] = -1;
             }
-            for (int i = 1; i <= 3 && (posz + i) < 17; i++) {
+            for (int i = 1; i <= 4 && (posz + i) < 17; i++) {
                 objptr = getObjbyPos(objs, {(float)(posx) * BLOCK_SIZE, BLOCK_SIZE, (float)(posz + i) * BLOCK_SIZE});
                 if (objptr && (objptr->getType() == SOLIDWALL || objptr->getType() == BREAKABLEWALL || objptr->getType() == BOMB))
                     break;
@@ -380,7 +380,7 @@ static int getDirectionToGoAtk(int startx, int starty, std::vector<std::vector<c
     if ((tab[starty][startx] == 0 || tab[starty][startx] == 2) && ((startx % 2) == 1 || (starty % 2) == 1) && startx != 0 && starty != 0 && starty != 16 && startx != 16)
         return (distance);
     else if (tab[starty][startx] == 0 || distance > 10)
-        return (10000);
+        return (1000);
     if (startx < 16 && direction != 2)
         dist1 = getDirectionToGoAtk(startx + 1, starty, tab, distance + 1, 1);
     if (startx > 0 && direction != 1)
@@ -421,7 +421,7 @@ void Player::IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab
         distance = temp;
         _speed = {0, 0, (float)(-_speedmul * BLOCK_SIZE)};
     }
-    if (distance <= 1 || distance == 1000) {
+    if (distance <= 1 || distance >= 1000) {
         _speed = {0, 0, 0};
         if (IADodge(posx, posz, simulatePlant(posx, posz, tab)) == 1)
             _planting = true;

@@ -61,6 +61,14 @@ class GameObject {
                 return (0);
             return (1);
         }
+        static std::shared_ptr<GameObject> getObjbyPos(std::list<std::shared_ptr<GameObject>> const &objs, mystruct::vector3f const &pos)
+        {
+            for (auto it : objs)
+                if (it->getPos().x == pos.x && it->getPos().z == pos.z) {
+                    return (it);
+                }
+            return (nullptr);
+        }
 
     protected:
     private:
