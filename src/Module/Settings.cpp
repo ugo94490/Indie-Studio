@@ -41,6 +41,7 @@ void Settings::Loop(std::vector<std::shared_ptr<IModule>> obj)
         auto s = std::to_string(core->volume);
         Factory::Factory::Button_bool(core, irr::core::position2d<irr::s32>(910, 490), touche_rect);
         core->font->draw(s.c_str(), irr::core::rect<irr::s32>(955 - (s.size() * 10), 520, 1010, 590), irr::video::SColor(255,0,0,0));
+        core->font->draw(L"Volume", irr::core::rect<irr::s32>(955 - (7 * 10), 330, 1010, 400), irr::video::SColor(255,0,0,0));
         core->driver->endScene();
     }
 }

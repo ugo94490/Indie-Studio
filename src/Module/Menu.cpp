@@ -149,6 +149,7 @@ void Menu::Display_name(std::vector<std::pair<bool, std::string>> *write, bool *
         for (size_t i = 0; i < (*write).size(); i++) {
             if ((*write)[i].second.size() > 0)
                 core->font->draw((*write)[i].second.c_str(), input_rect[i], irr::video::SColor(255,0,0,0), true, true);
+            core->font->draw(L"NAME :", input_name_rect[i], irr::video::SColor(255,0,0,0));
         }
 }
 

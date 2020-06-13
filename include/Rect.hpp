@@ -117,6 +117,14 @@ static std::vector<irr::core::rect<irr::s32>> input_rect =
     irr::core::rect<irr::s32>(1456, 160, 1856, 260)
 };
 
+static std::vector<irr::core::rect<irr::s32>> input_name_rect =
+{
+    irr::core::rect<irr::s32>(164, 60, 464, 160),
+    irr::core::rect<irr::s32>(628, 60, 928, 160),
+    irr::core::rect<irr::s32>(1092, 60, 1392, 160),
+    irr::core::rect<irr::s32>(1556, 60, 1856, 160)
+};
+
 static irr::core::rect<irr::s32> white_rect =
 {
     irr::core::rect<irr::s32>(0, 0, 395, 510)
