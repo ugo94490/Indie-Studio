@@ -30,7 +30,7 @@ LDLIBS	=
 LDFLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system
 
 $(NAME):	$(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LDLIBS) $(LDFLAGS)
+	$(CC) -g3 -o $(NAME) $(OBJ) $(CPPFLAGS) $(LDLIBS) $(LDFLAGS)
 
 all:	$(NAME)
 

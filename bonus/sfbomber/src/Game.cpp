@@ -68,7 +68,7 @@ void Game::handle_input()
                 _window->close();
         }
         for (auto it = _players.begin(); it != _players.end(); ++it)
-            (*it)->handle_input();
+            (*it)->handle_input(_objects);
     }
 }
 

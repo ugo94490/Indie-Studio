@@ -18,7 +18,7 @@ class Player : public GameObject {
         mystruct::vector3f getPos() const;
         GameObject::ObjTypes getType() const;
         bool do_remove() const;
-        void handle_input(void);
+        void handle_input(std::list<std::shared_ptr<GameObject>> const &objs);
         void collide(std::list<std::shared_ptr<GameObject>> &objs);
         void collideWall(std::list<std::shared_ptr<GameObject>> const &objs, mystruct::vector3f const &wallPos);
         void collidePowerUp(std::list<std::shared_ptr<GameObject>> &objs, std::shared_ptr<GameObject> powerup);
@@ -29,6 +29,13 @@ class Player : public GameObject {
         int getPower() const;
         bool getPierce() const;
         mystruct::vector3f getNearest(mystruct::vector3f const &pos);
+        void ComputeIA(std::list<std::shared_ptr<GameObject>> const &objs);
+        void IAAtk(int posx, int posz, std::vector<std::vector<char>> const &tab);
+        int IADodge(int posx, int posz, std::vector<std::vector<char>> tab);
+        std::vector<std::vector<char>> simulatePlant(int posx, int posz, std::vector<std::vector<char>> const &vec);
+        std::vector<std::vector<char>> getTabDanger(std::list<std::shared_ptr<GameObject>> const &objs);
+        static int getDirectionToGoAtk(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction);
+        static int getDirectionToGoDef(int startx, int starty, std::vector<std::vector<char>> const &tab, int distance, int direction);
 
     protected:
     private:
