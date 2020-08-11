@@ -9,6 +9,7 @@ Player1 170
 Player1 163
 Player4 159
 Player4 157
+Player2 156
 Player3 152
 Player1 145
 Player1 145
@@ -19,6 +20,7 @@ Player1 121
 Player1 117
 Player3 115
 Player3 108
+ddgf 106
 Player4 104
 Player4 103
 Player1 103
@@ -37,11 +39,15 @@ Player4 69
 Player4 66
 Player3 58
 Player2 53
+Player4 53
 Player3 46
 Player3 44
 Player4 40
+Player4 40
 Player2 35
 Player4 33
+Player4 29
+Player4 28
 Player4 25
 Player3 20
 Player3 20

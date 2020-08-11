@@ -1,0 +1,2068 @@
+Player:
+ name: "Player1"
+ posx: 63.28
+ posz: 120
+ ia: 0
+ alive: 1
+ skin: 1
+ id_bomber: 1
+ speedmul: 3
+ max_bombs: 1
+ planted: 0
+ power: 2
+ throughwall: 0
+ throughbomb: 0
+ bombpierce: 0
+ invincibletime: 0
+ score: 28
+ bind1: 122
+ bind2: 113
+ bind3: 115
+ bind4: 100
+ bind5: 97
+
+Player:
+ name: "Player2"
+ posx: 485.6
+ posz: 600
+ ia: 1
+ alive: 1
+ skin: 2
+ id_bomber: 2
+ speedmul: 2
+ max_bombs: 1
+ planted: 1
+ power: 3
+ throughwall: 0
+ throughbomb: 0
+ bombpierce: 1
+ invincibletime: 0
+ score: 28
+
+Player:
+ name: "Player3"
+ posx: 520
+ posz: 61.24
+ ia: 1
+ alive: 1
+ skin: 3
+ id_bomber: 3
+ speedmul: 3
+ max_bombs: 1
+ planted: 1
+ power: 1
+ throughwall: 0
+ throughbomb: 0
+ bombpierce: 0
+ invincibletime: 0
+ score: 28
+
+Player:
+ name: "Player4"
+ posx: 261.28
+ posz: 600
+ ia: 1
+ alive: 1
+ skin: 4
+ id_bomber: 4
+ speedmul: 4
+ max_bombs: 1
+ planted: 1
+ power: 2
+ throughwall: 1
+ throughbomb: 1
+ bombpierce: 1
+ invincibletime: 0
+ score: 28
+
+SolidWall:
+ posx: 0
+ posz: 0
+
+Ground:
+ posx: 0
+ posz: 0
+
+SolidWall:
+ posx: 0
+ posz: 40
+
+Ground:
+ posx: 0
+ posz: 40
+
+SolidWall:
+ posx: 0
+ posz: 80
+
+Ground:
+ posx: 0
+ posz: 80
+
+SolidWall:
+ posx: 0
+ posz: 120
+
+Ground:
+ posx: 0
+ posz: 120
+
+SolidWall:
+ posx: 0
+ posz: 160
+
+Ground:
+ posx: 0
+ posz: 160
+
+SolidWall:
+ posx: 0
+ posz: 200
+
+Ground:
+ posx: 0
+ posz: 200
+
+SolidWall:
+ posx: 0
+ posz: 240
+
+Ground:
+ posx: 0
+ posz: 240
+
+SolidWall:
+ posx: 0
+ posz: 280
+
+Ground:
+ posx: 0
+ posz: 280
+
+SolidWall:
+ posx: 0
+ posz: 320
+
+Ground:
+ posx: 0
+ posz: 320
+
+SolidWall:
+ posx: 0
+ posz: 360
+
+Ground:
+ posx: 0
+ posz: 360
+
+SolidWall:
+ posx: 0
+ posz: 400
+
+Ground:
+ posx: 0
+ posz: 400
+
+SolidWall:
+ posx: 0
+ posz: 440
+
+Ground:
+ posx: 0
+ posz: 440
+
+SolidWall:
+ posx: 0
+ posz: 480
+
+Ground:
+ posx: 0
+ posz: 480
+
+SolidWall:
+ posx: 0
+ posz: 520
+
+Ground:
+ posx: 0
+ posz: 520
+
+SolidWall:
+ posx: 0
+ posz: 560
+
+Ground:
+ posx: 0
+ posz: 560
+
+SolidWall:
+ posx: 0
+ posz: 600
+
+Ground:
+ posx: 0
+ posz: 600
+
+SolidWall:
+ posx: 0
+ posz: 640
+
+Ground:
+ posx: 0
+ posz: 640
+
+SolidWall:
+ posx: 40
+ posz: 0
+
+Ground:
+ posx: 40
+ posz: 0
+
+Ground:
+ posx: 40
+ posz: 40
+
+Ground:
+ posx: 40
+ posz: 80
+
+Ground:
+ posx: 40
+ posz: 120
+
+BreakableWall:
+ posx: 40
+ posz: 160
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 160
+
+BreakableWall:
+ posx: 40
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 200
+
+BreakableWall:
+ posx: 40
+ posz: 240
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 240
+
+BreakableWall:
+ posx: 40
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 280
+
+BreakableWall:
+ posx: 40
+ posz: 320
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 320
+
+BreakableWall:
+ posx: 40
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 40
+ posz: 360
+
+Ground:
+ posx: 40
+ posz: 400
+
+Ground:
+ posx: 40
+ posz: 440
+
+Ground:
+ posx: 40
+ posz: 480
+
+Ground:
+ posx: 40
+ posz: 520
+
+Ground:
+ posx: 40
+ posz: 560
+
+Ground:
+ posx: 40
+ posz: 600
+
+SolidWall:
+ posx: 40
+ posz: 640
+
+Ground:
+ posx: 40
+ posz: 640
+
+SolidWall:
+ posx: 80
+ posz: 0
+
+Ground:
+ posx: 80
+ posz: 0
+
+Ground:
+ posx: 80
+ posz: 40
+
+SolidWall:
+ posx: 80
+ posz: 80
+
+Ground:
+ posx: 80
+ posz: 80
+
+Ground:
+ posx: 80
+ posz: 120
+
+SolidWall:
+ posx: 80
+ posz: 160
+
+Ground:
+ posx: 80
+ posz: 160
+
+Ground:
+ posx: 80
+ posz: 200
+
+SolidWall:
+ posx: 80
+ posz: 240
+
+Ground:
+ posx: 80
+ posz: 240
+
+Ground:
+ posx: 80
+ posz: 280
+
+SolidWall:
+ posx: 80
+ posz: 320
+
+Ground:
+ posx: 80
+ posz: 320
+
+Ground:
+ posx: 80
+ posz: 360
+
+SolidWall:
+ posx: 80
+ posz: 400
+
+Ground:
+ posx: 80
+ posz: 400
+
+BreakableWall:
+ posx: 80
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 80
+ posz: 440
+
+SolidWall:
+ posx: 80
+ posz: 480
+
+Ground:
+ posx: 80
+ posz: 480
+
+Ground:
+ posx: 80
+ posz: 520
+
+SolidWall:
+ posx: 80
+ posz: 560
+
+Ground:
+ posx: 80
+ posz: 560
+
+Ground:
+ posx: 80
+ posz: 600
+
+SolidWall:
+ posx: 80
+ posz: 640
+
+Ground:
+ posx: 80
+ posz: 640
+
+SolidWall:
+ posx: 120
+ posz: 0
+
+Ground:
+ posx: 120
+ posz: 0
+
+BreakableWall:
+ posx: 120
+ posz: 40
+ exploded: 0
+
+Ground:
+ posx: 120
+ posz: 40
+
+Ground:
+ posx: 120
+ posz: 80
+
+Ground:
+ posx: 120
+ posz: 120
+
+Ground:
+ posx: 120
+ posz: 160
+
+BreakableWall:
+ posx: 120
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 120
+ posz: 200
+
+Ground:
+ posx: 120
+ posz: 240
+
+Ground:
+ posx: 120
+ posz: 280
+
+Ground:
+ posx: 120
+ posz: 320
+
+Ground:
+ posx: 120
+ posz: 360
+
+Ground:
+ posx: 120
+ posz: 400
+
+Ground:
+ posx: 120
+ posz: 440
+
+Ground:
+ posx: 120
+ posz: 480
+
+Ground:
+ posx: 120
+ posz: 520
+
+Ground:
+ posx: 120
+ posz: 560
+
+Ground:
+ posx: 120
+ posz: 600
+
+SolidWall:
+ posx: 120
+ posz: 640
+
+Ground:
+ posx: 120
+ posz: 640
+
+SolidWall:
+ posx: 160
+ posz: 0
+
+Ground:
+ posx: 160
+ posz: 0
+
+Ground:
+ posx: 160
+ posz: 40
+
+SolidWall:
+ posx: 160
+ posz: 80
+
+Ground:
+ posx: 160
+ posz: 80
+
+Ground:
+ posx: 160
+ posz: 120
+
+SolidWall:
+ posx: 160
+ posz: 160
+
+Ground:
+ posx: 160
+ posz: 160
+
+Ground:
+ posx: 160
+ posz: 200
+
+SolidWall:
+ posx: 160
+ posz: 240
+
+Ground:
+ posx: 160
+ posz: 240
+
+BreakableWall:
+ posx: 160
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 160
+ posz: 280
+
+SolidWall:
+ posx: 160
+ posz: 320
+
+Ground:
+ posx: 160
+ posz: 320
+
+Ground:
+ posx: 160
+ posz: 360
+
+SolidWall:
+ posx: 160
+ posz: 400
+
+Ground:
+ posx: 160
+ posz: 400
+
+BreakableWall:
+ posx: 160
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 160
+ posz: 440
+
+SolidWall:
+ posx: 160
+ posz: 480
+
+Ground:
+ posx: 160
+ posz: 480
+
+Ground:
+ posx: 160
+ posz: 520
+
+SolidWall:
+ posx: 160
+ posz: 560
+
+Ground:
+ posx: 160
+ posz: 560
+
+Ground:
+ posx: 160
+ posz: 600
+
+SolidWall:
+ posx: 160
+ posz: 640
+
+Ground:
+ posx: 160
+ posz: 640
+
+SolidWall:
+ posx: 200
+ posz: 0
+
+Ground:
+ posx: 200
+ posz: 0
+
+BreakableWall:
+ posx: 200
+ posz: 40
+ exploded: 0
+
+Ground:
+ posx: 200
+ posz: 40
+
+BreakableWall:
+ posx: 200
+ posz: 80
+ exploded: 0
+
+Ground:
+ posx: 200
+ posz: 80
+
+Ground:
+ posx: 200
+ posz: 120
+
+BreakableWall:
+ posx: 200
+ posz: 160
+ exploded: 0
+
+Ground:
+ posx: 200
+ posz: 160
+
+BreakableWall:
+ posx: 200
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 200
+ posz: 200
+
+Ground:
+ posx: 200
+ posz: 240
+
+Ground:
+ posx: 200
+ posz: 280
+
+Ground:
+ posx: 200
+ posz: 320
+
+Ground:
+ posx: 200
+ posz: 360
+
+BreakableWall:
+ posx: 200
+ posz: 400
+ exploded: 0
+
+Ground:
+ posx: 200
+ posz: 400
+
+Ground:
+ posx: 200
+ posz: 440
+
+Ground:
+ posx: 200
+ posz: 480
+
+Ground:
+ posx: 200
+ posz: 520
+
+Ground:
+ posx: 200
+ posz: 560
+
+Ground:
+ posx: 200
+ posz: 600
+
+SolidWall:
+ posx: 200
+ posz: 640
+
+Ground:
+ posx: 200
+ posz: 640
+
+SolidWall:
+ posx: 240
+ posz: 0
+
+Ground:
+ posx: 240
+ posz: 0
+
+Ground:
+ posx: 240
+ posz: 40
+
+SolidWall:
+ posx: 240
+ posz: 80
+
+Ground:
+ posx: 240
+ posz: 80
+
+BreakableWall:
+ posx: 240
+ posz: 120
+ exploded: 0
+
+Ground:
+ posx: 240
+ posz: 120
+
+SolidWall:
+ posx: 240
+ posz: 160
+
+Ground:
+ posx: 240
+ posz: 160
+
+BreakableWall:
+ posx: 240
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 240
+ posz: 200
+
+SolidWall:
+ posx: 240
+ posz: 240
+
+Ground:
+ posx: 240
+ posz: 240
+
+BreakableWall:
+ posx: 240
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 240
+ posz: 280
+
+SolidWall:
+ posx: 240
+ posz: 320
+
+Ground:
+ posx: 240
+ posz: 320
+
+Ground:
+ posx: 240
+ posz: 360
+
+SolidWall:
+ posx: 240
+ posz: 400
+
+Ground:
+ posx: 240
+ posz: 400
+
+Ground:
+ posx: 240
+ posz: 440
+
+SolidWall:
+ posx: 240
+ posz: 480
+
+Ground:
+ posx: 240
+ posz: 480
+
+Ground:
+ posx: 240
+ posz: 520
+
+SolidWall:
+ posx: 240
+ posz: 560
+
+Ground:
+ posx: 240
+ posz: 560
+
+Ground:
+ posx: 240
+ posz: 600
+
+SolidWall:
+ posx: 240
+ posz: 640
+
+Ground:
+ posx: 240
+ posz: 640
+
+SolidWall:
+ posx: 280
+ posz: 0
+
+Ground:
+ posx: 280
+ posz: 0
+
+BreakableWall:
+ posx: 280
+ posz: 40
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 40
+
+Ground:
+ posx: 280
+ posz: 80
+
+BreakableWall:
+ posx: 280
+ posz: 120
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 120
+
+Ground:
+ posx: 280
+ posz: 160
+
+BreakableWall:
+ posx: 280
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 200
+
+Ground:
+ posx: 280
+ posz: 240
+
+Ground:
+ posx: 280
+ posz: 280
+
+BreakableWall:
+ posx: 280
+ posz: 320
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 320
+
+BreakableWall:
+ posx: 280
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 360
+
+BreakableWall:
+ posx: 280
+ posz: 400
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 400
+
+BreakableWall:
+ posx: 280
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 440
+
+BreakableWall:
+ posx: 280
+ posz: 480
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 480
+
+Ground:
+ posx: 280
+ posz: 520
+
+BreakableWall:
+ posx: 280
+ posz: 560
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 560
+
+BreakableWall:
+ posx: 280
+ posz: 600
+ exploded: 0
+
+Ground:
+ posx: 280
+ posz: 600
+
+SolidWall:
+ posx: 280
+ posz: 640
+
+Ground:
+ posx: 280
+ posz: 640
+
+SolidWall:
+ posx: 320
+ posz: 0
+
+Ground:
+ posx: 320
+ posz: 0
+
+Ground:
+ posx: 320
+ posz: 40
+
+SolidWall:
+ posx: 320
+ posz: 80
+
+Ground:
+ posx: 320
+ posz: 80
+
+Ground:
+ posx: 320
+ posz: 120
+
+SolidWall:
+ posx: 320
+ posz: 160
+
+Ground:
+ posx: 320
+ posz: 160
+
+BreakableWall:
+ posx: 320
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 320
+ posz: 200
+
+SolidWall:
+ posx: 320
+ posz: 240
+
+Ground:
+ posx: 320
+ posz: 240
+
+Ground:
+ posx: 320
+ posz: 280
+
+SolidWall:
+ posx: 320
+ posz: 320
+
+Ground:
+ posx: 320
+ posz: 320
+
+BreakableWall:
+ posx: 320
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 320
+ posz: 360
+
+SolidWall:
+ posx: 320
+ posz: 400
+
+Ground:
+ posx: 320
+ posz: 400
+
+BreakableWall:
+ posx: 320
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 320
+ posz: 440
+
+SolidWall:
+ posx: 320
+ posz: 480
+
+Ground:
+ posx: 320
+ posz: 480
+
+Ground:
+ posx: 320
+ posz: 520
+
+SolidWall:
+ posx: 320
+ posz: 560
+
+Ground:
+ posx: 320
+ posz: 560
+
+BreakableWall:
+ posx: 320
+ posz: 600
+ exploded: 0
+
+Ground:
+ posx: 320
+ posz: 600
+
+SolidWall:
+ posx: 320
+ posz: 640
+
+Ground:
+ posx: 320
+ posz: 640
+
+SolidWall:
+ posx: 360
+ posz: 0
+
+Ground:
+ posx: 360
+ posz: 0
+
+Ground:
+ posx: 360
+ posz: 40
+
+Ground:
+ posx: 360
+ posz: 80
+
+Ground:
+ posx: 360
+ posz: 120
+
+Ground:
+ posx: 360
+ posz: 160
+
+Ground:
+ posx: 360
+ posz: 200
+
+Ground:
+ posx: 360
+ posz: 240
+
+Ground:
+ posx: 360
+ posz: 280
+
+BreakableWall:
+ posx: 360
+ posz: 320
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 320
+
+BreakableWall:
+ posx: 360
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 360
+
+BreakableWall:
+ posx: 360
+ posz: 400
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 400
+
+BreakableWall:
+ posx: 360
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 440
+
+BreakableWall:
+ posx: 360
+ posz: 480
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 480
+
+BreakableWall:
+ posx: 360
+ posz: 520
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 520
+
+BreakableWall:
+ posx: 360
+ posz: 560
+ exploded: 0
+
+Ground:
+ posx: 360
+ posz: 560
+
+Ground:
+ posx: 360
+ posz: 600
+
+SolidWall:
+ posx: 360
+ posz: 640
+
+Ground:
+ posx: 360
+ posz: 640
+
+SolidWall:
+ posx: 400
+ posz: 0
+
+Ground:
+ posx: 400
+ posz: 0
+
+Ground:
+ posx: 400
+ posz: 40
+
+SolidWall:
+ posx: 400
+ posz: 80
+
+Ground:
+ posx: 400
+ posz: 80
+
+BreakableWall:
+ posx: 400
+ posz: 120
+ exploded: 0
+
+Ground:
+ posx: 400
+ posz: 120
+
+SolidWall:
+ posx: 400
+ posz: 160
+
+Ground:
+ posx: 400
+ posz: 160
+
+Ground:
+ posx: 400
+ posz: 200
+
+SolidWall:
+ posx: 400
+ posz: 240
+
+Ground:
+ posx: 400
+ posz: 240
+
+BreakableWall:
+ posx: 400
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 400
+ posz: 280
+
+SolidWall:
+ posx: 400
+ posz: 320
+
+Ground:
+ posx: 400
+ posz: 320
+
+BreakableWall:
+ posx: 400
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 400
+ posz: 360
+
+SolidWall:
+ posx: 400
+ posz: 400
+
+Ground:
+ posx: 400
+ posz: 400
+
+BreakableWall:
+ posx: 400
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 400
+ posz: 440
+
+SolidWall:
+ posx: 400
+ posz: 480
+
+Ground:
+ posx: 400
+ posz: 480
+
+Ground:
+ posx: 400
+ posz: 520
+
+SolidWall:
+ posx: 400
+ posz: 560
+
+Ground:
+ posx: 400
+ posz: 560
+
+Ground:
+ posx: 400
+ posz: 600
+
+SolidWall:
+ posx: 400
+ posz: 640
+
+Ground:
+ posx: 400
+ posz: 640
+
+SolidWall:
+ posx: 440
+ posz: 0
+
+Ground:
+ posx: 440
+ posz: 0
+
+Ground:
+ posx: 440
+ posz: 40
+
+BreakableWall:
+ posx: 440
+ posz: 80
+ exploded: 0
+
+Ground:
+ posx: 440
+ posz: 80
+
+Ground:
+ posx: 440
+ posz: 120
+
+Ground:
+ posx: 440
+ posz: 160
+
+Ground:
+ posx: 440
+ posz: 200
+
+Ground:
+ posx: 440
+ posz: 240
+
+BreakableWall:
+ posx: 440
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 440
+ posz: 280
+
+Ground:
+ posx: 440
+ posz: 320
+
+BreakableWall:
+ posx: 440
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 440
+ posz: 360
+
+Ground:
+ posx: 440
+ posz: 400
+
+BreakableWall:
+ posx: 440
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 440
+ posz: 440
+
+Ground:
+ posx: 440
+ posz: 480
+
+Ground:
+ posx: 440
+ posz: 520
+
+BreakableWall:
+ posx: 440
+ posz: 560
+ exploded: 0
+
+Ground:
+ posx: 440
+ posz: 560
+
+Ground:
+ posx: 440
+ posz: 600
+
+SolidWall:
+ posx: 440
+ posz: 640
+
+Ground:
+ posx: 440
+ posz: 640
+
+SolidWall:
+ posx: 480
+ posz: 0
+
+Ground:
+ posx: 480
+ posz: 0
+
+Ground:
+ posx: 480
+ posz: 40
+
+SolidWall:
+ posx: 480
+ posz: 80
+
+Ground:
+ posx: 480
+ posz: 80
+
+BreakableWall:
+ posx: 480
+ posz: 120
+ exploded: 0
+
+Ground:
+ posx: 480
+ posz: 120
+
+SolidWall:
+ posx: 480
+ posz: 160
+
+Ground:
+ posx: 480
+ posz: 160
+
+Ground:
+ posx: 480
+ posz: 200
+
+SolidWall:
+ posx: 480
+ posz: 240
+
+Ground:
+ posx: 480
+ posz: 240
+
+Ground:
+ posx: 480
+ posz: 280
+
+SolidWall:
+ posx: 480
+ posz: 320
+
+Ground:
+ posx: 480
+ posz: 320
+
+Ground:
+ posx: 480
+ posz: 360
+
+SolidWall:
+ posx: 480
+ posz: 400
+
+Ground:
+ posx: 480
+ posz: 400
+
+BreakableWall:
+ posx: 480
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 480
+ posz: 440
+
+SolidWall:
+ posx: 480
+ posz: 480
+
+Ground:
+ posx: 480
+ posz: 480
+
+BreakableWall:
+ posx: 480
+ posz: 520
+ exploded: 0
+
+Ground:
+ posx: 480
+ posz: 520
+
+SolidWall:
+ posx: 480
+ posz: 560
+
+Ground:
+ posx: 480
+ posz: 560
+
+Ground:
+ posx: 480
+ posz: 600
+
+SolidWall:
+ posx: 480
+ posz: 640
+
+Ground:
+ posx: 480
+ posz: 640
+
+SolidWall:
+ posx: 520
+ posz: 0
+
+Ground:
+ posx: 520
+ posz: 0
+
+Ground:
+ posx: 520
+ posz: 40
+
+Ground:
+ posx: 520
+ posz: 80
+
+Ground:
+ posx: 520
+ posz: 120
+
+Ground:
+ posx: 520
+ posz: 160
+
+BreakableWall:
+ posx: 520
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 520
+ posz: 200
+
+Ground:
+ posx: 520
+ posz: 240
+
+BreakableWall:
+ posx: 520
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 520
+ posz: 280
+
+BreakableWall:
+ posx: 520
+ posz: 320
+ exploded: 0
+
+Ground:
+ posx: 520
+ posz: 320
+
+Ground:
+ posx: 520
+ posz: 360
+
+Ground:
+ posx: 520
+ posz: 400
+
+Ground:
+ posx: 520
+ posz: 440
+
+Ground:
+ posx: 520
+ posz: 480
+
+Ground:
+ posx: 520
+ posz: 520
+
+Ground:
+ posx: 520
+ posz: 560
+
+Ground:
+ posx: 520
+ posz: 600
+
+SolidWall:
+ posx: 520
+ posz: 640
+
+Ground:
+ posx: 520
+ posz: 640
+
+SolidWall:
+ posx: 560
+ posz: 0
+
+Ground:
+ posx: 560
+ posz: 0
+
+Ground:
+ posx: 560
+ posz: 40
+
+SolidWall:
+ posx: 560
+ posz: 80
+
+Ground:
+ posx: 560
+ posz: 80
+
+Ground:
+ posx: 560
+ posz: 120
+
+SolidWall:
+ posx: 560
+ posz: 160
+
+Ground:
+ posx: 560
+ posz: 160
+
+BreakableWall:
+ posx: 560
+ posz: 200
+ exploded: 0
+
+Ground:
+ posx: 560
+ posz: 200
+
+SolidWall:
+ posx: 560
+ posz: 240
+
+Ground:
+ posx: 560
+ posz: 240
+
+BreakableWall:
+ posx: 560
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 560
+ posz: 280
+
+SolidWall:
+ posx: 560
+ posz: 320
+
+Ground:
+ posx: 560
+ posz: 320
+
+BreakableWall:
+ posx: 560
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 560
+ posz: 360
+
+SolidWall:
+ posx: 560
+ posz: 400
+
+Ground:
+ posx: 560
+ posz: 400
+
+BreakableWall:
+ posx: 560
+ posz: 440
+ exploded: 0
+
+Ground:
+ posx: 560
+ posz: 440
+
+SolidWall:
+ posx: 560
+ posz: 480
+
+Ground:
+ posx: 560
+ posz: 480
+
+Ground:
+ posx: 560
+ posz: 520
+
+SolidWall:
+ posx: 560
+ posz: 560
+
+Ground:
+ posx: 560
+ posz: 560
+
+Ground:
+ posx: 560
+ posz: 600
+
+SolidWall:
+ posx: 560
+ posz: 640
+
+Ground:
+ posx: 560
+ posz: 640
+
+SolidWall:
+ posx: 600
+ posz: 0
+
+Ground:
+ posx: 600
+ posz: 0
+
+Ground:
+ posx: 600
+ posz: 40
+
+Ground:
+ posx: 600
+ posz: 80
+
+Ground:
+ posx: 600
+ posz: 120
+
+Ground:
+ posx: 600
+ posz: 160
+
+Ground:
+ posx: 600
+ posz: 200
+
+BreakableWall:
+ posx: 600
+ posz: 240
+ exploded: 0
+
+Ground:
+ posx: 600
+ posz: 240
+
+BreakableWall:
+ posx: 600
+ posz: 280
+ exploded: 0
+
+Ground:
+ posx: 600
+ posz: 280
+
+BreakableWall:
+ posx: 600
+ posz: 320
+ exploded: 0
+
+Ground:
+ posx: 600
+ posz: 320
+
+BreakableWall:
+ posx: 600
+ posz: 360
+ exploded: 0
+
+Ground:
+ posx: 600
+ posz: 360
+
+BreakableWall:
+ posx: 600
+ posz: 400
+ exploded: 0
+
+Ground:
+ posx: 600
+ posz: 400
+
+Ground:
+ posx: 600
+ posz: 440
+
+Ground:
+ posx: 600
+ posz: 480
+
+Ground:
+ posx: 600
+ posz: 520
+
+Ground:
+ posx: 600
+ posz: 560
+
+Ground:
+ posx: 600
+ posz: 600
+
+SolidWall:
+ posx: 600
+ posz: 640
+
+Ground:
+ posx: 600
+ posz: 640
+
+SolidWall:
+ posx: 640
+ posz: 0
+
+Ground:
+ posx: 640
+ posz: 0
+
+SolidWall:
+ posx: 640
+ posz: 40
+
+Ground:
+ posx: 640
+ posz: 40
+
+SolidWall:
+ posx: 640
+ posz: 80
+
+Ground:
+ posx: 640
+ posz: 80
+
+SolidWall:
+ posx: 640
+ posz: 120
+
+Ground:
+ posx: 640
+ posz: 120
+
+SolidWall:
+ posx: 640
+ posz: 160
+
+Ground:
+ posx: 640
+ posz: 160
+
+SolidWall:
+ posx: 640
+ posz: 200
+
+Ground:
+ posx: 640
+ posz: 200
+
+SolidWall:
+ posx: 640
+ posz: 240
+
+Ground:
+ posx: 640
+ posz: 240
+
+SolidWall:
+ posx: 640
+ posz: 280
+
+Ground:
+ posx: 640
+ posz: 280
+
+SolidWall:
+ posx: 640
+ posz: 320
+
+Ground:
+ posx: 640
+ posz: 320
+
+SolidWall:
+ posx: 640
+ posz: 360
+
+Ground:
+ posx: 640
+ posz: 360
+
+SolidWall:
+ posx: 640
+ posz: 400
+
+Ground:
+ posx: 640
+ posz: 400
+
+SolidWall:
+ posx: 640
+ posz: 440
+
+Ground:
+ posx: 640
+ posz: 440
+
+SolidWall:
+ posx: 640
+ posz: 480
+
+Ground:
+ posx: 640
+ posz: 480
+
+SolidWall:
+ posx: 640
+ posz: 520
+
+Ground:
+ posx: 640
+ posz: 520
+
+SolidWall:
+ posx: 640
+ posz: 560
+
+Ground:
+ posx: 640
+ posz: 560
+
+SolidWall:
+ posx: 640
+ posz: 600
+
+Ground:
+ posx: 640
+ posz: 600
+
+SolidWall:
+ posx: 640
+ posz: 640
+
+Ground:
+ posx: 640
+ posz: 640
+
+Powerup:
+ posx: 120
+ posz: 120
+ type: 10
+ dead: 0
+
+Powerup:
+ posx: 560
+ posz: 520
+ type: 14
+ dead: 0
+
+Powerup:
+ posx: 600
+ posz: 160
+ type: 15
+ dead: 0
+
+Powerup:
+ posx: 600
+ posz: 480
+ type: 13
+ dead: 0
+
+Powerup:
+ posx: 200
+ posz: 480
+ type: 14
+ dead: 0
+
+Powerup:
+ posx: 280
+ posz: 520
+ type: 9
+ dead: 0
+
+Bomb:
+ posx: 240
+ posz: 600
+ exploded: 0
+ planter: 4
+ timedead: 1690
+
+Powerup:
+ posx: 520
+ posz: 120
+ type: 10
+ dead: 0
+
+Bomb:
+ posx: 440
+ posz: 40
+ exploded: 0
+ planter: 3
+ timedead: 3290
+
+Bomb:
+ posx: 440
+ posz: 600
+ exploded: 0
+ planter: 2
+ timedead: 3640
+
