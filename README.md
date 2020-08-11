@@ -56,21 +56,8 @@ Compile with cmake on visual studio 2019, then launch bomberman.exe
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-```
-  To launch the game do the command ./arcade lib_arcade_library_name.so
 
-Keys :
-      B to go back to menu
-      R to restart the game
-      P to go to previous Game
-      N to go to next Game
-      M to go to previous Graphical Lib
-      Enter to go to next Graphical Lib
-      Escape to quit
-      Arrow Keys to move in each game
-      In nibbler game only, press space to go faster
-```
-
+Key are configurable IN-GAME
 
 <!-- CONTRIBUTING -->
 ## Contributor
